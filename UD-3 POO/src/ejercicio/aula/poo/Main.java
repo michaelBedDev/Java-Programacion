@@ -31,7 +31,7 @@ public class Main {
 		alumno2.edad = 21;
 		alumno2.nombre = "Kevin";
 		alumno2.curso = 2;
-		alumno2.ciclo = "DAM";
+		alumno2.ciclo = 
 		
 		Alumno alumno3 = new Alumno();
 		alumno3.dni = 00000003;

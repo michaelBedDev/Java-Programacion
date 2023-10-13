@@ -6,7 +6,7 @@ public class Ordenador {
 	String IP;
 	String marca;
 	boolean reparado;
-	Incidencias incidencia;
+	
 	
 	@Override
 	public String toString() {

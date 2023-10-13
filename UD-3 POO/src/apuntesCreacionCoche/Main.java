@@ -3,18 +3,19 @@ package apuntesCreacionCoche;
 public class Main{
 	 public static void main(String[] args) {
 	 Coche coche1 = new Coche();//se crea el objeto
-	 coche1.pasajeros=5;//se usa el objeto
+	 
 	 coche1.kpl = 37;
 	 coche1.deposito = 55;
-	 System.out.println("pasajeros:" + coche1.pasajeros); //se usa el objeto
+	 coche1.setPasajeros(5);
+	 System.out.println("pasajeros:" + coche1.getPasajeros()); //se usa el objeto
 	 System.out.println("kilometros por litro:" + coche1.kpl); //se usa el objeto
 	 System.out.println("deposito:" + coche1.deposito); //se usa el objeto
 	 
 	 Coche coche2 = new Coche();
-	 coche2.pasajeros = 4;
+	 //coche2.pasajeros = 4;
 	 coche2.kpl = 73;
 	 coche2.deposito = 33;
-	 System.out.println("pasajeros:" + coche2.pasajeros); //se usa el objeto
+	 System.out.println("pasajeros:" + coche2.getPasajeros()); //se usa el objeto
 	 System.out.println("kilometros por litro:" + coche2.kpl); //se usa el objeto
 	 System.out.println("deposito:" + coche2.deposito); //se usa el objeto
 	 
@@ -41,9 +42,21 @@ public class Main{
 	 /*EJERCICIO 2*/
 	 Coche peugeot308 = new Coche();
 	 peugeot308.modelo = "Peugeot 308";
-	 peugeot308.pasajeros= 5;
+	 //peugeot308.pasajeros= 5;
 	 peugeot308.deposito = 60;
 	 peugeot308.kpl = 20;
+	 
+	 //SETTERS Y GETTERS
+	 peugeot308.setModelo(null); //en lugar de peugeot308.modelo = "Peugeot 308";
+	 peugeot308.setPasajeros(5);
+	 peugeot308.setDeposito(55);
+	 peugeot308.setModelo(null);
+	 
+	 System.out.println(peugeot308.getDeposito()); //En lugar de System.out.println(peugeot308.deposito);
+	
+	 //ES IMPORTANTE PORQUE LOS METODOS Y CLASES PRIVADAS ES LA UNICA FORMA DE ACCEDER A LOS ATRIBUTOS DE LOS OBJETOS
+	 
+	 
 	 
 	 System.out.println(peugeot308);
 	 System.out.println("La autonomía del coche es: " + peugeot308.autonomiaCoche() + " kilómetros");
@@ -61,6 +74,9 @@ public class Main{
 	System.out.println(p1); //Metodo toString dentro de la clase persona
 	System.out.println(p2); //Metodo toString dentro de la clase persona
 	System.out.println("La suma de las edades es: " + (p1.edad + p2.edad));
+	
+	int km = 100;
+	System.out.println("Para recorrer 100 kilometros se necesitan " + peugeot308.gasofaNecesaria(km) + " litros");
 	
 	/* Debe haber concordancia entre clase de variable y objeto
 	Coche golf = new Coche(); //O.K.

@@ -5,8 +5,8 @@ public class Alumno {
 	int dni;
 	int edad;
 	String nombre;
-	int curso;
-	String ciclo;
+	boolean curso;
+	Ciclos ciclo;
 	
 	Ordenador ordenador;
 	
