@@ -2,8 +2,24 @@ package ejercicio2.bicicleta.poo;
 
 public class Bicicleta {
 
-	private int velocidade;
+	private double velocidade;
 	private int marcha;
+	
+	//Constructor por defecto
+		Bicicleta(){
+			
+			velocidade = 0;
+			marcha = 1;
+			
+		}
+		
+	//Constructor por parametros
+	Bicicleta(int m, double v){
+		
+		velocidade = v;
+		marcha = m;
+		
+	}
 	
 	void cambiarMarcha(int novoValor) {
 		marcha = novoValor;
@@ -20,7 +36,7 @@ public class Bicicleta {
 	}
 	
 	//SETTER Y GETTER
-	public int getVelocidade() {
+	public double getVelocidade() {
 		return velocidade;
 	}
 	public void setVelocidade(int velocidade) {

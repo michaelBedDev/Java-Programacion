@@ -5,8 +5,8 @@ public class Main {
 	public static void main(String[] args) {
 		
 		//Crear dos objetos bicicleta
-		Bicicleta bicicleta1 = new Bicicleta();
-		Bicicleta bicicleta2 = new Bicicleta();
+		Bicicleta bicicleta1 = new Bicicleta(0, 0);
+		Bicicleta bicicleta2 = new Bicicleta(0, 0);
 		
 		bicicleta1.setVelocidade(0);
 		bicicleta1.setMarcha(1);
