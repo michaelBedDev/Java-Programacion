@@ -11,7 +11,7 @@ public class Coche {
 		pasajeros = p;
 		deposito = d;
 		kpl = k;
-	}
+	}                                       //Con constructores no hay return
 	
 	public Coche () {
 		
