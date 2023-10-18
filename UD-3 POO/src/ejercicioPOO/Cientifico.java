@@ -7,6 +7,23 @@ public class Cientifico {
 	private String direccionCientifico;
 	
 	
+	//CONSTRUCTORES
+	public Cientifico(String nombre, int edad, String dirección) {
+		setNombreCientifico(nombre);
+		setEdadCientifico(edad);
+		setDireccionCientifico(dirección);
+	}
+	
+	public Cientifico() {
+		
+	}
+	
+	//toString
+	public String toString() {
+		
+		return "Datos del científico: " + nombreCientifico + ", edad " + edadCientifico
+				+ " Dirección: " + direccionCientifico;
+	}
 	
 	
 	//GETTERS AND SETTERS
