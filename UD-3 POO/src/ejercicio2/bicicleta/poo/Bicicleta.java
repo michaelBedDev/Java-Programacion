@@ -2,38 +2,34 @@ package ejercicio2.bicicleta.poo;
 
 public class Bicicleta {
 
-	private double velocidade;
-	private int marcha;
+	private int velocidade = 0;
+	private int marcha = 1;
 	
-	//Constructor por defecto
-		Bicicleta(){
-			
-			velocidade = 0;
-			marcha = 1;
-			
-		}
-		
-	//Constructor por parametros
-	Bicicleta(int m, double v){
-		
-		velocidade = v;
-		marcha = m;
-		
-	}
 	
 	void cambiarMarcha(int novoValor) {
-		marcha = novoValor;
+	marcha = novoValor;
 	}
 	void acelerar(int incremento) {
-		velocidade += incremento;
+	velocidade = velocidade + incremento;
 	}
 	void frear(int decremento) {
-		velocidade -= decremento;
+	velocidade = velocidade - decremento;	
 	}
+
 	void imprimirEstado() {
-		System.out.println("La velocidad actual es: " + velocidade +
-				" y la marcha actual es: " + marcha);
+		System.out.println("La bicicleta tiene una velocidad = " + velocidade + " y una marcha = " + marcha);
 	}
+	
+	//CONSTRUCTORES
+	Bicicleta() {
+		
+	}
+	
+	Bicicleta (int velocidade, int marcha) {
+		setVelocidade(velocidade);
+		setMarcha(marcha);
+	}
+	
 	
 	//SETTER Y GETTER
 	public double getVelocidade() {
