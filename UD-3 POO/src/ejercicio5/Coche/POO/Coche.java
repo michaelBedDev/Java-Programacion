@@ -1,4 +1,4 @@
-package ejercicio5.POO;
+package ejercicio5.Coche.POO;
 
 public class Coche {
 
@@ -13,26 +13,19 @@ public class Coche {
 		kpl = k;
 	}                                       //Con constructores no hay return
 	
-	public Coche () {
-		
-		pasajeros = 0;
-		deposito = 0;
-		kpl = 0;
-	}
+	public Coche () {}
 	
 	//MÉTODOS
 	int calcularAutonomia() {
-		return kpl*deposito;
+		return this.kpl*this.deposito;
 	}
-	
 	double gasofaNecesaria(int kilometros) {
-		return kilometros/kpl;
+		return kilometros/this.kpl;
 	}
 	
-	boolean mayorAutonomia (Coche d) {   //OJITO AL THIS MUY INTERESANTE
-		int autonomia1 = this.getKpl()*this.getDeposito();
-		int autonomia2 = d.getKpl()*d.getDeposito();
-		return autonomia1 > autonomia2 ? true : false;
+	
+	boolean mayorAutonomia (Coche c) {   //OJITO AL THIS MUY INTERESANTE
+		return this.calcularAutonomia()>c.calcularAutonomia();
 	}
 	
 	
