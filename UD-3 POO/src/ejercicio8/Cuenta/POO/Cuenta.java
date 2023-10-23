@@ -10,9 +10,9 @@ public class Cuenta {
 	//CONSTRUTORES
 	Cuenta() {}
 	Cuenta (String numeroCuenta, String titular, double saldo) {
-	setNumeroCuenta(numeroCuenta);
-	setTitular(titular);
-	setSaldo(saldo);
+	this.numeroCuenta = numeroCuenta;
+	this.titular = titular;
+	this.saldo = saldo;
 	}
 
 	
