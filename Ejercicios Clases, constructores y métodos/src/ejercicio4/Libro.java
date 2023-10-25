@@ -14,14 +14,25 @@ public class Libro {
 		this.ISBN = ISBN;
 		this.título = título;
 		this.autor = autor;
-		boolean numPagina;
-		numPagina = (numPaginas > 0) ? setNumPaginas(numPaginas) : setNumPaginas(0);
+		
+		 if (numPaginas > 0) {
+			 setNumPaginas(numPaginas); 
+		 }else {
+			 setNumPaginas(0);
+		 }
 	}
 	
 	public boolean comparePaginas(Libro c) {
 		return this.numPaginas > c.numPaginas;
 	}
 	
+
+	public String toString() {
+		return "Título del libro: " + this.título
+				+ "\nISBN del líbro: " + this.ISBN
+				+ "\nAutor del libro: " + this.autor
+				+ "\nNúmero de páginas: " + this.numPaginas;
+	}
 	
 	//GETTERS & SETTERS
 	public String getISBN() {
