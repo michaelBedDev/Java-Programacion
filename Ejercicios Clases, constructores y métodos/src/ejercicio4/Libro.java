@@ -1,5 +1,7 @@
 package ejercicio4;
 
+import java.util.Scanner;
+
 public class Libro {
 
 	private String ISBN;
@@ -14,12 +16,17 @@ public class Libro {
 		this.ISBN = ISBN;
 		this.título = título;
 		this.autor = autor;
+		this.numPaginas = numPaginas > 0 ? numPaginas : 0;
 		
-		 if (numPaginas > 0) {
-			 setNumPaginas(numPaginas); 
-		 }else {
-			 setNumPaginas(0);
-		 }
+	}
+	Libro(String DatosLibro) {
+		Scanner sc = new Scanner(DatosLibro);
+		sc.useDelimiter(":");
+		this.ISBN = sc.next();
+		this.autor = sc.next();
+		this.título = sc.next();
+		this.numPaginas = sc.nextInt();
+		sc.close();
 	}
 	
 	public boolean comparePaginas(Libro c) {
