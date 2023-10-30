@@ -25,6 +25,8 @@ public class CadenaTest {
 		int charAleatorio = aleatorio.nextInt(frase.length());
 		System.out.println("La posición del caracter aleatorio es: " + charAleatorio);
 		System.out.println(frase.charAt(charAleatorio));
+		
+		System.out.println(frase.toUpperCase().charAt(0)); //ACABAR
 	}
 
 }
