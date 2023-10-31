@@ -18,15 +18,14 @@ public class CadenaTest {
 		String frase = principio + cola;
 		System.out.println(frase);
 		
-		System.out.println(frase.toUpperCase());//FALTA
-		
-		
 		Random aleatorio = new Random();
 		int charAleatorio = aleatorio.nextInt(frase.length());
 		System.out.println("La posición del caracter aleatorio es: " + charAleatorio);
-		System.out.println(frase.charAt(charAleatorio));
+		System.out.println("El caracter aleatorio es la letra: " + frase.charAt(charAleatorio));
 		
-		System.out.println(frase.toUpperCase().charAt(0)); //ACABAR
+		char mayuscula = frase.toUpperCase().charAt(0);
+		frase = frase.substring(1);
+		System.out.println(mayuscula + frase);
 	}
 
 }

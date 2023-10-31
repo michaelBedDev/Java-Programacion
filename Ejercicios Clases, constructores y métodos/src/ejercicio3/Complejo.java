@@ -19,6 +19,7 @@ public class Complejo {
 		return "El número complejo es " + real + "+" + (int)imag + "i";
 	}
 	
+	//Suma parte real + parte real e imag + imag
 	public void sumar(Complejo b) {
 		setReal(this.real+b.real);
 		setImag(this.imag+b.imag);
