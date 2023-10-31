@@ -2,11 +2,12 @@ package bigDecimal;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Scanner;
 
 public class ExplicacionBigDecimal {
 
 	public static void main(String[] args) {
-		BigDecimal bd1 = new BigDecimal("0.1");
+		 BigDecimal bd1 = new BigDecimal("0.1");
 		 BigDecimal bd2= new BigDecimal(0.1);
 		 System.out.println(bd1.toString());
 		 System.out.println(bd2.toString());
@@ -65,6 +66,22 @@ public class ExplicacionBigDecimal {
 		System.out.println(numero3.subtract(numero4));
 		System.out.println(numero3.multiply(numero4));
 		System.out.println(numero3.divide(numero4,7,RoundingMode.HALF_EVEN));
+		
+		//EJERCICIO 3
+		
+		 
+		 //EJERCICIO 4
+		BigDecimal precio;
+		BigDecimal impuesto;
+		BigDecimal pvp;
+		System.out.println("Precio del artículo: ");
+		Scanner sc = new Scanner(System.in);
+		precio = sc.nextBigDecimal();
+		System.out.println("Impuesto: ");
+		impuesto =sc.nextBigDecimal();
+		pvp = new BigDecimal(precio.add(precio.multiply(impuesto).divide(100, 2, RoundingMode.UP)));
+		System.out.println(pvp);
+
 	}
 
 }
