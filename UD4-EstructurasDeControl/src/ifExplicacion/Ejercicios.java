@@ -94,7 +94,7 @@ public class Ejercicios {
 		*/
 		
 		//EJERCICIO 10
-		/*Scanner teclado= new Scanner(System.in);
+	     /*Scanner teclado= new Scanner(System.in);
 		 int a,b,s=5;
 		 System.out.println("a: ");
 		 a=teclado.nextInt();
