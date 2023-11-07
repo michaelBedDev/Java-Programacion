@@ -15,7 +15,9 @@ public class Ejercicio6Lambda {
 	public static void main(String[] args) {
 		String m = "M";
 		
-		System.out.println(obtenerTipoDiaDeLaSemana(m));
+		System.out.println(obtenerTipoDiaDeLaSemana("L"));
+		System.out.println(obtenerTipoDiaDeLaSemana("S"));
+		System.out.println(obtenerTipoDiaDeLaSemana("R"));
 	}
 	
 	
