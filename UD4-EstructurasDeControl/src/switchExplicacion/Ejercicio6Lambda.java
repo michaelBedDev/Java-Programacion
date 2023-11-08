@@ -1,3 +1,4 @@
+package switchExplicacion;
 
 
 public class Ejercicio6Lambda {
