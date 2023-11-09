@@ -27,7 +27,7 @@ public class EjercicioTest {
 				break;
 			case 3:
 				//Creamos objetos
-				Empleado empleadonuevo = new Empleado();
+				Empleado empleadoNuevo = new Empleado();
 				Empresa empresaNueva = new Empresa();
 				
 				//Recogemos por teclado y dividimos la cadena en 2
@@ -43,14 +43,20 @@ public class EjercicioTest {
 				//Asignamos datos empleado
 				Scanner datosPersona = new Scanner(datosEmpleado);
 				datosPersona.useDelimiter("&");
-				empleadonuevo.setDNI(datosPersona.next());
-				empleadonuevo.setNombre(datosPersona.next());
-				empleadonuevo.setApellidos(datosPersona.next());
-				empleadonuevo.setEdad(datosPersona.nextInt());
-				empleadonuevo.setLugarNacimiento(datosPersona.next());
+				empleadoNuevo.setDNI(datosPersona.next());
+				empleadoNuevo.setNombre(datosPersona.next());
+				empleadoNuevo.setApellidos(datosPersona.next());
+				empleadoNuevo.setEdad(datosPersona.nextInt());
+				empleadoNuevo.setLugarNacimiento(datosPersona.next());
 				datosPersona.close();
 				
 				Scanner datosCompany = new Scanner(datosEmpresa);
+				datosCompany.useDelimiter("&");
+				empresaNueva.setCIF(datosCompany.nextInt());
+				empresaNueva.setDirección(datosCompany.next());
+				empresaNueva.setNombre(datosCompany.next());
+				empresaNueva.setNumEmpleados(datosCompany.nextInt());
+				
 				//Continuar
 				//validacion de datos
 			
