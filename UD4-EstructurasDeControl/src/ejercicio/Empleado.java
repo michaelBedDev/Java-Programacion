@@ -24,15 +24,12 @@ public class Empleado {
 		this.setNombre(sc.nextLine());
 		System.out.println("Apellidos: ");
 		this.setApellidos(sc.nextLine());
-		
-		do {
-			System.out.println("Edad: ");	
-			this.setEdad(sc.nextInt());
-		}while(true);
-		
+		System.out.println("Edad: ");	
+		this.setEdad(sc.nextInt());
+		sc.nextLine(); //Limpiamos el Búffer
 		System.out.println("Lugar de Nacimiento: ");
 		this.setLugarNacimiento(sc.nextLine());
-		sc.next(); //Limpiamos Búffer
+		System.out.println();
 	}
 
 	

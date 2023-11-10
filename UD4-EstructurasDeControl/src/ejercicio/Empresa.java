@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Empresa {
 
-	private long CIF;
+	private String CIF;
 	private String nombre;
 	private String dirección;
 	private int numEmpleados;
@@ -20,14 +20,14 @@ public class Empresa {
 	public void datosEmpresa() {
 		System.out.println("Datos de la empresa: ");
 		System.out.println("CIF: ");
-		this.CIF = sc.nextLong();
+		this.CIF = sc.nextLine();
 		System.out.println("Nombre: ");
-		sc.next();//Limpiamos Búffer
 		this.nombre = sc.nextLine();
 		System.out.println("Dirección: ");
 		this.dirección = sc.nextLine();
 		System.out.println("Número de Empleados: ");
 		this.numEmpleados = sc.nextInt();
+		sc.nextLine(); //Limpiamos el Búffer
 	}
 	
 	
@@ -38,10 +38,10 @@ public class Empresa {
 	}
 
 	//GETTERS & SETTERS
-	public long getCIF() {
+	public String getCIF() {
 		return CIF;
 	}
-	public void setCIF(long cIF) {
+	public void setCIF(String cIF) {
 		CIF = cIF;
 	}
 	public String getNombre() {

@@ -8,8 +8,9 @@ public class EjercicioTest {
 		
 		//CREACION DE LA EMPRESA
 		Empresa empresa1 = new Empresa();
-		Empleado empleado1 = new Empleado();
 		empresa1.datosEmpresa();
+		
+		Empleado empleado1 = new Empleado();
 		empleado1.datosEmpleado();
 		empresa1.setEmpleado(empleado1);
 		
@@ -23,7 +24,7 @@ public class EjercicioTest {
 				empresa1.setEmpleado(empleado2);
 				break;
 			case 2: 
-				empleado1.toString();
+				System.out.println(empleado1.toString());
 				break;
 			case 3:
 				//Creamos objetos
@@ -52,13 +53,21 @@ public class EjercicioTest {
 				
 				Scanner datosCompany = new Scanner(datosEmpresa);
 				datosCompany.useDelimiter("&");
-				empresaNueva.setCIF(datosCompany.nextInt());
+				empresaNueva.setCIF(datosCompany.next());
 				empresaNueva.setDirección(datosCompany.next());
 				empresaNueva.setNombre(datosCompany.next());
 				empresaNueva.setNumEmpleados(datosCompany.nextInt());
+
+			
 				
-				//Continuar
+				System.out.println(empleadoNuevo.toString());
+				System.out.println(empresaNueva.toString());
+				
+				break;
+
 				//validacion de datos
+				//Debug
+				//Buffer Caso 3
 			
 		}
 		
