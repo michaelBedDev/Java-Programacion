@@ -13,31 +13,72 @@ public class Empleado {
 	
 	
 	//CONSTRUCTORES
-	Empleado(){
+	Empleado() {}
+	
+	Empleado(String DNI, String nombre, String apellido, int edad, String lugarNac){
+		this.DNI = DNI;
+		this.nombre = nombre;
+		this.apellidos = apellido;
+		this.edad = edad;
+		this.lugarNacimiento = lugarNac;
 	}
 	
+	//METODO DATOS EMPLEADO
 	public void datosEmpleado() {
 		System.out.println("Introduce los datos del empleado: ");
-		System.out.println("DNI: ");
-		this.setDNI(sc.nextLine());
+		
+		//Comprobación DNI 8 números y letra
+		String inputDNI;
+		do {
+			System.out.println("DNI: (8 Números y una letra)");
+			inputDNI = sc.nextLine();
+		} while (!validarDNI(inputDNI));
+		this.setDNI(inputDNI);
+		
 		System.out.println("Nombre: ");
 		this.setNombre(sc.nextLine());
 		System.out.println("Apellidos: ");
 		this.setApellidos(sc.nextLine());
-		System.out.println("Edad: ");	
-		this.setEdad(sc.nextInt());
+		
+		//Comprobación edad entre 17 y 70 años
+		do {
+			System.out.println("Edad: (Entre 17 y 70 años)");	
+			this.setEdad(sc.nextInt());
+		} while (edad<=16 || edad>70);
+		
 		sc.nextLine(); //Limpiamos el Búffer
 		System.out.println("Lugar de Nacimiento: ");
 		this.setLugarNacimiento(sc.nextLine());
 		System.out.println();
 	}
 
+	//METODO VALIDAR DNI
+	public boolean validarDNI(String dni) {
+		
+		//Comprobamos longitud del DNI
+		if (dni.length() !=9) {
+			return false;
+		}
+		//Comprobamos que los 8 primeros dígitos sean números
+		for(int i=0; i<8;i++) {
+			if (!Character.isDigit(dni.charAt(i))) {
+			return false;
+			}
+		}
+		//Comprobamos que el último número sea una letra
+		if(!Character.isLetter(dni.charAt(8))){
+			return false;
+		}
+		return true;
+	}
+	
 	
 	//toString
 	public String toString() {
-		return "Empleado [DNI=" + DNI + ", nombre=" + nombre + ", apellidos=" + apellidos + ", edad=" + edad
-				+ ", lugarNacimiento=" + lugarNacimiento + "]";
+		return "Empleado [DNI: " + DNI + ", nombre: " + nombre + ", apellidos: " + apellidos + ", edad: " + edad
+				+ ", lugar de nacimiento: " + lugarNacimiento + "]";
 	}
+	
 	
 	//GETTERS & SETTERS
 	public String getDNI() {

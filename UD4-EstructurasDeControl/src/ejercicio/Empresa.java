@@ -6,7 +6,7 @@ public class Empresa {
 
 	private String CIF;
 	private String nombre;
-	private String dirección;
+	private String direccion;
 	private int numEmpleados;
 	private Scanner sc = new Scanner(System.in);
 	private Empleado empleado;
@@ -17,6 +17,10 @@ public class Empresa {
 	Empresa(){
 	}
 	
+	Empresa(String CIF, String nomEmpresa, String direccion, int numEmpleados) {}
+	
+	
+	//METODOS
 	public void datosEmpresa() {
 		System.out.println("Datos de la empresa: ");
 		System.out.println("CIF: ");
@@ -24,17 +28,19 @@ public class Empresa {
 		System.out.println("Nombre: ");
 		this.nombre = sc.nextLine();
 		System.out.println("Dirección: ");
-		this.dirección = sc.nextLine();
+		this.direccion = sc.nextLine();
 		System.out.println("Número de Empleados: ");
 		this.numEmpleados = sc.nextInt();
 		sc.nextLine(); //Limpiamos el Búffer
+		
+		System.out.println();
 	}
 	
 	
 	//toString
 	public String toString() {
-		return "Empresa [CIF=" + CIF + ", nombre=" + nombre + ", dirección=" + dirección + ", numEmpleados="
-				+ numEmpleados + "]" + empleado;
+		return "Empresa [CIF: " + CIF + ", nombre: " + nombre + ", dirección: " + direccion + ", número de empleados: "
+				+ numEmpleados + "]\n" + empleado;
 	}
 
 	//GETTERS & SETTERS
@@ -51,10 +57,10 @@ public class Empresa {
 		this.nombre = nombre;
 	}
 	public String getDirección() {
-		return dirección;
+		return direccion;
 	}
 	public void setDirección(String dirección) {
-		this.dirección = dirección;
+		this.direccion = dirección;
 	}
 	public int getNumEmpleados() {
 		return numEmpleados;
