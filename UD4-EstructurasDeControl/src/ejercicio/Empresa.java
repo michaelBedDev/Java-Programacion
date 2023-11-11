@@ -22,15 +22,30 @@ public class Empresa {
 	
 	//METODOS
 	public void datosEmpresa() {
+		String stringTest = ""; //PARA VALIDACION
+		int intTest = 0;            //PARA VALIDACION
+		
 		System.out.println("Datos de la empresa: ");
-		System.out.println("CIF: ");
-		this.CIF = sc.nextLine();
-		System.out.println("Nombre: ");
-		this.nombre = sc.nextLine();
-		System.out.println("Dirección: ");
-		this.direccion = sc.nextLine();
-		System.out.println("Número de Empleados: ");
-		this.numEmpleados = sc.nextInt();
+		do{
+			System.out.println("CIF: ");
+			this.CIF = sc.nextLine();
+		} while(CIF==stringTest);
+		
+		do {
+			System.out.println("Nombre: ");
+			this.nombre = sc.nextLine();
+		} while (nombre==stringTest);
+		
+		do {
+			System.out.println("Dirección: ");
+			this.direccion = sc.nextLine();
+		} while (direccion==stringTest);
+		
+		do {
+			System.out.println("Número de Empleados: ");
+			this.numEmpleados = Integer.parseInt(sc.nextLine());
+		} while (numEmpleados==intTest);
+		
 		sc.nextLine(); //Limpiamos el Búffer
 		
 		System.out.println();

@@ -26,6 +26,7 @@ public class Empleado {
 	//METODO DATOS EMPLEADO
 	public void datosEmpleado() {
 		System.out.println("Introduce los datos del empleado: ");
+		String stringTest = ""; //Utilizamos la cadena vacía para validar
 		
 		//Comprobación DNI 8 números y letra
 		String inputDNI;
@@ -35,20 +36,29 @@ public class Empleado {
 		} while (!validarDNI(inputDNI));
 		this.setDNI(inputDNI);
 		
-		System.out.println("Nombre: ");
-		this.setNombre(sc.nextLine());
-		System.out.println("Apellidos: ");
-		this.setApellidos(sc.nextLine());
+		do {
+			System.out.println("Nombre: ");
+			this.setNombre(sc.nextLine());
+		} while (nombre==stringTest); //Se repetirá si es una cadena vacía
+	
+		do{
+			System.out.println("Apellidos: ");
+			this.setApellidos(sc.nextLine());
+		} while (apellidos==stringTest); //Se repetirá si es una cadena vacía
 		
 		//Comprobación edad entre 17 y 70 años
 		do {
 			System.out.println("Edad: (Entre 17 y 70 años)");	
-			this.setEdad(sc.nextInt());
+			this.setEdad(Integer.parseInt(sc.nextLine()));
 		} while (edad<=16 || edad>70);
 		
 		sc.nextLine(); //Limpiamos el Búffer
-		System.out.println("Lugar de Nacimiento: ");
-		this.setLugarNacimiento(sc.nextLine());
+		
+		do {
+			System.out.println("Lugar de Nacimiento: ");
+			this.setLugarNacimiento(sc.nextLine());
+		} while(lugarNacimiento==stringTest); //Se repetirá si es una cadena vacía
+		
 		System.out.println();
 	}
 
