@@ -168,10 +168,11 @@ public class Ejercicios {
 		}
 		*/
 		
-		//EJERCICIO 16
 		
+		/*EJERCICIO 17
+		Potencia.elevarPotencia(2, 10);
+		*/
 		
-		//EJERCICIO 17
 		
 		/*EJERCICIO 20
 		for(int i=0;i<=10;i++) {
