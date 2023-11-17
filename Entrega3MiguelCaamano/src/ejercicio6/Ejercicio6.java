@@ -4,10 +4,14 @@ public class Ejercicio6 {
 
 	public static void main(String[] args) {
 		
-		for(int i=0; i<=100; i++) {
-			for (int j=0; j<=10; j++) {
-			}
-			System.out.print(Math.pow(i, 2));
+		int cuadrado;
+		for(int i=1; i<100; i++) {
+			
+			cuadrado=i*i;
+			System.out.printf("%04d  ",cuadrado);
+			
+			if (i%9==0)
+				System.out.println();	
 		}
 		
 	}
