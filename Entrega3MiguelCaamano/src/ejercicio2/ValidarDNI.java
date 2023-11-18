@@ -31,13 +31,16 @@ public class ValidarDNI {
 			case 22 -> "E";
 			default -> ("Unexpected value: " + numDNI);
 		};
-		String letraDNIintro = Character.toString(dni.charAt(8));
+		
 		//Comprobamos si la letra resultante equivale a la letra introducida
 			if (letraDNI.equals(Character.toString(dni.charAt(8)))) 
 				return true;
 			else 
-				System.out.println("Letra equivocada, inténtelo de nuevo");
 				return false;
 		}
 		
+	public static void main(String[] args) {
+		ValidarDNI validador = new ValidarDNI();
+		System.out.println(validador.comprobarLetraDNI("45956837W")); 
+	}
 }

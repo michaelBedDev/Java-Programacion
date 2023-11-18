@@ -10,7 +10,6 @@ public class Menu {
 	public int showMenu() {
 		Scanner sc = new Scanner(System.in);
 		do {
-			System.out.println();
 			System.out.println("*".repeat(43));
 			System.out.println("* ¿Qué desea hacer?" + " ".repeat(23)+"*");
 			System.out.println("* [1]--- Alta de empleado" + " ".repeat(17)+"*");
@@ -76,8 +75,8 @@ public class Menu {
 					Scanner datosCompany = new Scanner(datosEmpresa);
 					datosCompany.useDelimiter("&");
 					empresaNueva.setCIF(datosCompany.next());
-					empresaNueva.setDirección(datosCompany.next());
 					empresaNueva.setNombre(datosCompany.next());
+					empresaNueva.setDirección(datosCompany.next());
 					empresaNueva.setNumEmpleados(datosCompany.nextInt());
 					datosCompany.close();
 					//Mostramos por pantalla los datos y asignamos el empleado a la empresa

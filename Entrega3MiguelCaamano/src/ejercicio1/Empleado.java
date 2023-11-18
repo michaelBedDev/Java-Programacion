@@ -52,8 +52,6 @@ public class Empleado {
 			this.setEdad(Integer.parseInt(sc.nextLine()));
 		} while (edad<=16 || edad>70);
 		
-		sc.nextLine(); //Limpiamos el Búffer
-		
 		do {
 			System.out.println("Lugar de Nacimiento: ");
 			this.setLugarNacimiento(sc.nextLine());

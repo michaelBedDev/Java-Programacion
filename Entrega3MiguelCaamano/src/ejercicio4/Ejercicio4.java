@@ -10,19 +10,21 @@ public class Ejercicio4 {
 		char caracterUsuario = teclado.next().charAt(0);
 	
 		System.out.println("Escribe lo que quieras. <> para finalizar");
-		String finalizar = "<>";
 		String acumuladorCaracter = "";
 		String linea;
 		do {
 			linea = teclado.nextLine();
-			acumuladorCaracter = acumuladorCaracter + " " + linea ;
+			acumuladorCaracter += linea ;
 			
-		} while(linea.indexOf(caracterUsuario)!=0);
+		} while(!linea.contains("<>"));
 		
-		int a = acumuladorCaracter.length();
-		for(; a>0;a--) {
-			
+		int contadorCaracter=0;
+		for (int i = 0; i<acumuladorCaracter.length(); i++) {
+			if (caracterUsuario == acumuladorCaracter.charAt(i)) 
+				contadorCaracter++;
 		}
+		
+		System.out.printf("Apariciones de '%c': %d", caracterUsuario, contadorCaracter);
 	}
 
 }

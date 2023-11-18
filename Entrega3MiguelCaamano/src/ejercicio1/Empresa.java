@@ -41,12 +41,11 @@ public class Empresa {
 			this.direccion = sc.nextLine();
 		} while (direccion==stringTest);
 		
+		//Considero que la empresa al momento de crearla tiene ya un empleado
 		do {
 			System.out.println("Número de Empleados: ");
-			this.numEmpleados = Integer.parseInt(sc.nextLine());
-		} while (numEmpleados==intTest);
-		
-		sc.nextLine(); //Limpiamos el Búffer
+			this.numEmpleados = sc.nextInt();
+		} while (this.numEmpleados==intTest);
 		
 		System.out.println();
 	}
