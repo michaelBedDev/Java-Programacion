@@ -35,9 +35,37 @@ public class ExplicacionArrays {
 		
 		//Recorrer Arrays (ejemplo al revés)
 		int [] numbers = {5, 3, 9, 2, 8};
-		for (int i=numbers.length; i>0; i--){
-		    System.out.print(numbers[i-1]+" ");
+		for (int i=0; i<numbers.length; i++){ //Tiene que empezar en 0 ya que los arrays empiezan en 0
+		    System.out.print(numbers[i]+" "); //La longitud es 5 pero la posición es 4 por eso <
 		}
+		System.out.println(numbers.length);
+		
+		
+		int [] numeros = {5, 3, 9, 2, 8};
+		
+		//Recorrer arrays for
+		for (int i=0; i<numeros.length; i++){
+		    System.out.print(numeros[i]);   
+		}
+		System.out.println();
+		//For each
+		for (int n : numbers){
+		    System.out.print(n);
+		}
+		System.out.println();
+		//While    
+		int i=0;
+		while (i<numbers.length){
+		    System.out.print(numbers[i]);
+		    i++;
+		}
+		
+		
+		//Pedir arrays por teclado
+		//Añadir elementos a un array
+		//eliminar elementos de un array
+		
+		
 	}
 
 }
