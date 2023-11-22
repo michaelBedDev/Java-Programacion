@@ -1,4 +1,4 @@
-package ejercicioContactos;
+package arrays.ejercicios.ejercicioContactos;
 
 import java.util.Scanner;
 
