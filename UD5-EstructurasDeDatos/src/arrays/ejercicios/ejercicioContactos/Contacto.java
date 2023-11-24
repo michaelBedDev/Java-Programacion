@@ -21,44 +21,73 @@ public class Contacto {
 		long telefono = rand.nextLong(600000000,699999999);
 		return telefono;
 	}
-	//Metodo validarEmail
-	public void validarEmail(String email) {
-		
-		int contador = 0;
-		for(int i = 0; i<email.length();i++) {
-			if (email.charAt(i) == '@') {
-				contador++;
-			}
-		}
-		boolean emailValido = (contador == 1);
-		
-		System.out.println(emailValido == true ? "Es un email válido": "No es un email válido");
-		
 	
-	}
+	//Metodo buscarEmail
+		public void buscarEmail(String emailABuscar, Contacto [] listaContactos) {
+			
+			
+				for(Contacto c : listaContactos) {
+					
+					if (c.getEmail().equals(emailABuscar)){
+						System.out.println("El email ha sido encontrado");
+						
+						c.actualizarEmail();
+						
+						break;
+					}else {
+						System.out.println("El email no ha sido encontrado");
+					}
+				}
+				
+		}
+	
+	
 	//Metodo actualizarEmail
 	public void actualizarEmail() {
 		sc = new Scanner(System.in);
-		//REVISAR
+		
 		System.out.println("Deseas actualizar el email? S/N");
 		char decision = sc.next().charAt(0);
-		while (decision!='S' || decision != 'N') {
+		do{
 			if (decision == 'S') {
 				System.out.println("Escribe el email a actualizar");
 				
 				String emailToUpdate = "";
 				do{
 					emailToUpdate = sc.next();
-					this.setEmail(emailToUpdate);
 					
+					if(emailToUpdate==null) {
+						System.out.println("Por favor, introduce un email");
+					}
 				} while (emailToUpdate==null);
+				
+				if(validarEmail(emailToUpdate));{
+					this.setEmail(emailToUpdate);
+					System.out.println("Email actualizado correctamente");
+				}				
+				
+			}else if(decision == 'N') {
+				break;
 			}
-		}
+		} while (decision!='S' && decision != 'N');
 		
 	}
 	
+	//Metodo validarEmail
+		private boolean validarEmail(String email) {
+			
+			int contador = 0;
+			for(int i = 0; i<email.length();i++) {
+				if (email.charAt(i) == '@') {
+					contador++;
+				}
+			}
+			boolean emailValido = (contador == 1);
+			
+			System.out.println(emailValido ? "Es un email válido": "No es un email válido");
+			return emailValido;
+		}
 	
-
 	//Constructores
 		Contacto(){}
 		

@@ -35,7 +35,7 @@ public class Menu {
 	}
 
 	
-	//Metodos
+	//Metodo buscarEmail
 	private void buscarEmail(String emailABuscar, Contacto [] listaContactos) {
 		for(Contacto c : listaContactos) {
 			
@@ -43,7 +43,7 @@ public class Menu {
 				System.out.println("El email ha sido encontrado");
 				
 				c.actualizarEmail();
-				c.validarEmail(c.getEmail());
+				
 				break;
 			}else {
 				System.out.println("El email no ha sido encontrado");

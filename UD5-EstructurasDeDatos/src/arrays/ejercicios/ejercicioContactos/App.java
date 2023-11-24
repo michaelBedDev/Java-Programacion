@@ -1,6 +1,6 @@
 package arrays.ejercicios.ejercicioContactos;
 
-public class Ejercicio3 {
+public class App {
 
 	public static void main(String[] args) {
 	
@@ -22,5 +22,5 @@ public class Ejercicio3 {
 
 
 
-//Bug al buscar email erroneo
+
 //Bug al actualizar un email correcto
