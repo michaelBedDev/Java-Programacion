@@ -17,10 +17,4 @@ public class App {
 		
 		menu.seleccionarAccion(listaContactos);
 	}
-
 }
-
-
-
-
-//Bug al actualizar un email correcto

@@ -13,8 +13,6 @@ public class Contacto {
 	
 	
 	
-	
-	
 	//Metodo generarTelefono
 	public static long generarTelefono() {
 		Random rand = new Random();
@@ -23,19 +21,18 @@ public class Contacto {
 	}
 	
 	//Metodo buscarEmail
-		public void buscarEmail(String emailABuscar, Contacto [] listaContactos) {
+		public static void buscarEmail(String emailABuscar, Contacto [] listaContactos) {
 			
 			
 				for(Contacto c : listaContactos) {
-					
-					if (c.getEmail().equals(emailABuscar)){
-						System.out.println("El email ha sido encontrado");
-						
-						c.actualizarEmail();
-						
-						break;
-					}else {
-						System.out.println("El email no ha sido encontrado");
+					if (c!=null) {
+						if (c.getEmail().equals(emailABuscar)){
+							System.out.println("El email ha sido encontrado");
+							c.actualizarEmail();
+							break;
+						}else {
+							System.out.println("El email no ha sido encontrado");
+						}
 					}
 				}
 				
@@ -43,7 +40,7 @@ public class Contacto {
 	
 	
 	//Metodo actualizarEmail
-	public void actualizarEmail() {
+	private void actualizarEmail() {
 		sc = new Scanner(System.in);
 		
 		System.out.println("Deseas actualizar el email? S/N");
@@ -69,8 +66,7 @@ public class Contacto {
 			}else if(decision == 'N') {
 				break;
 			}
-		} while (decision!='S' && decision != 'N');
-		
+		} while (decision!='S' && decision != 'N');	
 	}
 	
 	//Metodo validarEmail
