@@ -4,7 +4,8 @@ public class Departamento {
 
 	private String nombre;
 	private int antiguedad;
-	private Cientifico cientifico;
+	private Cientifico [] listaCientificos = new Cientifico [4];
+	private double presupuestoDepartamento;
 
 	
 	
@@ -14,11 +15,22 @@ public class Departamento {
 	Departamento(String nombre, int antiguedad, Cientifico cientifico) {
 	this.nombre = nombre;
 	this.antiguedad = antiguedad;
-	this.cientifico = cientifico;
 	}
+	
+	//this.cientifico = cientifico;
+	
 
 	
 	//Metodo calcularPresupuestoAnual
+	public double calcularPresupuestoAnual(){
+		int antiguedadTotal = 0; int empleadosTotales = 0;
+		for (Cientifico c : listaCientificos) {
+			antiguedadTotal += c.getYearsTrabajados();
+			empleadosTotales++;		
+		}
+		setPresupuestoDepartamento(empleadosTotales /*por*/ + antiguedadTotal);
+	}
+	
 
 	@Override
 	public String toString() {
@@ -37,10 +49,10 @@ public class Departamento {
 	public void setAntiguedad(int antiguedad) {
 		this.antiguedad = antiguedad;
 	}
-	public Cientifico getCientifico() {
-		return cientifico;
+	public double getPresupuestoDepartamento() {
+		return presupuestoDepartamento;
 	}
-	public void setCientifico(Cientifico cientifico) {
-		this.cientifico = cientifico;
+	public void setPresupuestoDepartamento(double presupuestoDepartamento) {
+		this.presupuestoDepartamento = presupuestoDepartamento;
 	}
 }
