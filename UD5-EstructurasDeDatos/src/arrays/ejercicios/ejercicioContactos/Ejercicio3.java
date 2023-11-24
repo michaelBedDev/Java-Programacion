@@ -1,7 +1,5 @@
 package arrays.ejercicios.ejercicioContactos;
 
-import java.util.Scanner;
-
 public class Ejercicio3 {
 
 	public static void main(String[] args) {
@@ -15,48 +13,14 @@ public class Ejercicio3 {
 		listaContactos[1] = persona2;
 		listaContactos[2] = persona3;
 		
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Seleccione 1-2-3");
-		int seleccion = sc.nextInt();
-		sc.nextLine();
+		Menu menu = new Menu();
 		
-		switch (seleccion) {
-			case 1:
-				for (Contacto n : listaContactos) {
-					if (n!=null){					
-						System.out.println(n);
-					}
-				}
-				break;
-			case 2:
-				System.out.println("Introduce el email a buscar");
-	
-				String emailABuscar = sc.nextLine();
-				for(Contacto n : listaContactos) {
-					
-					if (n.getEmail().equals(emailABuscar)){
-						System.out.println("El email ha sido encontrado");
-						break;
-					}else {
-						System.out.println("El email no ha sido encontrado");
-					}
-				}
-					
-				break;
-			case 3:
-				if(persona1.validarEmail(persona1.getEmail()) == true) {
-					System.out.println("Es un email válido");
-				}else {
-					System.out.println("No es un email válido");
-				}
-				break;
-		}
-		
-		
-		
-		
-		
+		menu.seleccionarAccion(listaContactos);
 	}
 
 }
 
+
+
+//Bug al buscar email erroneo
+//Bug al actualizar un email correcto

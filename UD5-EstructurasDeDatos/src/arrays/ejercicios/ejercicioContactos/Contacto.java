@@ -1,6 +1,7 @@
 package arrays.ejercicios.ejercicioContactos;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class Contacto {
 
@@ -8,50 +9,76 @@ public class Contacto {
 	private String apellido;
 	private String email;
 	private long telefono;
+	private Scanner sc;
 	
 	
 	
-
 	
-	//Metodo telefono
+	
+	//Metodo generarTelefono
 	public static long generarTelefono() {
 		Random rand = new Random();
 		long telefono = rand.nextLong(600000000,699999999);
 		return telefono;
 	}
 	//Metodo validarEmail
-	public boolean validarEmail(String email) {
+	public void validarEmail(String email) {
 		
 		int contador = 0;
 		for(int i = 0; i<email.length();i++) {
-			if (Character.valueOf(email.charAt(i)) == '@') {
+			if (email.charAt(i) == '@') {
 				contador++;
 			}
 		}
-		return(contador == 1);
+		boolean emailValido = (contador == 1);
+		
+		System.out.println(emailValido == true ? "Es un email válido": "No es un email válido");
+		
+	
+	}
+	//Metodo actualizarEmail
+	public void actualizarEmail() {
+		sc = new Scanner(System.in);
+		//REVISAR
+		System.out.println("Deseas actualizar el email? S/N");
+		char decision = sc.next().charAt(0);
+		while (decision!='S' || decision != 'N') {
+			if (decision == 'S') {
+				System.out.println("Escribe el email a actualizar");
+				
+				String emailToUpdate = "";
+				do{
+					emailToUpdate = sc.next();
+					this.setEmail(emailToUpdate);
+					
+				} while (emailToUpdate==null);
+			}
+		}
+		
 	}
 	
 	
-	
-	
-	
-	
+
 	//Constructores
 		Contacto(){}
+		
+		Contacto(String email){
+			this.email = email; 
+		}
 
 		Contacto(String nombre, String apellido, String email, long telefono){
-			this.nombre= nombre;
-			this.apellido= apellido;
-			this.email= email;
+			this.nombre = nombre;
+			this.apellido = apellido;
+			this.email = email;
 			this.telefono = telefono;
 		}	
 	
-		//toString
-		@Override
-		public String toString() {
-			return "Contacto [nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + ", telefono="
-					+ telefono + "]";
-		}
+	//toString
+	@Override
+	public String toString() {
+		return "Contacto [nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + ", telefono="
+				+ telefono + "]";
+	}
 	
 	//Getters & Setters
 	public String getNombre() {
