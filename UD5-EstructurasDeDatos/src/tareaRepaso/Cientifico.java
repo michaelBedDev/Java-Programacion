@@ -105,6 +105,11 @@ public class Cientifico {
 	public void setExp(Experiencia exp) {
 		this.exp = exp;
 	}
+	//Arreglar 
+	public int getCuantaExperiencia() {
+	
+		return this.exp;
+	}
 }
 
 

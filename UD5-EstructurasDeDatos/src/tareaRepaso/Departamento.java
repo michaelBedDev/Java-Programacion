@@ -27,7 +27,7 @@ public class Departamento {
 		
 		for (Cientifico c : listaCientificos) {
 			antiguedadTotal += c.getYearsTrabajados();
-			experienciaTotal += c.getExp();
+			experienciaTotal += c.getCuantaExperiencia();
 			empleadosTotales++;		
 		}
 		double presupuestoDepartamento = empleadosTotales*experienciaTotal + antiguedadTotal;
