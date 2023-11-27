@@ -6,44 +6,74 @@ public class Cientifico {
 
 	private String nombre;
 	private String apellidos;
-	public enum Experiencia {Alta, Media, Baja};
+	private Experiencia exp;
 	private int yearsTrabajados = 0;
+	private Investigacion investigacionAsignada;
 	private Scanner sc;
 	
+	
+
+
 	//Constructores
 	Cientifico(){}
 	
-	Cientifico(String nombre, String apellidos, int yearsTrabajados) {
+	Cientifico (String nombre, String apellidos, Experiencia exp, Investigacion investigacionAsignada ) {
 		this.nombre = nombre;
 		this.apellidos = apellidos;
-		this.yearsTrabajados = yearsTrabajados;
+		this.investigacionAsignada = investigacionAsignada;
 	}
 	
 
 	//Metodo altaCientifico
-		public void altaCientifico() {
+		public Cientifico altaCientifico() {
 			sc = new Scanner(System.in);
+			Cientifico newCientifico = new Cientifico();
+			int seleccion;
 			System.out.println("Introduce los datos del científico:");
 			System.out.println("Nombre:");
-			String nombre = sc.nextLine();
+			newCientifico.setNombre(sc.nextLine());
 			System.out.println("Apellidos:");
-			String apellidos = sc.nextLine();
+			newCientifico.setApellidos(sc.nextLine());
+			System.out.println("Investigacion Asignada: ");
+			//Asignar Investigacion a cientifico
+			// newCientifico.setInvestigacionAsignada(sc.nextLine());
+			do {
+				System.out.println("Experiencia [?]");
+				System.out.println("[1 - Alta]");
+				System.out.println("[2 - Media]");
+				System.out.println("[3 - Baja]");
+				seleccion = sc.nextInt();
+				sc.nextLine();
+			} while (seleccion<0 && seleccion >4);
 			
-			//Como introducir un constructor en un metodo
-			Cientifico.(nombre,apellidos, 0){}
-			
-			
-			
+			switch(seleccion) {
+				case 1 -> this.setExp(Experiencia.ALTA); 
+				case 2 -> this.setExp(Experiencia.MEDIA); 
+				case 3 -> this.setExp(Experiencia.BAJA); 
+			};
+			return newCientifico;
 		}
 	
-	
-	@Override
-	public String toString() {
-		return "Cientifico [nombre=" + nombre + ", apellidos=" + apellidos + ", yearsTrabajados=" + yearsTrabajados
-				+ "]";
-	}
+		
+		//Metodo eliminar Cientifico //eliminar investigacion
+		public void eliminarCientifico(Cientifico [] listaCientificos) {
+			System.out.println("Introduce el nombre del cientifico a eliminar: ");
+			String cientificoToDelete = sc.nextLine();
+			
+			for (Cientifico c : listaCientificos) {
+				if (c.nombre.equals(cientificoToDelete)){
+					//borrar
+				}
+			}
+		}
 
-	
+	//toString
+	@Override
+		public String toString() {
+			return "Cientifico [nombre=" + nombre + ", apellidos=" + apellidos + ", yearsTrabajados=" + yearsTrabajados
+					+ ", investigacionAsignada=" + investigacionAsignada + "]";
+		}
+
 	//Getters & Setters
 	public String getNombre() {
 		return nombre;
@@ -62,6 +92,18 @@ public class Cientifico {
 	}
 	public void setYearsTrabajados(int yearsTrabajados) {
 		this.yearsTrabajados = yearsTrabajados;
+	}
+	public Investigacion getInvestigacionAsignada() {
+		return investigacionAsignada;
+	}
+	public void setInvestigacionAsignada(Investigacion investigacionAsignada) {
+		this.investigacionAsignada = investigacionAsignada;
+	}
+	public Experiencia getExp() {
+		return exp;
+	}
+	public void setExp(Experiencia exp) {
+		this.exp = exp;
 	}
 }
 

@@ -4,7 +4,7 @@ public class Departamento {
 
 	private String nombre;
 	private int antiguedad;
-	private Cientifico [] listaCientificos = new Cientifico [4];
+	private Cientifico [] listaCientificos;
 	private double presupuestoDepartamento;
 
 	
@@ -12,31 +12,38 @@ public class Departamento {
 	//Constructores
 	Departamento(){}
 
-	Departamento(String nombre, int antiguedad, Cientifico cientifico) {
+	Departamento(String nombre, int antiguedad) {
 	this.nombre = nombre;
 	this.antiguedad = antiguedad;
+	this.listaCientificos = new Cientifico [4];
 	}
 	
-	//this.cientifico = cientifico;
 	
 
 	
 	//Metodo calcularPresupuestoAnual
 	public double calcularPresupuestoAnual(){
-		int antiguedadTotal = 0; int empleadosTotales = 0;
+		int antiguedadTotal = 0, empleadosTotales = 0, experienciaTotal = 0;;
+		
 		for (Cientifico c : listaCientificos) {
 			antiguedadTotal += c.getYearsTrabajados();
+			experienciaTotal += c.getExp();
 			empleadosTotales++;		
 		}
-		setPresupuestoDepartamento(empleadosTotales /*por*/ + antiguedadTotal);
+		double presupuestoDepartamento = empleadosTotales*experienciaTotal + antiguedadTotal;
+		setPresupuestoDepartamento(presupuestoDepartamento);
+		return presupuestoDepartamento;
 	}
 	
-
+	
+	
+    //toString
 	@Override
 	public String toString() {
-		return "Departamento [nombre=" + nombre + ", antiguedad=" + antiguedad + ", cientifico=" + cientifico + "]";
+		return "Departamento [nombre=" + nombre + ", antiguedad=" + antiguedad + ", cientifico=" + listaCientificos + "]";
 	}
 
+	//Getters & Setters
 	public String getNombre() {
 		return nombre;
 	}
@@ -55,4 +62,11 @@ public class Departamento {
 	public void setPresupuestoDepartamento(double presupuestoDepartamento) {
 		this.presupuestoDepartamento = presupuestoDepartamento;
 	}
+	public Cientifico[] getListaCientificos() {
+		return listaCientificos;
+	}
+	public void setListaCientificos(Cientifico[] listaCientificos) {
+		this.listaCientificos = listaCientificos;
+	}
 }
+
