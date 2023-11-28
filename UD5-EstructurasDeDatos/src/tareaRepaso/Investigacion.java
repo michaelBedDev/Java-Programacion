@@ -8,16 +8,12 @@ public class Investigacion {
 	
 	
 	
-	
-	
-	
 	//Constructores
 	Investigacion(){}
 	
-	Investigacion(int id, String nombre, double numCalculos){
+	Investigacion(int id, String nombre){
 		this.identificador = id;
 		this.nombre = nombre;
-		this.numCalculosInvestigacion = numCalculos;
 	}
 	
 	
