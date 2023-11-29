@@ -17,14 +17,15 @@ public class Cientifico {
 		this.apellidos = apellidos;
 		this.yearsTrabajados = yearsTrabajados;
 		this.investigacionAsignada = investigacionAsignada;
+		this.exp = exp;
 	}
 	
-	
+		
 	//toString
 	@Override
 	public String toString() {
-		return "Cientifico [nombre=" + nombre + ", apellidos=" + apellidos + ", exp=" + exp + ", yearsTrabajados="
-				+ yearsTrabajados + ", investigacionAsignada=" + investigacionAsignada + "]";
+		return "Cientifico \n\tNombre: " + nombre + " \n\tApellidos: " + apellidos + " \n\tExperiencia: " + exp + " \n\tAñosTrabajados: "
+				+ yearsTrabajados + " \n\tInvestigacionAsignada: " + investigacionAsignada;
 	}
 
 	

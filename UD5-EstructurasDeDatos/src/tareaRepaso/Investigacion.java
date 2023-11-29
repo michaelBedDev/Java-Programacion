@@ -1,11 +1,14 @@
 package tareaRepaso;
 
+import java.math.BigDecimal;
+import java.lang.Math;
+
 public class Investigacion {
 
 	private int identificador;
 	private String nombre;
-	private double numCalculosInvestigacion;
-	
+	private BigDecimal numCalculosInvestigacion;
+	private double constPI = Math.PI;
 	
 	
 	//Constructores
@@ -20,8 +23,8 @@ public class Investigacion {
 	//toString
 	@Override
 	public String toString() {
-		return "Investigacion [identificador=" + identificador + ", nombre=" + nombre + ", numCalculosInvestigacion="
-				+ numCalculosInvestigacion + "]";
+		return "\n\t\tInvestigacion \n\t\tIdentificador: " + identificador + " \n\t\tNombre: " + nombre + " \n\t\tNumCalculosInvestigacion: "
+				+ numCalculosInvestigacion +"\n";
 	}
 	
 	//Getters & Setters
@@ -38,10 +41,10 @@ public class Investigacion {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public double getNumCalculosInvestigacion() {
+	public BigDecimal getNumCalculosInvestigacion() {
 		return numCalculosInvestigacion;
 	}
-	public void setNumCalculosInvestigacion(double numCalculosInvestigacion) {
+	public void setNumCalculosInvestigacion(BigDecimal numCalculosInvestigacion) {
 		this.numCalculosInvestigacion = numCalculosInvestigacion;
 	}
 }

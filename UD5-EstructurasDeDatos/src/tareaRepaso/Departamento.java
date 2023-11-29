@@ -1,6 +1,7 @@
 package tareaRepaso;
 
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Departamento {
 
@@ -21,33 +22,16 @@ public class Departamento {
 	this.listaCientificos = new Cientifico [4];
 	}
 	
-	
-	//Metodo calcularPresupuestoAnual
-	public double calcularPresupuestoAnual(Cientifico [] listaCientificos1){
-		int antiguedadTotal = 0, empleadosTotales = 0, experienciaTotal = 0;
-		int experienciaCientifico = 0;
-		
-		for (Cientifico c : listaCientificos1) {
-			if (c!=null) {
-				antiguedadTotal += c.getYearsTrabajados();
-				switch(c.getExp()) {
-					case ALTA -> experienciaCientifico = 50;
-					case MEDIA -> experienciaCientifico = 25;
-					case BAJA -> experienciaCientifico = 10;
-				};
-				experienciaTotal += experienciaCientifico;
-				empleadosTotales++;	
-			}
-		}
-		double presupuestoDepartamento = empleadosTotales*experienciaTotal + antiguedadTotal;
-		setPresupuestoDepartamento(presupuestoDepartamento);
-		System.out.println("El presupuesto del departamento es de: " + presupuestoDepartamento);
-		return presupuestoDepartamento;
+	Departamento(String nombre, int antiguedad, Cientifico c) {
+	this.nombre = nombre;
+	this.antiguedad = antiguedad;
+	this.listaCientificos = new Cientifico [4];
+	this.listaCientificos[0] = c;
 	}
 	
 	
-	//Metodo altaCientifico
-		public Cientifico altaCientifico(Investigacion i) {
+		//Metodo altaCientifico
+		public void altaCientifico() {
 			sc = new Scanner(System.in);
 			Cientifico newCientifico = new Cientifico();
 			int seleccion;
@@ -56,64 +40,184 @@ public class Departamento {
 			newCientifico.setNombre(sc.nextLine());
 			System.out.println("Apellidos:");
 			newCientifico.setApellidos(sc.nextLine());
-			System.out.println("Investigacion asignada al cientifico:\n" + i);
-			 newCientifico.setInvestigacionAsignada(i);
+			
 			do {
-				System.out.println("Experiencia [?]");
+				System.out.println("Experiencia del cientifico[?]");
 				System.out.println("[1 - Alta]");
 				System.out.println("[2 - Media]");
 				System.out.println("[3 - Baja]");
 				seleccion = sc.nextInt();
-				System.out.println("Años trabajados del cientifico:");
-				newCientifico.setYearsTrabajados(sc.nextInt());
-				sc.nextLine();
-			} while (seleccion<0 && seleccion >4);
+			} while (seleccion<0 || seleccion >4);
 			
 			switch(seleccion) {
 				case 1 -> newCientifico.setExp(Experiencia.ALTA); 
 				case 2 -> newCientifico.setExp(Experiencia.MEDIA); 
 				case 3 -> newCientifico.setExp(Experiencia.BAJA); 
 			};
+			
+			System.out.println("Años trabajados del cientifico:");
+			newCientifico.setYearsTrabajados(sc.nextInt());
+			sc.nextLine();
+			
+			//Alta y Asignar investigacion
+			newCientifico.setInvestigacionAsignada(this.altaInvestigacion());
+			
+			this.asignarCientifico(newCientifico);
+			
 			System.out.println(newCientifico);
-			return newCientifico;
 		}
-			
-	//Metodo asignarCientifico a lista
-		public void asignarCientifico (Cientifico c) {
-			sc = new Scanner(System.in);
-			System.out.println("En qué posicion deseas añadir al cientifico:");
-			int seleccion = sc.nextInt();
-				this.listaCientificos[seleccion] = c;
-			}		
-			
-			
-	//Metodo eliminar Cientifico //eliminar investigacion
+				
+		
+		//Metodo eliminar Cientifico //eliminar investigacion
 		public void eliminarCientifico(Cientifico [] listaCientificos) {
 			System.out.println("Introduce el nombre del cientifico a eliminar: ");
+			sc = new Scanner(System.in);
 			String cientificoToDelete = sc.nextLine();
 			int posicionCientifico = 0;
 			for (Cientifico c : listaCientificos) {
-				if (c.getNombre().equals(cientificoToDelete)){
-					listaCientificos [posicionCientifico] = null;
-					
-					c.setNombre("");
-					c.setApellidos("");
-					c.setExp(null);
-					c.setYearsTrabajados(0);
-					c.setInvestigacionAsignada(null);
-					
-					System.out.println(c);
+				if (c!=null) {
+					if (c.getNombre().equals(cientificoToDelete)){
+						listaCientificos [posicionCientifico] = null;
+						
+						c.setNombre("");
+						c.setApellidos("");
+						c.setExp(null);
+						c.setYearsTrabajados(0);
+						c.setInvestigacionAsignada(null);
+						
+						System.out.println("Cientifico eliminado correctamente");
+					}
+					posicionCientifico++;
 				}
-				posicionCientifico++;
 			}
-			System.out.println("Cientifico eliminado correctamente");
 		}
 	
+		
+		//Metodo calcularPresupuestoAnual
+		public void calcularPresupuestoAnual(Cientifico [] listaCientificos1){
+			int antiguedadTotal = 0, empleadosTotales = 0, experienciaTotal = 0;
+			int experienciaCientifico = 0;
+			
+			for (Cientifico c : listaCientificos1) {
+				if (c!=null) {
+					antiguedadTotal += c.getYearsTrabajados();
+					switch(c.getExp()) {
+						case ALTA -> experienciaCientifico = 50;
+						case MEDIA -> experienciaCientifico = 25;
+						case BAJA -> experienciaCientifico = 10;
+					};
+					experienciaTotal += experienciaCientifico;
+					empleadosTotales++;	
+				}
+			}
+			double presupuestoDepartamento = empleadosTotales*experienciaTotal + antiguedadTotal;
+			setPresupuestoDepartamento(presupuestoDepartamento);
+			System.out.println("El presupuesto del departamento es de: " + presupuestoDepartamento);
+		}
+		
+		
+		
+		//Buscar Cientifico y mostrarlo por pantalla por nombre
+		public void buscarCientifico(Cientifico [] listaCientificos) {
+			System.out.println("Introduce el nombre del cientifico a buscar: ");
+			sc = new Scanner(System.in);
+			String cientificoToSearch = sc.nextLine();
+
+			for (Cientifico c : listaCientificos) {
+				if (c!=null) {
+					if (c.getNombre().equals(cientificoToSearch)){
+						System.out.println(c);
+					}
+				}
+			}
+		}
+		
+		
+		
+
+		
+		
+		//Alta Investigación y asignarla a los cientificos seleccionados
+		public void asignarInvestigacionToCientifico() {}
+		
+		
+		//Metodo altaInvestigacion
+		private Investigacion altaInvestigacion() {
+			sc = new Scanner(System.in);
+			Investigacion newInvestigacion = new Investigacion();
+
+			System.out.println("Introduce los datos de la investigación:");
+			System.out.println("Nombre:");
+			newInvestigacion.setNombre(sc.nextLine());
+			System.out.println("Identificador: (número)");
+			newInvestigacion.setIdentificador(Integer.parseInt(sc.nextLine()));
+
+			return newInvestigacion;
+		}
+		
+		//Cadena alfanumérica
+		//Tabla Cientificos con antiguedad y nombre de su investigación
+		
+		
+		
+		
+		
+		
+		
+		//PRIVATE METHODS
+		
+		//Metodo asignar Cientifico a listaCientificos
+		private void asignarCientifico (Cientifico c) {
+			sc = new Scanner(System.in);
+			int seleccion;
+			do {
+				System.out.println("En qué posicion deseas añadir al cientifico: (entre 0 y 3)");
+				seleccion = sc.nextInt();
+			} while (seleccion >3 || seleccion <0);		
+			
+			this.listaCientificos[seleccion] = c;
+		}		
+			
+		//Metodo asignar Cientifico a investigacion
+		private void asignarCientificoInvestigacion() {
+			System.out.println("Introduce el nombre del cientifico a asignar a la investigación: ");
+			String cientificoToAsign = sc.nextLine();
+			int posicionCientifico = 0;
+			for (Cientifico c : listaCientificos) {
+				if (c!=null) {
+					if (c.getNombre().equals(cientificoToAsign)){
+						//????????????????????
+					}
+				}
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	
     //toString
 	@Override
 	public String toString() {
-		return "Departamento [nombre=" + nombre + ", antiguedad=" + antiguedad + ", cientifico=" + listaCientificos + "]";
+		return "Departamento \nNombre: " + nombre + "\nAntiguedad: " + antiguedad +"\n"+ Arrays.toString(listaCientificos) + "\n";
 	}
 
 	//Getters & Setters
