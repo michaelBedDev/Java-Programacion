@@ -2,7 +2,7 @@ package tareaRepaso;
 
 public class App {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		
 		Investigacion InvPorDefecto = new Investigacion(00,"Investigación por defecto");
 		Cientifico CientificoPorDefecto = new Cientifico("DefectoNombre","DefectoApellido",Experiencia.ALTA,0,InvPorDefecto);

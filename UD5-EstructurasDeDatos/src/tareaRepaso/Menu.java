@@ -1,12 +1,13 @@
 package tareaRepaso;
 
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Menu {
 
 	private static Scanner sc;
 	
-	public void seleccionarAccion(Departamento dep) {
+	public void seleccionarAccion(Departamento dep) throws InterruptedException {
 		sc = new Scanner(System.in);
 		
 		System.out.println("[1] para dar de alta a un cientifico  ");
@@ -33,6 +34,7 @@ public class Menu {
 				break;
 			case 5:
 				dep.buscarCientifico(dep.getListaCientificos());
+				break;
 			case 99:
 				Menu.tester(dep);
 				
@@ -40,12 +42,13 @@ public class Menu {
 	}
 	
 	
-	private static void tester(Departamento dep) {
+	private static void tester(Departamento dep) throws InterruptedException {
 		System.out.println("Modo Tester Activado");
 		System.out.println();
 		System.out.println("[1] toString Investigación");
 		System.out.println("[2] toString Cientifico");
 		System.out.println("[3] toString Departamento");
+		System.out.println("[4] Barra Cargando");
 		sc = new Scanner(System.in);
 		int seleccion = sc.nextInt();
 		System.out.println();
@@ -58,6 +61,14 @@ public class Menu {
 				break;
 			case 3:
 				System.out.println(dep);
+			case 4:
+				String cargando = "♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦";
+				System.out.print("Cargando[");
+				for(int i = 0; i<cargando.length(); i++) {
+					TimeUnit.MILLISECONDS.sleep(i*100);
+					System.out.print(cargando.substring(0, 2));
+				}
+				System.out.print("]"); //Llenar con espacio vacío
 			default:
 				break;
 		}
