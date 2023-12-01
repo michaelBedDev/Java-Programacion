@@ -2,6 +2,7 @@ package juegoPokemon;
 
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Pokemon {
 
@@ -16,7 +17,7 @@ public class Pokemon {
 	Pokemon(){
 		this.vida = this.vidaMaxima;
 		Random rand = new Random();
-		int numAleatorio = rand.nextInt(1,10);
+		int numAleatorio = rand.nextInt(1,11);
 		switch(numAleatorio) {
 			case 1,2,3 -> this.tipo = TipoPokemon.SQUIRTLE;
 			case 4,5,6 -> this.tipo = TipoPokemon.CHARMANDER;
@@ -28,7 +29,7 @@ public class Pokemon {
 		this.vida = this.vidaMaxima;
 		this.nombre = nombre;
 		Random rand = new Random();
-		int numAleatorio = rand.nextInt(1,10);
+		int numAleatorio = rand.nextInt(1,11);
 		switch(numAleatorio) {
 			case 1,2,3 -> this.tipo = TipoPokemon.SQUIRTLE;
 			case 4,5,6 -> this.tipo = TipoPokemon.CHARMANDER;
@@ -38,23 +39,23 @@ public class Pokemon {
 	}
 
 	
-
-
-	
 	
 	//Metodos
 	
 	public void asignarNombreAPokemon() {
 		String vacío = ""; String nombrePoke;
 
-			System.out.println("Dime, cómo se llama tu pokémon?");
-			Scanner sc = new Scanner(System.in);
-			nombrePoke = sc.nextLine();
-			if (nombrePoke == vacío)
-				setNombre(getTipo().toString());
-		
+		System.out.println("Dime, cómo se llama tu pokémon? Pulsa [enter] para no introducir ningún mote");
+		Scanner sc = new Scanner(System.in);
+		nombrePoke = sc.nextLine();
+		if (nombrePoke == vacío)
+			setNombre(getTipo().toString());
+		else
+			this.nombre = nombrePoke;
 		System.out.println("Fantástico! " + getNombre() + " ya es parte de tu equipo");
+		System.out.println();
 	}
+	
 	
 	
 	public void sanarTotalmente() {
