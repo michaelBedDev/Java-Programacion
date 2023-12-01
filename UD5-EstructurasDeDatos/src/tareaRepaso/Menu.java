@@ -62,16 +62,20 @@ public class Menu {
 			case 3:
 				System.out.println(dep);
 			case 4:
-				String cargando = "♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦";
-				System.out.print("Cargando[");
-				for(int i = 0; i<cargando.length(); i++) {
-					TimeUnit.MILLISECONDS.sleep(i*100);
-					System.out.print(cargando.substring(0, 2));
-				}
-				System.out.print("]"); //Llenar con espacio vacío
+				Menu.barraCargando();
+				break;
 			default:
 				break;
+		}	
+	}
+	
+	public static void barraCargando() throws InterruptedException {
+		String cargando = "♦♦♦♦♦♦♦♦♦";
+		System.out.print("Cargando[");
+		for(int i = 0; i<cargando.length(); i++) {
+			TimeUnit.MILLISECONDS.sleep(i*100);
+			System.out.print(cargando.substring(0, 1));
 		}
-		
+		System.out.print("]\n");
 	}
 }

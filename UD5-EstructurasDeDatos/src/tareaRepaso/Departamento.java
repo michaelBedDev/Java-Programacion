@@ -69,7 +69,7 @@ public class Departamento {
 				
 		
 		//Metodo eliminar Cientifico //eliminar investigacion
-		public void eliminarCientifico(Cientifico [] listaCientificos) {
+		public void eliminarCientifico(Cientifico [] listaCientificos) throws InterruptedException {
 			System.out.println("Introduce el nombre del cientifico a eliminar: ");
 			sc = new Scanner(System.in);
 			String cientificoToDelete = sc.nextLine();
@@ -85,6 +85,7 @@ public class Departamento {
 						c.setYearsTrabajados(0);
 						c.setInvestigacionAsignada(null);
 						
+						Menu.barraCargando();
 						System.out.println("Cientifico eliminado correctamente");
 					}
 					posicionCientifico++;
