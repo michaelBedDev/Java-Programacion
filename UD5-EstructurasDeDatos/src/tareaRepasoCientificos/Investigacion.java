@@ -1,4 +1,4 @@
-package tareaRepaso;
+package tareaRepasoCientificos;
 
 import java.math.BigDecimal;
 import java.lang.Math;

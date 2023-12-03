@@ -1,4 +1,4 @@
-package tareaRepaso;
+package tareaRepasoCientificos;
 
 public enum Experiencia { 
 	ALTA(50), MEDIA(25), BAJA(10);

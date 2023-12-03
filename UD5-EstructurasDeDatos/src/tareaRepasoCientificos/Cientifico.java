@@ -1,4 +1,4 @@
-package tareaRepaso;
+package tareaRepasoCientificos;
 
 public class Cientifico {
 
