@@ -83,7 +83,7 @@ public class Entrenador {
 	
 	
 	
-	//ARREGLAR PARA CUANDO FALLE LA POKEBALL
+	//ARREGLAR PARA CUANDO FALLE LA POKEBALL //REVISAR
 	//Capturar pokémon
 	private boolean capturarPokemon(Pokemon n) throws InterruptedException {
 		sc = new Scanner(System.in);
@@ -93,7 +93,22 @@ public class Entrenador {
 			seleccion = sc.next().toUpperCase().charAt(0);
 			if (seleccion == 'S'){
 				
-				int numAleatorio = lanzarPokéball();
+				System.out.println("Lanzando pokéball");
+				TimeUnit.MILLISECONDS.sleep(500);
+				
+				String cargando = "♦♦♦♦♦♦♦♦♦";
+				System.out.print("[");
+				for(int i = 0; i<cargando.length(); i++) {
+					TimeUnit.SECONDS.sleep(1);
+					System.out.print(cargando.substring(0, 1));
+				}
+				System.out.print("]\n");
+				
+				TimeUnit.SECONDS.sleep(2);
+				Random rand = new Random();
+				int numAleatorio = rand.nextInt(0,99);
+				int numAleatorio2 = rand.nextInt(0,99);
+				int numAleatorio3 = rand.nextInt(0,99);
 				
 				if (numAleatorio%2==0) {
 					System.out.println("Enhorabuena! lo has capturado");
@@ -114,16 +129,7 @@ public class Entrenador {
 	}
 	
 	//Lanzar pokéball
-	private int lanzarPokéball() throws InterruptedException {
-		System.out.println("Lanzando pokéball");
-		TimeUnit.MILLISECONDS.sleep(500);
-		Menu.barraCargando();
-		TimeUnit.SECONDS.sleep(2);
-		Random rand = new Random();
-		int numAleatorio = rand.nextInt(0,99);
-		
-		return numAleatorio;
-	}
+
 	
 	
 	
