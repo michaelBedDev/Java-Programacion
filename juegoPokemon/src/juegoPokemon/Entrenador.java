@@ -70,55 +70,79 @@ public class Entrenador {
 		System.out.println("Un Pokemon salvaje ha aparecido!");
 		Pokemon Pokemon = new Pokemon();
 		System.out.println("Es un " + Pokemon.getTipo());
-		if (capturarPokemon(Pokemon)) {
-			Pokemon.asignarNombreAPokemon();
-			TimeUnit.SECONDS.sleep(2);
-			agregarPokemon(Pokemon);
+		System.out.println("Deseas capturarlo? [S/N]");
+		int intentosMaximos = 3;
+		
+		for (int i = 0; i<intentosMaximos; i++) {
+			if (capturarPokemon()) {
+				Pokemon.asignarNombreAPokemon();
+				TimeUnit.SECONDS.sleep(2);
+				agregarPokemon(Pokemon);
+			}
+			//ARREGLAR
+			else 
+				System.out.println("Deseas usar otra pokeball?");
+			char seleccion;
+			Scanner sc = new Scanner(System.in);
+			seleccion = sc.next().toUpperCase().charAt(0);
+			do {
+					if (seleccion == 'N')
+						i=3;
+						
+				if (seleccion != 'S' && seleccion != 'N')
+					System.out.println("Por favor, introduce una de las opciones [S/N]");
+			} while(seleccion != 'S' && seleccion != 'N');
 		}
 	}
+	
 
-	
-	
-	
-	
+
 	
 	
 	//ARREGLAR PARA CUANDO FALLE LA POKEBALL //REVISAR
 	//Capturar pokémon
-	private boolean capturarPokemon(Pokemon n) throws InterruptedException {
+	private boolean capturarPokemon() throws InterruptedException {
 		sc = new Scanner(System.in);
 		char seleccion;
 		do {
-			System.out.println("Deseas capturarlo? [S/N]");
 			seleccion = sc.next().toUpperCase().charAt(0);
 			if (seleccion == 'S'){
 				
 				System.out.println("Lanzando pokéball");
 				TimeUnit.MILLISECONDS.sleep(500);
 				
-				String cargando = "♦♦♦♦♦♦♦♦♦";
-				System.out.print("[");
-				for(int i = 0; i<cargando.length(); i++) {
+				Random rand = new Random();
+				int numAleatorio = rand.nextInt(0,101);
+				int numAleatorio1 = rand.nextInt(0,101);
+				int numAleatorio2 = rand.nextInt(0,101);
+				
+				int numerosAleatorios [] = new int [3];
+				numerosAleatorios[0] = numAleatorio;
+				numerosAleatorios[1] = numAleatorio1;
+				numerosAleatorios[2] = numAleatorio2;
+				
+				float media = (numAleatorio+numAleatorio1+numAleatorio2)/3;
+				boolean pokeballs = (numAleatorio<80 && numAleatorio1<80 && numAleatorio2<80);
+				
+				System.out.print("["); String cargando = "◯";
+				for(int i : numerosAleatorios) {
 					TimeUnit.SECONDS.sleep(1);
-					System.out.print(cargando.substring(0, 1));
+					if (i<80) {
+						System.out.print(cargando);
+					}
 				}
 				System.out.print("]\n");
-				
 				TimeUnit.SECONDS.sleep(2);
-				Random rand = new Random();
-				int numAleatorio = rand.nextInt(0,99);
-				int numAleatorio2 = rand.nextInt(0,99);
-				int numAleatorio3 = rand.nextInt(0,99);
 				
-				if (numAleatorio%2==0) {
+				if (media<=50 && pokeballs) {
 					System.out.println("Enhorabuena! lo has capturado");
 					TimeUnit.SECONDS.sleep(3);
 					return true;
-					
 				}else 
 					System.out.println("Oh no, la Pokéball no funcionó.");
 					TimeUnit.SECONDS.sleep(3);
 					return false;
+					
 			}
 			
 			if (seleccion != 'S' && seleccion != 'N')
@@ -126,10 +150,8 @@ public class Entrenador {
 		} while(seleccion != 'S' && seleccion != 'N');
 		
 		return false;
+		
 	}
-	
-	//Lanzar pokéball
-
 	
 	
 	
