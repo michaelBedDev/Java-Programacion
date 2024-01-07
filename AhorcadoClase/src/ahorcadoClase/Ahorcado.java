@@ -83,9 +83,12 @@ public class Ahorcado {
 						this.letrasJugadas[i] = letraEscogida;
 						break;
 					}
-					else {
-						
-					}
+					
+					/* for (char c : this.letrasJugadas){
+						if (this.letrasJugadas[c] == '\0')
+							this.letrasJugadas[c] = letraEscogida;
+						}
+						*/
 				}
 				
 				
