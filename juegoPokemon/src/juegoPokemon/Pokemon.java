@@ -41,7 +41,6 @@ public class Pokemon {
 	
 	
 	//Metodos
-	
 	public void asignarNombreAPokemon() {
 		String vacío = ""; String nombrePoke;
 

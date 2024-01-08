@@ -13,7 +13,7 @@ public class Menu {
 		int seleccion;
 		do {
 			System.out.println("[1] Iniciar aventura y crear equipo");
-			System.out.println("[2] Encontrarse con Pokemon Aleatorio");
+		//	System.out.println("[2] Encontrarse con Pokemon Aleatorio");
 			System.out.println("[3] Eliminar Pokemon por nombre");
 			System.out.println("[4] Eliminar Pokemon por posicion");
 			System.out.println("[5] Mostrar equipo Pokemon");
@@ -28,7 +28,7 @@ public class Menu {
 					trainer.crearEquipo();
 					break;
 				case 2:
-					trainer.encontrarPokemon();
+				//	trainer.encontrarPokemon();
 					break;
 				case 3:
 					trainer.eliminarPokemonNombre();

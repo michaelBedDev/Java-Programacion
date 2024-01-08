@@ -65,7 +65,7 @@ public class Entrenador {
 	
 	
 	
-	//Encontrarse con Pokemon Aleatorio
+	/*Encontrarse con Pokemon Aleatorio
 	public void encontrarPokemon() throws InterruptedException {
 		System.out.println("Un Pokemon salvaje ha aparecido!");
 		Pokemon Pokemon = new Pokemon();
@@ -152,6 +152,7 @@ public class Entrenador {
 		return false;
 		
 	}
+	*/
 	
 	
 	
