@@ -8,11 +8,10 @@ import java.util.concurrent.TimeUnit;
 public class Entrenador {
 
 	private String nombre;
+	private equipoPokemon [];
 	private Pokemon [] equipoPokemon = new Pokemon[5];
 	private Scanner sc;
 
-	
-	
 	
 	
 	//Constructores
@@ -20,28 +19,14 @@ public class Entrenador {
 	Entrenador(String nombre) {
 		this.nombre = nombre;
 	}
-	
+
 	
 	
 	
 	//Metodos
 	
-	//Asignar nombre a Entrenador
-	public void iniciarAventura() {
-		String nombre; String vacío ="";
-		System.out.println("Hola entrenador! Mi nombre es el prof.OAK");
-		System.out.println("Bienvenido al maravilloso mundo de los pokémon");
-		do {
-		System.out.println("Dime, cómo te llamas?");
-		sc = new Scanner(System.in);
-		nombre = sc.nextLine();
-		if (nombre == vacío)
-			System.out.println("Por favor, introduce un nombre");
-		} while (nombre == vacío);
-		this.nombre = nombre;
-		System.out.println("Fantástico! A partir de ahora te llamaré " + this.nombre);
-	}
-	
+	//Crear 5 equipos
+	public Pokemon [] crearEquipo
 	
 	//Crear equipo Pokemon
 	public Pokemon [] crearEquipo() {
@@ -57,6 +42,81 @@ public class Entrenador {
 		return equipoPokemon;
 	}
 	
+	//Agregar Pokémon
+	private void agregarPokemon(Pokemon poke) {
+		int seleccion;
+		do {
+			this.mostrarEquipo();
+			System.out.println("En qué posición quieres agregar el nuevo pokemon? [0-4]");
+			sc = new Scanner (System.in); 
+			seleccion = sc.nextInt();
+			this.equipoPokemon[seleccion] = poke;
+		} while (seleccion < 0 || seleccion > 4); 
+		System.out.println("Genial! " + poke.getNombre() + " te acompañará a partir de ahora en tu aventura.");
+	}
+	
+	public void agregarPokemonInicial(Pokemon poke) {
+		this.equipoPokemon[0] = poke;
+	}
+	
+	
+	
+	//Eliminar pokémon por posición
+	public void eliminarPokemonPosicion() throws InterruptedException {
+		int seleccion;
+		do {
+			this.mostrarEquipo();
+			System.out.println("En qué posición quieres eliminar el pokemon? [0-4]");
+			sc = new Scanner (System.in); 
+			seleccion = sc.nextInt();
+			this.equipoPokemon[seleccion] = null;
+		}while (seleccion < 0 || seleccion > 4); 
+		Menu.barraCargando();
+		System.out.println("Pokemon eliminado correctamente");
+	}
+	
+	
+	
+	//Eliminar Pokémon por nombre //ARREGLAR
+	public void eliminarPokemonNombre() throws InterruptedException {
+		String vacio = ""; int contador=0;
+		this.mostrarEquipo();
+		System.out.println("Introduce el nombre del pokémon a eliminar:");
+		sc = new Scanner(System.in);
+		String pokemonToEliminar = sc.nextLine();
+
+		for (Pokemon n : this.equipoPokemon)
+			if (n!=null) {
+				contador++;
+				if (n.getNombre().equals(pokemonToEliminar))
+					this.equipoPokemon[contador-1]= null;
+				Menu.barraCargando();
+				System.out.println("Pokemon eliminado correctamente");
+			}
+	}
+	
+	
+	//Mostrar equipo Pokémon
+	public void mostrarEquipo() {
+		System.out.println("Tu equipo pokémon actual es: ");
+		System.out.println();
+		for (Pokemon n : this.equipoPokemon)
+			if (n!=null) {
+				n.mostrarDatos();
+			}
+		System.out.println();
+	}
+	
+	public void asignarPokemonFusion(){
+		//AÑADIR
+	}
+	
+	
+	
+	public void mostrarTabla(Entrenador n) {
+		n.
+		
+	}
 	
 	
 	
@@ -64,7 +124,7 @@ public class Entrenador {
 	
 	
 	
-	
+
 	/*Encontrarse con Pokemon Aleatorio
 	public void encontrarPokemon() throws InterruptedException {
 		System.out.println("Un Pokemon salvaje ha aparecido!");
@@ -154,80 +214,21 @@ public class Entrenador {
 	}
 	*/
 	
-	
-	
-	//Agregar Pokémon
-	private void agregarPokemon(Pokemon poke) {
-		int seleccion;
-		do {
-			this.mostrarEquipo();
-			System.out.println("En qué posición quieres agregar el nuevo pokemon? [0-4]");
-			sc = new Scanner (System.in); 
-			seleccion = sc.nextInt();
-			this.equipoPokemon[seleccion] = poke;
-		} while (seleccion < 0 || seleccion > 4); 
-		System.out.println("Genial! " + poke.getNombre() + " te acompañará a partir de ahora en tu aventura.");
-	}
-	
-	public void agregarPokemonInicial(Pokemon poke) {
-		this.equipoPokemon[0] = poke;
-	}
-	
-	
-	
-	//Eliminar pokémon por posición
-	public void eliminarPokemonPosicion() throws InterruptedException {
-		int seleccion;
-		do {
-			this.mostrarEquipo();
-			System.out.println("En qué posición quieres eliminar el pokemon? [0-4]");
-			sc = new Scanner (System.in); 
-			seleccion = sc.nextInt();
-			this.equipoPokemon[seleccion] = null;
-		}while (seleccion < 0 || seleccion > 4); 
-		Menu.barraCargando();
-		System.out.println("Pokemon eliminado correctamente");
-	}
-	
-	
-	
-	//Eliminar Pokémon por nombre //ARREGLAR
-	public void eliminarPokemonNombre() throws InterruptedException {
-		String vacio = ""; int contador=0;
-		this.mostrarEquipo();
-		System.out.println("Introduce el nombre del pokémon a eliminar:");
-		sc = new Scanner(System.in);
-		String pokemonToEliminar = sc.nextLine();
-
-		for (Pokemon n : this.equipoPokemon)
-			if (n!=null) {
-				contador++;
-				if (n.getNombre().equals(pokemonToEliminar))
-					this.equipoPokemon[contador-1]= null;
-				Menu.barraCargando();
-				System.out.println("Pokemon eliminado correctamente");
-			}
-	}
-	
-	
-	//Mostrar equipo Pokémon
-	public void mostrarEquipo() {
-		System.out.println("Tu equipo pokémon actual es: ");
-		System.out.println();
-		for (Pokemon n : this.equipoPokemon)
-			if (n!=null) {
-				n.mostrarDatos();
-			}
-		System.out.println();
-	}
-	
-	public void asignarPokemonFusion(){
-		
-	}
-	
-	
-
-	
+	//Asignar nombre a Entrenador
+//	public void iniciarAventura() {
+//		String nombre; String vacío ="";
+//		System.out.println("Hola entrenador! Mi nombre es el prof.OAK");
+//		System.out.println("Bienvenido al maravilloso mundo de los pokémon");
+//		do {
+//		System.out.println("Dime, cómo te llamas?");
+//		sc = new Scanner(System.in);
+//		nombre = sc.nextLine();
+//		if (nombre == vacío)
+//			System.out.println("Por favor, introduce un nombre");
+//		} while (nombre == vacío);
+//		this.nombre = nombre;
+//		System.out.println("Fantástico! A partir de ahora te llamaré " + this.nombre);
+//	}
 	
 	
 	//Getters & Setters

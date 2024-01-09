@@ -82,7 +82,7 @@ public class Pokemon {
 		System.out.println("Nivel: " + this.nivel);
 	}
 	public void asignarPokemonFusion() {
-		
+		//AÑADIR
 	}
 	
 	

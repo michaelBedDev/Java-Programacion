@@ -18,14 +18,13 @@ public class Ejercicio4 {
 		for (int i = 0; i < cuadrado.length; i++) {
 			for (int j = 0; j < cuadrado[i].length; j++) {
 				cuadrado[i][j] = rand.nextInt(10, 100);
-				System.out.print(cuadrado[i][j] + " ");
 			}
-			System.out.println();
 		}
+		//Imprimir matriz
+		imprimirMatriz(cuadrado);
+		
 
-		System.out.println();
-
-		// Matriz2
+		// Cambiamos los elementos de la matriz
 		for (int i = 0; i < tamaño; i++) {
 			int temp = cuadrado[i][i];
 			cuadrado[i][i] = cuadrado[i][tamaño - 1 - i];
@@ -41,13 +40,14 @@ public class Ejercicio4 {
 	
 	
 	//Metodo imprimir Matriz
-	private static void imprimirMatriz(int[][] matriz) {
+	public static void imprimirMatriz(int[][] matriz) {
 		for (int i = 0; i < matriz.length; i++) {
 			for (int j = 0; j < matriz[i].length; j++) {
 				System.out.print(matriz[i][j] + " ");
 			}
 			System.out.println();
 		}
+		System.out.println();
 	}
 
 }

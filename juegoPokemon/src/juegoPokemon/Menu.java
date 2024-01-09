@@ -13,10 +13,10 @@ public class Menu {
 		int seleccion;
 		do {
 			System.out.println("[1] Iniciar aventura y crear equipo");
-		//	System.out.println("[2] Encontrarse con Pokemon Aleatorio");
-			System.out.println("[3] Eliminar Pokemon por nombre");
-			System.out.println("[4] Eliminar Pokemon por posicion");
-			System.out.println("[5] Mostrar equipo Pokemon");
+			System.out.println("[2] Eliminar Pokemon por nombre");
+			System.out.println("[3] Eliminar Pokemon por posicion");
+			System.out.println("[4] Mostrar equipo Pokemon");
+			System.out.println("[5] Tabla Equipos");
 			System.out.println("[6] Salir");
 	
 			seleccion = sc.nextInt();
@@ -24,20 +24,19 @@ public class Menu {
 			
 			switch (seleccion) {
 				case 1:
-					trainer.iniciarAventura();
 					trainer.crearEquipo();
 					break;
 				case 2:
-				//	trainer.encontrarPokemon();
-					break;
-				case 3:
 					trainer.eliminarPokemonNombre();
 					break;
-				case 4:
+				case 3:
 					trainer.eliminarPokemonPosicion();
 					break;
-				case 5:
+				case 4:
 					trainer.mostrarEquipo();
+					break;
+				case 5:
+			
 					break;
 				case 6:
 					dibujoPikachu();
@@ -58,20 +57,24 @@ public class Menu {
 	private static void tester(Entrenador trainer) {
 		System.out.println("Modo Tester Activado");
 		System.out.println();
-
+		System.out.println("[1] Encontrarse con Pokemon Aleatorio");
+		System.out.println("[2] Encontrarse con Pokemon Aleatorio");
+		System.out.println("[3] Iniciar Aventura");
 		
 		sc = new Scanner(System.in);
 		int seleccion = sc.nextInt();
 		System.out.println();
 		switch (seleccion) {
 			case 1:
+				//trainer.encontrarPokemon();
+				break;
+			case 2:
 				for (Pokemon n : trainer.getEquipoPokemon())
 					if (n!=null)
 						n.asignarNombreAPokemon();;
 				break;
-			case 2:
-				break;
 			case 3:
+				//trainer.iniciarAventura();
 				break;
 			case 4:
 				break;
@@ -79,6 +82,10 @@ public class Menu {
 				break;
 		}	
 	}
+	
+	
+	
+	
 	
 	public static void barraCargando() throws InterruptedException {
 		String cargando = "♦♦♦♦♦♦♦♦♦";
@@ -89,14 +96,6 @@ public class Menu {
 		}
 		System.out.print("]\n");
 	}
-
-
-
-	
-	
-	
-	
-	
 	
 	
 	
