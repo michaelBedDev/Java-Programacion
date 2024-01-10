@@ -13,7 +13,6 @@ public class App {
 		Menu.dibujoInicial();
 		menu.seleccionarAccion(trainer);
 		
-
 	}
 
 }

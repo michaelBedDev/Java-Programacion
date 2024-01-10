@@ -11,7 +11,7 @@ public class Pokemon {
 	private int vida;
 	private int vidaMaxima = 100;
 	private int nivel = 1;
-	
+	private Pokemon pokefusion; //es fusionable con otro, referencia
 	
 	//Constructores
 	Pokemon(){
@@ -56,7 +56,6 @@ public class Pokemon {
 	}
 	
 	
-	
 	public void sanarTotalmente() {
 		setVida(100);
 	}
@@ -81,12 +80,12 @@ public class Pokemon {
 		System.out.println("Vida Maxima: " + this.vidaMaxima);
 		System.out.println("Nivel: " + this.nivel);
 	}
-	public void asignarPokemonFusion() {
-		//AÑADIR
+	
+	//
+	private void asignarPokemonFusion() {
+		
 	}
-	
-	
-	
+
 	
 	
 	//Getters & Setters
@@ -120,5 +119,11 @@ public class Pokemon {
 	}
 	public void setVida(int vida) {
 		this.vida = vida;
+	}
+	public Pokemon getPokefusion() {
+		return pokefusion;
+	}
+	public void setPokefusion(Pokemon pokefusion) {
+		this.pokefusion = pokefusion;
 	}
 }

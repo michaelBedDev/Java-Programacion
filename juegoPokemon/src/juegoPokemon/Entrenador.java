@@ -1,18 +1,13 @@
 package juegoPokemon;
 
-import java.util.Random;
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.concurrent.TimeUnit;
 
 public class Entrenador {
 
 	private String nombre;
-	private equipoPokemon [];
 	private Pokemon [] equipoPokemon = new Pokemon[5];
 	private Scanner sc;
 
-	
 	
 	//Constructores
 	Entrenador() {}
@@ -24,9 +19,8 @@ public class Entrenador {
 	
 	
 	//Metodos
-	
-	//Crear 5 equipos
-	public Pokemon [] crearEquipo
+		
+		
 	
 	//Crear equipo Pokemon
 	public Pokemon [] crearEquipo() {
@@ -75,9 +69,7 @@ public class Entrenador {
 		System.out.println("Pokemon eliminado correctamente");
 	}
 	
-	
-	
-	//Eliminar Pokémon por nombre //ARREGLAR
+	//Eliminar Pokémon por nombre 
 	public void eliminarPokemonNombre() throws InterruptedException {
 		String vacio = ""; int contador=0;
 		this.mostrarEquipo();
@@ -95,7 +87,6 @@ public class Entrenador {
 			}
 	}
 	
-	
 	//Mostrar equipo Pokémon
 	public void mostrarEquipo() {
 		System.out.println("Tu equipo pokémon actual es: ");
@@ -107,129 +98,117 @@ public class Entrenador {
 		System.out.println();
 	}
 	
-	public void asignarPokemonFusion(){
-		//AÑADIR
-	}
 	
-	
-	
-	public void mostrarTabla(Entrenador n) {
-		n.
+	//Pokefusion
+	public void asignarPokemonFusion() throws InterruptedException{
+		String vacio = ""; int contador=0;
+		this.mostrarEquipo();
+		System.out.println("Introduce el nombre del pokémon a fusionar:");
+		sc = new Scanner(System.in);
+		String pokemonToFusionar = sc.nextLine();
+		System.out.println("Introduce el nombre del otro pokémon a fusionar:");
+		String pokemonToFusionar2 = sc.nextLine();
 		
+		Menu.barraCargando();
+		System.out.println("Ups! Parece que no funcionó. Estamos en proceso");
+		
+//		for (int i = 0; i < this.equipoPokemon.length; i++){
+//				if (equipoPokemon[i].equals(pokemonToFusionar))
+//					this.equipoPokemon[i]= null;
+//				else {System.out.println("El nombre escrito no ha sido correcto");}
+//				Menu.barraCargando();
 	}
 	
 	
 	
 	
-	
-	
-	
+	public void crearTabla() {
+		
+		Entrenador N = new Entrenador("N");
+		generarPokemon(N);
+		Entrenador Misty = new Entrenador("Misty");
+		generarPokemon(Misty);
+		Entrenador Brock = new Entrenador("Brock");
+		generarPokemon(Brock);
+		Entrenador Lance = new Entrenador("Lance");
+		generarPokemon(Lance);
+		Entrenador Cintia = new Entrenador("Cintia");
+		generarPokemon(Cintia);
+		
+		Entrenador [] listaEntrenadores = {N, Misty, Brock, Lance, Cintia};
+		
+		Pokemon [][] listaPokemon = new Pokemon [5][4];
+		listaPokemon[0] = N.equipoPokemon;
+		listaPokemon[1] = Misty.equipoPokemon;
+		listaPokemon[2] = Brock.equipoPokemon;
+		listaPokemon[3] = Lance.equipoPokemon;
+		listaPokemon[4] = Cintia.equipoPokemon;
+		
+		
+		int contadorTipos [][] = new int [5][4];
+		int contadorSquirtle = 0;int contadorBulbasaur = 0;int contadorCharmander = 0;int contadorPikachu = 0;	
 
-	/*Encontrarse con Pokemon Aleatorio
-	public void encontrarPokemon() throws InterruptedException {
-		System.out.println("Un Pokemon salvaje ha aparecido!");
-		Pokemon Pokemon = new Pokemon();
-		System.out.println("Es un " + Pokemon.getTipo());
-		System.out.println("Deseas capturarlo? [S/N]");
-		int intentosMaximos = 3;
 		
-		for (int i = 0; i<intentosMaximos; i++) {
-			if (capturarPokemon()) {
-				Pokemon.asignarNombreAPokemon();
-				TimeUnit.SECONDS.sleep(2);
-				agregarPokemon(Pokemon);
+		for (int i = 0; i < listaPokemon.length; i++) {
+			for(int j = 0; j < listaPokemon[i].length; j++) {
+				if (listaPokemon[i][j].getTipo()== TipoPokemon.SQUIRTLE) {
+					contadorSquirtle++;
+				}
+				else if (listaPokemon[i][j].getTipo()== TipoPokemon.BULBASAUR) {
+					contadorBulbasaur++;				}
+				else if (listaPokemon[i][j].getTipo()== TipoPokemon.CHARMANDER) {
+					contadorCharmander++;				}
+				else if (listaPokemon[i][j].getTipo()== TipoPokemon.PIKACHU) {
+					contadorPikachu++;				}
 			}
-			//ARREGLAR
-			else 
-				System.out.println("Deseas usar otra pokeball?");
-			char seleccion;
-			Scanner sc = new Scanner(System.in);
-			seleccion = sc.next().toUpperCase().charAt(0);
-			do {
-					if (seleccion == 'N')
-						i=3;
-						
-				if (seleccion != 'S' && seleccion != 'N')
-					System.out.println("Por favor, introduce una de las opciones [S/N]");
-			} while(seleccion != 'S' && seleccion != 'N');
+			
+			contadorTipos[i][0] = contadorSquirtle;
+			contadorTipos[i][1] = contadorBulbasaur;
+			contadorTipos[i][2] = contadorCharmander;
+			contadorTipos[i][3] = contadorPikachu;
+			
+			contadorSquirtle = 0;
+			contadorBulbasaur = 0;
+			contadorCharmander = 0;
+			contadorPikachu = 0;	
+		}
+		
+		
+		System.out.println("\t\t  Squirtle\t Bulbasaur\tCharmander\t   Pikachu");
+		for(int i = 0; i < contadorTipos.length; i++) {
+			System.out.printf("Equipo %s: ", listaEntrenadores[i].getNombre());
+			for (int j = 0; j < contadorTipos[i].length; j++) {
+				System.out.print("\t\t" + contadorTipos[i][j]);
+			}
+			System.out.println();
+		}
+		
+		
+	}
+	
+	private void generarPokemon(Entrenador n) {
+		for(int i =0; i <5; i++) {
+			Pokemon Pokemon = new Pokemon();
+			n.equipoPokemon[i] = Pokemon;
 		}
 	}
 	
-
-
 	
-	
-	//ARREGLAR PARA CUANDO FALLE LA POKEBALL //REVISAR
-	//Capturar pokémon
-	private boolean capturarPokemon() throws InterruptedException {
-		sc = new Scanner(System.in);
-		char seleccion;
+	//iniciarAventura
+	public void iniciarAventura() {
+		String nombre; String vacío ="";
+		System.out.println("Hola entrenador! Mi nombre es el prof.OAK");
+		System.out.println("Bienvenido al maravilloso mundo de los pokémon");
 		do {
-			seleccion = sc.next().toUpperCase().charAt(0);
-			if (seleccion == 'S'){
-				
-				System.out.println("Lanzando pokéball");
-				TimeUnit.MILLISECONDS.sleep(500);
-				
-				Random rand = new Random();
-				int numAleatorio = rand.nextInt(0,101);
-				int numAleatorio1 = rand.nextInt(0,101);
-				int numAleatorio2 = rand.nextInt(0,101);
-				
-				int numerosAleatorios [] = new int [3];
-				numerosAleatorios[0] = numAleatorio;
-				numerosAleatorios[1] = numAleatorio1;
-				numerosAleatorios[2] = numAleatorio2;
-				
-				float media = (numAleatorio+numAleatorio1+numAleatorio2)/3;
-				boolean pokeballs = (numAleatorio<80 && numAleatorio1<80 && numAleatorio2<80);
-				
-				System.out.print("["); String cargando = "◯";
-				for(int i : numerosAleatorios) {
-					TimeUnit.SECONDS.sleep(1);
-					if (i<80) {
-						System.out.print(cargando);
-					}
-				}
-				System.out.print("]\n");
-				TimeUnit.SECONDS.sleep(2);
-				
-				if (media<=50 && pokeballs) {
-					System.out.println("Enhorabuena! lo has capturado");
-					TimeUnit.SECONDS.sleep(3);
-					return true;
-				}else 
-					System.out.println("Oh no, la Pokéball no funcionó.");
-					TimeUnit.SECONDS.sleep(3);
-					return false;
-					
-			}
-			
-			if (seleccion != 'S' && seleccion != 'N')
-				System.out.println("Por favor, introduce una de las opciones [S/N]");
-		} while(seleccion != 'S' && seleccion != 'N');
-		
-		return false;
-		
+		System.out.println("Dime, cómo te llamas?");
+		sc = new Scanner(System.in);
+		nombre = sc.nextLine();
+		if (nombre == vacío)
+			System.out.println("Por favor, introduce un nombre");
+		} while (nombre == vacío);
+		this.nombre = nombre;
+		System.out.println("Fantástico! A partir de ahora te llamaré " + this.nombre);
 	}
-	*/
-	
-	//Asignar nombre a Entrenador
-//	public void iniciarAventura() {
-//		String nombre; String vacío ="";
-//		System.out.println("Hola entrenador! Mi nombre es el prof.OAK");
-//		System.out.println("Bienvenido al maravilloso mundo de los pokémon");
-//		do {
-//		System.out.println("Dime, cómo te llamas?");
-//		sc = new Scanner(System.in);
-//		nombre = sc.nextLine();
-//		if (nombre == vacío)
-//			System.out.println("Por favor, introduce un nombre");
-//		} while (nombre == vacío);
-//		this.nombre = nombre;
-//		System.out.println("Fantástico! A partir de ahora te llamaré " + this.nombre);
-//	}
-	
 	
 	//Getters & Setters
 	public Pokemon[] getEquipoPokemon() {

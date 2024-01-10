@@ -17,13 +17,15 @@ public class Menu {
 			System.out.println("[3] Eliminar Pokemon por posicion");
 			System.out.println("[4] Mostrar equipo Pokemon");
 			System.out.println("[5] Tabla Equipos");
-			System.out.println("[6] Salir");
+			System.out.println("[6] Fusionar Pokémon");
+			System.out.println("[7] Salir");
 	
 			seleccion = sc.nextInt();
 			sc.nextLine();
 			
 			switch (seleccion) {
 				case 1:
+					trainer.iniciarAventura();
 					trainer.crearEquipo();
 					break;
 				case 2:
@@ -36,15 +38,15 @@ public class Menu {
 					trainer.mostrarEquipo();
 					break;
 				case 5:
-			
+					trainer.crearTabla();
 					break;
 				case 6:
+					trainer.asignarPokemonFusion();
+					break;
+				case 7:
 					dibujoPikachu();
 					System.out.println("Hasta Pronto!!");
 					System.out.println();
-					break;
-				case 99:
-					Menu.tester(trainer);
 					break;
 			}
 			if (seleccion < 1 || seleccion >6) {
@@ -52,35 +54,6 @@ public class Menu {
 				System.out.println();
 			}
 		} while (seleccion < 1 || seleccion >6);
-	}
-	
-	private static void tester(Entrenador trainer) {
-		System.out.println("Modo Tester Activado");
-		System.out.println();
-		System.out.println("[1] Encontrarse con Pokemon Aleatorio");
-		System.out.println("[2] Encontrarse con Pokemon Aleatorio");
-		System.out.println("[3] Iniciar Aventura");
-		
-		sc = new Scanner(System.in);
-		int seleccion = sc.nextInt();
-		System.out.println();
-		switch (seleccion) {
-			case 1:
-				//trainer.encontrarPokemon();
-				break;
-			case 2:
-				for (Pokemon n : trainer.getEquipoPokemon())
-					if (n!=null)
-						n.asignarNombreAPokemon();;
-				break;
-			case 3:
-				//trainer.iniciarAventura();
-				break;
-			case 4:
-				break;
-			default:
-				break;
-		}	
 	}
 	
 	
