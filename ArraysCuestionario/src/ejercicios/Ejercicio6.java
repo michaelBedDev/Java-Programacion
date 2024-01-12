@@ -16,3 +16,4 @@ public class Ejercicio6 {
 	    }
 		     return lista[lista.length -1- k];
 		}
+}
