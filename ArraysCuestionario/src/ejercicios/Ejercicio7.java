@@ -1,9 +1,9 @@
 package ejercicios;
 
-public class Ejercicio6 {
+public class Ejercicio7 {
 
-	public static int kthLargest(int k, int [] lista){
-		int temp = 0;
+	public double median(double [] lista){
+		double temp = 0;
 	    //ORDENAR
 	    for (int i = 0; i < lista.length; i++) {
 	        for (int j = 1; j < (lista.length - i); j++) {
@@ -14,5 +14,7 @@ public class Ejercicio6 {
 	            }
 	        }
 	    }
-		     return lista[lista.length -1- k];
-		}
+	    
+	    return ((lista[0]+lista[lista.length-1]))/2;
+	}
+}
