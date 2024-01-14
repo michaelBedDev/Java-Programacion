@@ -11,11 +11,10 @@ public class Ejercicio8 {
 				contador++;
 			}
 		}
-		return (contador / lista.length) * 100;
-	}
-	
-	
-	public static void main(String[] args) {
-		percentEven(new int[]{6, 2, 9, 11, 3});
+		if (contador != 0) {
+			return contador * 100 / lista.length;
+		}
+
+		return 0;
 	}
 }
