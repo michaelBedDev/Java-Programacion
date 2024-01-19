@@ -1,6 +1,6 @@
 package sobrecargaSobreescritura;
 
-public class App {
+public class Explicación {
 	
 		public static void main(String[] args) {
 			Hijo.sobreEscritura("Se bienvenido ", "Pablo");
