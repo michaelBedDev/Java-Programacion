@@ -2,54 +2,47 @@ package sobrecargaSobreescritura.ejercicio3;
 
 public class Menu {
 
-	
-
-
-
 	public void seleccionarAccion(Hotel hotel) {
-		
-		Usuario user = new Usuario();
-		
-		do {
 
-			accionARealizarSwitch(hotel, user);
-		} while (user.inputSeleccionar()!= 99);
+		Usuario user = new Usuario();
+
+		int seleccion;
+		do {
+			seleccion = accionARealizarSwitch(hotel, user);
+		} while (seleccion != 99);
 	}
 
-
-
-
-	private void accionARealizarSwitch(Hotel hotel, Usuario user) {
+	private int accionARealizarSwitch(Hotel hotel, Usuario user) {
 		this.imprimirOpciones();
-		
-		switch (user.inputSeleccionar()) {
+
+		int seleccion = user.inputSeleccionar();
+		switch (seleccion) {
 		case 1:
 			hotel.mostrarPerros();
 			break;
 		case 2:
 			Perro perroCreado = new Perro();
-			user.adoptarPerro(perroCreado);
-			hotel.registrarPerro(perroCreado);
+			hotel.registrarPerro(user.adoptarPerro(perroCreado));
 			break;
 		case 3:
-			//alimentar perro
+			hotel.alimentarPerros();
+			break;
 		case 4:
-			//sacar patio
-		
-			
-			
+			hotel.sacarPatio();
+			break;
+		case 99:
+			System.out.println("Gracias! Hasta luego");
 		}
-		
-		if (user.inputSeleccionar() < 1 || user.inputSeleccionar() > 7) {
+
+		if ((seleccion < 1 || seleccion > 4) && seleccion != 99) {
 			System.out.println("Por favor, introduce una de las opciones");
 			System.out.println();
-		
+
 		}
+
+		return seleccion;
 	}
-	
-	
-	
-	
+
 	private void imprimirOpciones() {
 		System.out.println("[1] Mostrar Perros");
 		System.out.println("[2] \"Adoptar\" Perro");

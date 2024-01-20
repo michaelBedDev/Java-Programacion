@@ -6,8 +6,7 @@ public class App {
 		Menu menu = new Menu();
 		Hotel hotel = new Hotel();
 		menu.seleccionarAccion(hotel);
-		
+
 	}
-	
-	
+
 }

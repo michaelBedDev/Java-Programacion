@@ -3,11 +3,8 @@ package sobrecargaSobreescritura.ejercicio3;
 public class PerroEspecial extends Perro {
 
 	private tipoPerro tipo;
-	
-	
-	
-	
-	//Constructores
+
+	// Constructores
 	public PerroEspecial(tipoPerro tipo) {
 		super();
 		this.setTipo(tipo);
@@ -18,36 +15,21 @@ public class PerroEspecial extends Perro {
 		this.setTipo(tipo);
 	}
 
-	
-	
-	//Metodos
-	private void alimentarEspecial(int comida) {
-		this.peso += comida;
-		//+ peso + comida - peso - comida alimentar todos nueva clase perro especial
-		
-	}
+	// Metodos
 
-	
-	
-	
-	
-	
-	
-	//Getters & Setters
+	// Getters & Setters
 	public tipoPerro getTipo() {
 		return tipo;
-		
+
 	}
 
 	public void setTipo(tipoPerro tipo) {
 		this.tipo = tipo;
-		
+
 	}
-	
-	
-	
+
 }
 
-enum tipoPerro{
+enum tipoPerro {
 	Delgado, Gordo
 }
