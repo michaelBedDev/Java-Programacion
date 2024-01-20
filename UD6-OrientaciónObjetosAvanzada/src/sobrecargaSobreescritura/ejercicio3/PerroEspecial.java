@@ -13,9 +13,9 @@ public class PerroEspecial extends Perro {
 		this.setTipo(tipo);
 	}
 
-	public PerroEspecial(String nombre, double peso, String color) {
+	public PerroEspecial(String nombre, double peso, String color, tipoPerro tipo) {
 		super(nombre, peso, color);
-		//TODO Auto-generated constructor stub
+		this.setTipo(tipo);
 	}
 
 	
