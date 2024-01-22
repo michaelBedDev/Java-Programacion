@@ -1,8 +1,9 @@
 package clasesAbstractas;
 
 
-//Lo unico que limita una clase abstracta es crear objetos de la clase
+//Lo unico que limita una clase abstracta es crear objetos de la clase. Puede incluir métodos abstractos o no.
 //Con abstract obligamos a que los métodos abstractos sean sobreescritos de forma obligatoria.
+//Si está escrito un método abstracto es necesario que la clase sea declarada abstracta.
 
 
 abstract class Empleado {
