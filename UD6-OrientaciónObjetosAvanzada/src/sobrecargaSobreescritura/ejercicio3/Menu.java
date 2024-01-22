@@ -17,29 +17,26 @@ public class Menu {
 
 		int seleccion = user.inputSeleccionar();
 		switch (seleccion) {
-		case 1:
-			hotel.mostrarPerros();
-			break;
-		case 2:
-			Perro perroCreado = new Perro();
-			hotel.registrarPerro(user.adoptarPerro(perroCreado));
-			break;
-		case 3:
-			hotel.alimentarPerros();
-			break;
-		case 4:
-			hotel.sacarPatio();
-			break;
-		case 99:
-			System.out.println("Gracias! Hasta luego");
+			case 1:
+				hotel.mostrarPerros();
+				break;
+			case 2:
+				Perro perroCreado = new Perro();
+				hotel.registrarPerro(user.adoptarPerro(perroCreado));
+				break;
+			case 3:
+				hotel.alimentarPerros();
+				break;
+			case 4:
+				hotel.sacarPatio();
+				break;
+			case 99:
+				System.out.println("Gracias! Hasta luego");
 		}
-
 		if ((seleccion < 1 || seleccion > 4) && seleccion != 99) {
 			System.out.println("Por favor, introduce una de las opciones");
 			System.out.println();
-
 		}
-
 		return seleccion;
 	}
 

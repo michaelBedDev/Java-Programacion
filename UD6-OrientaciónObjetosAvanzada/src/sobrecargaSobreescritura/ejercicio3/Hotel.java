@@ -21,8 +21,8 @@ public class Hotel {
 			if (p != null) {
 				if (p instanceof PerroEspecial) {
 					switch (((PerroEspecial) p).getTipo()) {
-					case Delgado -> p.setPeso(p.getPeso() + 1.0);
-					case Gordo -> p.setPeso(p.getPeso() + 0.1);
+						case Delgado -> p.setPeso(p.getPeso() + 1.0);
+						case Gordo -> p.setPeso(p.getPeso() + 0.1);
 					}
 				} else {
 					p.setPeso(p.getPeso() + 0.5);
@@ -41,6 +41,7 @@ public class Hotel {
 		}
 		Perro.setPesoTotalperros(Perro.getPesoTotalperros() - Perro.getContadorPerros() * 0.5);
 
+		this.actualizarPesoPerros();
 		this.mostrarInfoPerros();
 	}
 
@@ -68,7 +69,6 @@ public class Hotel {
 				break;
 			}
 		}
-
 		if (completo) {
 			System.err.println("Hotel completo. No se ha registrado al perro.\n");
 			Perro.contadorPerros--;
