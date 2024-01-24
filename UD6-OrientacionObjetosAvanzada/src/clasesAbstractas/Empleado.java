@@ -13,8 +13,8 @@ package clasesAbstractas;
 //clase abstract obliga a tener herencia para que se implementen sus métodos. Los hijos pueden ejecutar sus métodos no abstractos.
 //Los metodos abstract son sobreescritos obligatoriamente al heredar.
 
-//clase estática no puede ser instanciada. en las clases estáticas no se pueden añadir interfaces.
-
+//clase estática???? no puede ser instanciada. en las clases estáticas no se pueden añadir interfaces.
+//existen clases estáticas?
 
 abstract class Empleado {
 	String nombre;
