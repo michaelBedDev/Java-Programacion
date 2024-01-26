@@ -7,6 +7,7 @@ public class CentroCultural {
 	private Libro[] almacenamientoLibros = new Libro[15];
 	private Disco[] almacenamientoDiscos = new Disco[15];
 	
+	private MaterialAGuardar[][] localizacion = {almacenamientoLibros, almacenamientoDiscos};
 	
 	
 //Constructores
@@ -23,12 +24,13 @@ public class CentroCultural {
 
 
 	//Metodos
-	public void altaCliente() {
+	public void altaCliente(UsuarioCentroCultural user) {
+		System.out.println(user.inputAltaCliente().toString());
 		
 	}
 	
-	public void altaMaterial() {
-		
+	public void altaMaterial(UsuarioCentroCultural user) {
+		asignarLocalizacionMaterial(user.inputAltaMateriales());
 	}
 	
 	 public void prestarMaterial() {
@@ -42,7 +44,28 @@ public class CentroCultural {
 	public void compararLibros() {
 		
 	}
+	
+	private void asignarLocalizacionMaterial(MaterialAGuardar material) {
+		if (material instanceof Disco) {
+			for (int i = 0; i < almacenamientoDiscos.length; i++) {
+				if (almacenamientoDiscos[i] != null) {
+					almacenamientoDiscos[i] = (Disco) material;
+					break;
+				}
+			}
+		}
+		if (material instanceof Libro) {
+			for (int i = 0; i < almacenamientoLibros.length; i++) {
+				if (almacenamientoLibros[i] != null) {
+					almacenamientoLibros[i] = (Libro) material;
+					break;
+				}
+			}
+		}
+	}
 
+	//mostrar localizacion
+	
 //Getters & Setters
 	public Cliente[] getListaClientes() {
 		return listaClientes;

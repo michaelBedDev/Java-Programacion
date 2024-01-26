@@ -1,7 +1,7 @@
 package centroCultural;
 
 import java.util.Scanner;
-
+import plantillas.Usuario;
 import validaciones.ValidarDNI;
 
 public class UsuarioCentroCultural extends Usuario {
@@ -17,6 +17,10 @@ public class UsuarioCentroCultural extends Usuario {
 		return c;
 	}
 
+	
+	
+	
+	
 	public MaterialAGuardar inputAltaMateriales() {
 		this.sc = new Scanner(System.in);
 
@@ -24,35 +28,60 @@ public class UsuarioCentroCultural extends Usuario {
 		String input = sc.nextLine().toLowerCase();
 
 		do {
-			// Revisar lógica con openAI
+			// Revisar lógica
 			if (!(input.equals("libro") || input.equals("disco"))) {
 				System.out.println("Por favor, introduce alguna de las opciones");
 			}
 		} while (input != "libro" && input != "disco");
 
+		MaterialAGuardar nuevo = new MaterialAGuardar();
 		switch (input) {
-			case "disco" -> inputAltaDisco();
-			
-			//return. varias operacies con lambda?
-
-			case "libro" -> inputAltaLibro();
+			case "disco" -> nuevo = inputAltaDisco((Disco) inputAltaMaterial(nuevo = new Disco()));
+			case "libro" -> nuevo = inputAltaLibro((Libro) inputAltaMaterial(nuevo = new Libro()));
 		}
+		return nuevo;
 	}
 
-	Disco(String infoGeneral, int numId, String titulo, String localizacion, String autor, String nombreDiscografica) {
- Libro(String infoGeneral, int numId, String titulo, String localizacion, String autor, int numPaginas) {			
-		}
-		
-		
-		return null;
-		
+	
+	
+	
+	
+	
+	
+	
+	private MaterialAGuardar inputAltaMaterial(MaterialAGuardar nuevo) {
+
+		this.sc = new Scanner(System.in);
+		System.out.println("Introduce la información general");
+		nuevo.setInfoGeneral(sc.nextLine());
+		System.out.println("Introduce el título");
+		nuevo.setTitulo(sc.nextLine());
+		System.out.println("Introduce el autor");
+		nuevo.setAutor(sc.nextLine());
+
+		return nuevo;
+	}
+
+	private Disco inputAltaDisco(Disco nuevo) {
+		System.out.println("Introduce la discráfica");
+		nuevo.setNombreDiscografica(sc.nextLine());
+		return nuevo;
+
+	}
+
+	private Libro inputAltaLibro(Libro nuevo) {
+
+		System.out.println("Introduce el número de páginas del libro");
+		nuevo.setNumPaginas(Integer.parseInt(sc.nextLine()));
+		return nuevo;
+
 	}
 
 	private void introducirNombre(Cliente c) {
 		do {
 			System.out.println("Introduzca su nombre: ");
 			c.setNombre(sc.nextLine());
-		} while (c.getNombre() != ""); // Se repetirá si es una cadena vacía
+		} while (c.getNombre() == ""); // Se repetirá si es una cadena vacía
 	}
 
 	private void introducirDNI(Cliente c) {

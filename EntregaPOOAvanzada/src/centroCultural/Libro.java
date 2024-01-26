@@ -10,8 +10,8 @@ public class Libro extends MaterialAGuardar {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Libro(String infoGeneral, int numId, String titulo, String localizacion, String autor, int numPaginas) {
-		super(infoGeneral, numId, titulo, localizacion, autor);
+	public Libro(String infoGeneral, int numId, String titulo, int[][] localizacion, String autor, int numPaginas) {
+		super(infoGeneral, numId, titulo, autor);
 		this.numPaginas = numPaginas;
 	}
 

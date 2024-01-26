@@ -1,4 +1,4 @@
-package centroCultural;
+package plantillas;
 
 import java.util.Scanner;
 

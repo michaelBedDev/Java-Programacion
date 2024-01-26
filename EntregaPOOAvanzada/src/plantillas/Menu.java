@@ -1,4 +1,7 @@
-package centroCultural;
+package plantillas;
+
+import centroCultural.CentroCultural;
+
 
 public class Menu {
 

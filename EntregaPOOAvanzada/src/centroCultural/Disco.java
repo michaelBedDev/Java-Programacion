@@ -2,7 +2,6 @@ package centroCultural;
 
 public class Disco extends MaterialAGuardar{
 
-
 	private String nombreDiscografica;
 	
 	
@@ -12,13 +11,11 @@ public class Disco extends MaterialAGuardar{
 	}
 	
 	
-	public Disco(String infoGeneral, int numId, String titulo, String localizacion, String autor, String nombreDiscografica) {
-		super(infoGeneral, numId, titulo, localizacion, autor);
+	public Disco(String infoGeneral, int numId, String titulo, int[][] localizacion, String autor, String nombreDiscografica) {
+		super(infoGeneral, numId, titulo, autor);
 		this.nombreDiscografica = nombreDiscografica;
 	}
 
-
-	
 
 
 

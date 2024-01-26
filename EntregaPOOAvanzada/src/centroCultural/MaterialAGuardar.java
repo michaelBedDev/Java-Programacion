@@ -1,11 +1,10 @@
 package centroCultural;
 
-public abstract class MaterialAGuardar {
+public class MaterialAGuardar {
 
 	protected String infoGeneral;
 	protected int numId;
 	protected String titulo;
-	protected String localizacion;
 	protected String autor;
 	
 	
@@ -14,12 +13,11 @@ public abstract class MaterialAGuardar {
 		//TODO Auto-generated constructor stub
 	}
 	
-	 public MaterialAGuardar(String infoGeneral, int numId, String titulo, String localizacion, String autor) {
+	 public MaterialAGuardar(String infoGeneral, int numId, String titulo, String autor) {
 		super();
 		this.infoGeneral = infoGeneral;
 		this.numId = numId;
 		this.titulo = titulo;
-		this.localizacion = localizacion;
 		this.autor = autor;
 	}
 
@@ -61,17 +59,7 @@ public abstract class MaterialAGuardar {
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-
-
-	public String getLocalizacion() {
-		return localizacion;
-	}
-
-
-	public void setLocalizacion(String localizacion) {
-		this.localizacion = localizacion;
-	}
-
+	
 
 	public String getAutor() {
 		return autor;
