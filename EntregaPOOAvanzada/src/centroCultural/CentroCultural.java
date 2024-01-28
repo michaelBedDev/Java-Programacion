@@ -1,76 +1,212 @@
 package centroCultural;
 
-public class CentroCultural {
+public class CentroCultural implements plantillas.IClasePrincipal {
 
-	private Cliente[] listaClientes = new Cliente[5];
-	
+	private Cliente[] listaClientes = new Cliente[5];// ????????????????
+
 	private Libro[] almacenamientoLibros = new Libro[15];
 	private Disco[] almacenamientoDiscos = new Disco[15];
-	
-	private MaterialAGuardar[][] localizacion = {almacenamientoLibros, almacenamientoDiscos};
-	
-	
+
+	private MaterialAGuardar[][] localizacion = { almacenamientoLibros, almacenamientoDiscos };
+
 //Constructores
 	public CentroCultural() {
-		//TODO Auto-generated constructor stub
+		// TODO Auto-generated constructor stub
+		asignarObjetosPorDefecto();
 	}
-	
+
 	public CentroCultural(Cliente[] listaClientes, Libro[] almacenamientoLibros, Disco[] almacenamientoDiscos) {
 		super();
 		this.listaClientes = listaClientes;
 		this.almacenamientoLibros = almacenamientoLibros;
 		this.almacenamientoDiscos = almacenamientoDiscos;
+		asignarObjetosPorDefecto();
 	}
 
-
-	//Metodos
+	// Metodos
 	public void altaCliente(UsuarioCentroCultural user) {
 		System.out.println(user.inputAltaCliente().toString());
-		
+
 	}
-	
+
 	public void altaMaterial(UsuarioCentroCultural user) {
-		asignarLocalizacionMaterial(user.inputAltaMateriales());
+
+		MaterialAGuardar temp = new MaterialAGuardar();
+		temp = user.inputAltaMateriales();
+		asignarCodigoMaterial(temp);
+		asignarLocalizacionMaterial(temp);
+		asignarToString(temp);
+
 	}
-	
-	 public void prestarMaterial() {
-		
+
+	public void prestarMaterial() {
+
 	}
-	 
+
 	public void consultarPrestamo() {
-		
+
 	}
-	
-	public void compararLibros() {
-		
+
+	public void compararLibros(UsuarioCentroCultural user) {
+		mostrarLibros();
+		int libro1 = user.introducirCodigoLibroComparar();
+		int libro2 = user.introducirCodigoLibroComparar();
+
+		compararLibros(libro1, libro2);
+
 	}
-	
+
+	public void verLocalizacionMaterial(UsuarioCentroCultural user) {
+		mostrarMateriales();
+		dondeColocarMaterial(user.introducirCodigoMaterial());
+	}
+
+	// asignar localizacion a material
 	private void asignarLocalizacionMaterial(MaterialAGuardar material) {
 		if (material instanceof Disco) {
 			for (int i = 0; i < almacenamientoDiscos.length; i++) {
-				if (almacenamientoDiscos[i] != null) {
+				if (almacenamientoDiscos[i] == null) {
 					almacenamientoDiscos[i] = (Disco) material;
+					material.localizacionEstanteria = 1;
+					material.localizacionAltura = i + 1;
 					break;
 				}
 			}
-		}
-		if (material instanceof Libro) {
+		} else if (material instanceof Libro) {
 			for (int i = 0; i < almacenamientoLibros.length; i++) {
-				if (almacenamientoLibros[i] != null) {
+				if (almacenamientoLibros[i] == null) {
 					almacenamientoLibros[i] = (Libro) material;
+					material.localizacionEstanteria = 2;
+					material.localizacionAltura = i + 1;
 					break;
 				}
 			}
 		}
 	}
 
-	//mostrar localizacion
-	
-//Getters & Setters
+	// ver donde colocar material
+	public void dondeColocarMaterial(int codigoMaterial) {
+
+		for (MaterialAGuardar estanterias[] : localizacion) {
+			for (MaterialAGuardar objeto : estanterias) {
+				if (objeto != null) {
+					if (codigoMaterial == objeto.getNumId()) {
+						asignarToString(objeto);
+					}
+				}
+			}
+		}
+	}
+
+	// asignarCodigoMaterial
+	private MaterialAGuardar asignarCodigoMaterial(MaterialAGuardar material) {
+		java.util.Random rand = new java.util.Random();
+		material.setNumId((int) (rand.nextInt(999) / (material.getLocalizacionEstanteria() + 1)
+				- (material.getLocalizacionAltura() + 1)));
+		return material;
+	}
+
+	// asignarToString a material
+	private void asignarToString(MaterialAGuardar material) {
+		if (material instanceof Disco) {
+			material = (Disco) material;
+			System.out.println(material.toString());
+		} else if (material instanceof Libro) {
+			material = (Libro) material;
+			System.out.println(material.toString());
+		}
+	}
+
+	// cliente por defecto
+	private Cliente generarCliente() {
+		Cliente defaultCliente = new Cliente("ClientePorDefecto", "00000000A", new Peticion[6]);
+		return defaultCliente;
+	}
+
+	// disco por defecto
+	private Disco generarDisco() {
+		Disco discoDefault = new Disco("info", "titulo", "autor", "discografica");
+		return discoDefault;
+	}
+
+	// libro por defecto
+	private Libro generarLibro() {
+		Libro libroDefault = new Libro("info", "titulo", "autor", 999);
+		return libroDefault;
+	}
+
+	// asignar objetos por defecto
+	private void asignarObjetosPorDefecto() {
+		this.listaClientes[0] = generarCliente();
+		this.almacenamientoDiscos[0] = generarDisco();
+		this.almacenamientoLibros[0] = generarLibro();
+		this.almacenamientoLibros[1] = generarLibro();
+
+		asignarCodigoMaterial(this.almacenamientoDiscos[0]);
+		asignarCodigoMaterial(this.almacenamientoLibros[0]);
+		asignarCodigoMaterial(this.almacenamientoLibros[1]);
+//		asignarLocalizacionMaterial(this.almacenamientoDiscos[0]);
+//		asignarLocalizacionMaterial(this.almacenamientoLibros[0]);
+//		asignarLocalizacionMaterial(this.almacenamientoLibros[1]);
+	}
+
+	private void mostrarMateriales() {
+		mostrarLibros();
+		mostrarDiscos();
+	}
+
+	private void mostrarLibros() {
+		System.out.println("Lista de libros: \n");
+		for (Libro libro : this.almacenamientoLibros) {
+			if (libro != null) {
+				System.out.println(libro.toString());
+			}
+		}
+		System.out.println();
+	}
+
+	private void mostrarDiscos() {
+		System.out.println("Lista de discos: \n");
+		for (Disco disco : this.almacenamientoDiscos) {
+			if (disco != null) {
+				disco.toString();
+			}
+		}
+		System.out.println();
+	}
+
+	public void compararLibros(int libro1, int libro2) {
+		Libro temp1 = new Libro();
+		Libro temp2 = new Libro();
+
+		for (int i = 0; i < almacenamientoLibros.length; i++) {
+			if (almacenamientoLibros[i] != null) {
+				if (almacenamientoLibros[i].getNumId() == libro1) {
+					temp1 = almacenamientoLibros[i];
+				} else if (almacenamientoLibros[i].getNumId() == libro2) {
+					temp2 = almacenamientoLibros[i];
+				}
+			}
+
+		}
+
+		if (temp1 == null || temp2 == null) {
+			System.out.println("No hemos encontrado libros con esos códigos.");
+		} else {
+			compararLibrosEquals(temp1, temp2);
+		}
+
+	}
+
+	private void compararLibrosEquals(Libro temp1, Libro temp2) {
+		System.out.println(temp1.equals(temp2) ? "Son el mismo libro" : "No son el mismo libro");
+	}
+
+	// Getters & Setters
 	public Cliente[] getListaClientes() {
 		return listaClientes;
 	}
-	
+
 	public void setListaClientes(Cliente[] listaClientes) {
 		this.listaClientes = listaClientes;
 	}
@@ -90,5 +226,5 @@ public class CentroCultural {
 	public void setAlmacenamientoDiscos(Disco[] almacenamientoDiscos) {
 		this.almacenamientoDiscos = almacenamientoDiscos;
 	}
-		
+
 }

@@ -2,14 +2,12 @@ package centroCultural;
 
 public class Peticion {
 
-	private Libro[] peticionLibro = new Libro[3]; 
-	private Disco[] peticionDisco = new Disco[3]; 
-	
+	private Libro[] peticionLibro = new Libro[3];
+	private Disco[] peticionDisco = new Disco[3];
+
 	private String fechaIniPrestamo;
 	private String fechaFinalPrestamo;
-	
-	
-	
+
 //Constructor
 	public Peticion(Libro[] peticionLibro, Disco[] peticionDisco, String fechaIniPrestamo, String fechaFinalPrestamo) {
 		super();
@@ -18,7 +16,6 @@ public class Peticion {
 		this.fechaIniPrestamo = fechaIniPrestamo;
 		this.fechaFinalPrestamo = fechaFinalPrestamo;
 	}
-
 
 //Getters & Setters
 	public Libro[] getPeticionLibro() {

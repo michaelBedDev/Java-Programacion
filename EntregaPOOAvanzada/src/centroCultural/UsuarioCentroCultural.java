@@ -17,38 +17,28 @@ public class UsuarioCentroCultural extends Usuario {
 		return c;
 	}
 
-	
-	
-	
-	
 	public MaterialAGuardar inputAltaMateriales() {
 		this.sc = new Scanner(System.in);
 
-		System.out.println("¿Deseas añadir un disco, o un libro?");
-		String input = sc.nextLine().toLowerCase();
+		String input;
 
 		do {
-			// Revisar lógica
+			System.out.println("¿Deseas añadir un disco, o un libro?");
+			input = sc.nextLine().toLowerCase();
+
 			if (!(input.equals("libro") || input.equals("disco"))) {
 				System.out.println("Por favor, introduce alguna de las opciones");
 			}
-		} while (input != "libro" && input != "disco");
+		} while (!input.equals("libro") && !input.equals("disco"));
 
 		MaterialAGuardar nuevo = new MaterialAGuardar();
 		switch (input) {
-			case "disco" -> nuevo = inputAltaDisco((Disco) inputAltaMaterial(nuevo = new Disco()));
-			case "libro" -> nuevo = inputAltaLibro((Libro) inputAltaMaterial(nuevo = new Libro()));
+		case "disco" -> nuevo = inputAltaDisco((Disco) inputAltaMaterial(nuevo = new Disco()));
+		case "libro" -> nuevo = inputAltaLibro((Libro) inputAltaMaterial(nuevo = new Libro()));
 		}
 		return nuevo;
 	}
 
-	
-	
-	
-	
-	
-	
-	
 	private MaterialAGuardar inputAltaMaterial(MaterialAGuardar nuevo) {
 
 		this.sc = new Scanner(System.in);
@@ -63,7 +53,7 @@ public class UsuarioCentroCultural extends Usuario {
 	}
 
 	private Disco inputAltaDisco(Disco nuevo) {
-		System.out.println("Introduce la discráfica");
+		System.out.println("Introduce la discográfica");
 		nuevo.setNombreDiscografica(sc.nextLine());
 		return nuevo;
 
@@ -92,5 +82,25 @@ public class UsuarioCentroCultural extends Usuario {
 			inputDNI = sc.nextLine();
 		} while (!ValidarDNI.validarDNI(inputDNI));
 		c.setDNI(inputDNI);
+	}
+
+	public int introducirCodigoMaterial() {
+		int codigo;
+		do {
+			System.out.println("Introduce el numId del material");
+			codigo = sc.nextInt();
+
+		} while (codigo < 1 && codigo > 999);
+		return codigo;
+	}
+
+	public int introducirCodigoLibroComparar() {
+		int codigo;
+		do {
+			System.out.println("Introduce el numId del libro a comparar");
+			codigo = sc.nextInt();
+
+		} while (codigo < 1 && codigo > 999);
+		return codigo;
 	}
 }

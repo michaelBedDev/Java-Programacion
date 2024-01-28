@@ -1,39 +1,38 @@
 package plantillas;
 
-import centroCultural.CentroCultural;
+public abstract class Menu {
 
-
-public class Menu {
-
-	public void seleccionarAccion(CentroCultural centroCultural) {
-
-		Usuario user = new Usuario();
-
-		int seleccion;
+	public void seleccionarAccion(IClasePrincipal clasePrincipal, Usuario user) {
+		//nuevo objeto usuario de la clase hija USER** user = new USER**();
+		boolean exit;
 		do {
-			seleccion = accionARealizarSwitch(centroCultural, user);
-		} while (seleccion != 99);
+			exit = accionARealizarSwitch(clasePrincipal, user);
+		} while (!exit);
 	}
 
-	protected int accionARealizarSwitch(CentroCultural centroCultural, Usuario user) {
-		//Switch para seleccionar acción
-		this.imprimirOpciones();
+	protected abstract boolean accionARealizarSwitch(IClasePrincipal clasePrincipal, Usuario user);
+//EJEMPLO DE SWITCH CLASE HIJA
+//
+//		//Switch para seleccionar acción
+//		this.imprimirOpciones();
+//
+//		boolean exit = false;
+//		int seleccion = user.inputSeleccionar();
+//		switch (seleccion) {
+//			case 1:
+//				break;
+//			case 99:
+//				exit = true;
+//				System.out.println("Gracias! Hasta luego");
+//		}
+//		if ((seleccion < 1 || seleccion > 4) && seleccion != 99) {
+//			System.out.println("Por favor, introduce una de las opciones");
+//			System.out.println();
+//		}
+//		return exit;
+//	
 
-		int seleccion = user.inputSeleccionar();
-		switch (seleccion) {
-			case 1:
-				break;
-			case 99:
-				System.out.println("Gracias! Hasta luego");
-		}
-		if ((seleccion < 1 || seleccion > 4) && seleccion != 99) {
-			System.out.println("Por favor, introduce una de las opciones");
-			System.out.println();
-		}
-		return seleccion;
-	}
-
-	protected void imprimirOpciones() {
+	protected abstract void imprimirOpciones();
 		//Imprime aquí las opciones del menu
-	}
+
 }

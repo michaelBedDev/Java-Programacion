@@ -11,12 +11,24 @@ public class Disco extends MaterialAGuardar{
 	}
 	
 	
-	public Disco(String infoGeneral, int numId, String titulo, int[][] localizacion, String autor, String nombreDiscografica) {
-		super(infoGeneral, numId, titulo, autor);
+	public Disco(String infoGeneral, String titulo, String autor, String nombreDiscografica) {
+		super(infoGeneral, titulo, autor);
 		this.nombreDiscografica = nombreDiscografica;
 	}
 
 
+	
+	
+
+	@Override
+	public String toString() {
+		String info = "El disco: " + titulo + " con autor: " + autor
+				+ " y discográfica: " + nombreDiscografica + " se le ha asignado el código " + numId
+				+ " y deberá colocarse en la estantería " + localizacionEstanteria + " y en la altura " + 
+				localizacionAltura;
+		
+		return info;
+	}
 
 
 	//	Getters & Setters
