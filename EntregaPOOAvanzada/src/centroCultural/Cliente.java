@@ -1,7 +1,5 @@
 package centroCultural;
 
-import java.util.Arrays;
-
 public class Cliente {
 
 	private String nombre;

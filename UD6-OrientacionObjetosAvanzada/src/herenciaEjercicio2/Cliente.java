@@ -1,4 +1,4 @@
-package herencia.ejercicio2;
+package herenciaEjercicio2;
 
 public class Cliente extends Persona{
 

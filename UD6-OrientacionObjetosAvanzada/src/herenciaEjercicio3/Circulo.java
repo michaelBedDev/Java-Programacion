@@ -1,4 +1,4 @@
-package herencia.ejercicio3;
+package herenciaEjercicio3;
 
 public class Circulo extends Figura{
 

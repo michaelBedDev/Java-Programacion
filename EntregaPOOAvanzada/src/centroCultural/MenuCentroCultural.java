@@ -33,7 +33,7 @@ public class MenuCentroCultural extends Menu {
 
 			break;
 		case 3:
-
+			((CentroCultural) centroCultural).prestarMaterial((UsuarioCentroCultural) user);
 			break;
 		case 4:
 

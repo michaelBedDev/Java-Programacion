@@ -12,7 +12,7 @@ public class UsuarioCentroCultural extends Usuario {
 		Cliente c = new Cliente();
 
 		introducirNombre(c);
-		c.setDNI(introducirDNI(c));
+		c.setDNI(introducirDNI());
 		c.setListaPeticiones(new Peticion[6]);
 		return c;
 	}
@@ -67,14 +67,14 @@ public class UsuarioCentroCultural extends Usuario {
 
 	}
 
-	private void introducirNombre(Cliente c) {
+	public void introducirNombre(Cliente c) {
 		do {
 			System.out.println("Introduzca su nombre: ");
 			c.setNombre(sc.nextLine());
 		} while (c.getNombre() == ""); // Se repetirá si es una cadena vacía
 	}
 
-	private String introducirDNI(Cliente c) {
+	public String introducirDNI() {
 		// Comprobación DNI 8 números y letra
 		String inputDNI;
 		do {

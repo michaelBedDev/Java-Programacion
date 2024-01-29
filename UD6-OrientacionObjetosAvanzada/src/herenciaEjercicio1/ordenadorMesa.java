@@ -1,4 +1,4 @@
-package herencia.ejercicio1;
+package herenciaEjercicio1;
 
 public class ordenadorMesa extends Ordenador {
 

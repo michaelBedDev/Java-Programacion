@@ -1,4 +1,4 @@
-package herencia.ejercicio3;
+package herenciaEjercicio3;
 
 class Main {
 	public static void main(String[] args) {
