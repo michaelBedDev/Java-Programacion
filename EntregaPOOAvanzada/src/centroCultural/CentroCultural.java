@@ -1,5 +1,7 @@
 package centroCultural;
 
+import java.util.Iterator;
+
 public class CentroCultural implements plantillas.IClasePrincipal {
 
 	private Cliente[] listaClientes = new Cliente[5];// ????????????????
@@ -40,7 +42,7 @@ public class CentroCultural implements plantillas.IClasePrincipal {
 	}
 
 	public void prestarMaterial() {
-
+		realizarPrestamo(String DNI, int idMaterial);
 	}
 
 	public void consultarPrestamo() {
@@ -138,16 +140,15 @@ public class CentroCultural implements plantillas.IClasePrincipal {
 	// asignar objetos por defecto
 	private void asignarObjetosPorDefecto() {
 		this.listaClientes[0] = generarCliente();
-		this.almacenamientoDiscos[0] = generarDisco();
-		this.almacenamientoLibros[0] = generarLibro();
-		this.almacenamientoLibros[1] = generarLibro();
+		asignarLocalizacionMaterial(generarDisco());
+		asignarLocalizacionMaterial(generarLibro());
+		asignarLocalizacionMaterial(generarLibro());
 
 		asignarCodigoMaterial(this.almacenamientoDiscos[0]);
 		asignarCodigoMaterial(this.almacenamientoLibros[0]);
 		asignarCodigoMaterial(this.almacenamientoLibros[1]);
-//		asignarLocalizacionMaterial(this.almacenamientoDiscos[0]);
-//		asignarLocalizacionMaterial(this.almacenamientoLibros[0]);
-//		asignarLocalizacionMaterial(this.almacenamientoLibros[1]);
+
+
 	}
 
 	private void mostrarMateriales() {
@@ -169,7 +170,7 @@ public class CentroCultural implements plantillas.IClasePrincipal {
 		System.out.println("Lista de discos: \n");
 		for (Disco disco : this.almacenamientoDiscos) {
 			if (disco != null) {
-				disco.toString();
+				System.out.println(disco.toString()); 
 			}
 		}
 		System.out.println();
@@ -190,8 +191,8 @@ public class CentroCultural implements plantillas.IClasePrincipal {
 
 		}
 
-		if (temp1 == null || temp2 == null) {
-			System.out.println("No hemos encontrado libros con esos códigos.");
+		if (temp1.getNumId() == 0 || temp2.getNumId() == 0) {
+			System.out.println("Los códigos introducidos no son correctos, por favor introdúcelos nuevamente");
 		} else {
 			compararLibrosEquals(temp1, temp2);
 		}
@@ -201,6 +202,71 @@ public class CentroCultural implements plantillas.IClasePrincipal {
 	private void compararLibrosEquals(Libro temp1, Libro temp2) {
 		System.out.println(temp1.equals(temp2) ? "Son el mismo libro" : "No son el mismo libro");
 	}
+	
+	
+	private void realizarPrestamo(String DNI, int idMaterial) {
+		
+		Cliente clientePeticion = new Cliente();
+		
+		for (Cliente c : listaClientes) {
+			if (c != null) {
+				if (c.getDNI() == DNI) {
+					clientePeticion = c;
+				}
+				else {
+					clientePeticion.setDNI(DNI);
+					asignarClienteToLista(clientePeticion);
+				}
+			}
+		}
+		
+		MaterialAGuardar material = new MaterialAGuardar();
+		
+		for (MaterialAGuardar [] estanteria : localizacion) {
+			for (MaterialAGuardar m : estanteria) {
+				if (m != null) {
+					if (idMaterial == m.numId) {
+						material = m;
+					} else {
+						System.out.println("No hemos encontrado un disco o libro con ese numID");
+						break;
+					}
+				}
+				
+			}
+		}
+		
+		crearPeticion(clientePeticion, material);
+	}
+	
+	
+	private void crearPeticion(Cliente c, MaterialAGuardar material) {
+		for (int i = 0; i < c.getListaPeticiones().length; i++) {
+			if (c.getListaPeticiones()[i] == null) {
+				if
+				c.setListaPeticiones(new Peticion())[i];
+				
+				//CONTINUAR AQUI
+				//AÑADIR FECHA DE HOY A PETICION
+			}
+			else {
+				System.out.println("La lista de peticiones del cliente está llena");
+				}
+			}
+	
+		
+	}
+	
+	private void asignarClienteToLista(Cliente c) {
+		for (int i = 0; i < this.listaClientes.length; i++) {
+			if (listaClientes[i] == null) {
+				listaClientes[i] = c;
+			}else {
+				System.out.println("Ampliar lista de clientes");
+			}
+		}
+	}
+
 
 	// Getters & Setters
 	public Cliente[] getListaClientes() {

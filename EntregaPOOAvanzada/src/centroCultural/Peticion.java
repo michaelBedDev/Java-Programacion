@@ -9,12 +9,18 @@ public class Peticion {
 	private String fechaFinalPrestamo;
 
 //Constructor
-	public Peticion(Libro[] peticionLibro, Disco[] peticionDisco, String fechaIniPrestamo, String fechaFinalPrestamo) {
+	public Peticion() {
+		super();
+		this.peticionLibro = new Libro[3];
+		this.peticionDisco = new Disco[3];
+		
+	}
+	
+	public Peticion(Libro[] peticionLibro, Disco[] peticionDisco, String fechaIniPrestamo) {
 		super();
 		this.peticionLibro = peticionLibro;
 		this.peticionDisco = peticionDisco;
 		this.fechaIniPrestamo = fechaIniPrestamo;
-		this.fechaFinalPrestamo = fechaFinalPrestamo;
 	}
 
 //Getters & Setters
