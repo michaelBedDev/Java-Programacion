@@ -13,9 +13,8 @@ public class Peticion {
 		super();
 		this.peticionLibro = new Libro[3];
 		this.peticionDisco = new Disco[3];
-		
 	}
-	
+
 	public Peticion(Libro[] peticionLibro, Disco[] peticionDisco, String fechaIniPrestamo) {
 		super();
 		this.peticionLibro = peticionLibro;

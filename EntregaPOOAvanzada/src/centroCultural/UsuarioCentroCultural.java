@@ -33,8 +33,8 @@ public class UsuarioCentroCultural extends Usuario {
 
 		MaterialAGuardar nuevo = new MaterialAGuardar();
 		switch (input) {
-		case "disco" -> nuevo = inputAltaDisco((Disco) inputAltaMaterial(nuevo = new Disco()));
-		case "libro" -> nuevo = inputAltaLibro((Libro) inputAltaMaterial(nuevo = new Libro()));
+			case "disco" -> nuevo = inputAltaDisco((Disco) inputAltaMaterial(nuevo = new Disco()));
+			case "libro" -> nuevo = inputAltaLibro((Libro) inputAltaMaterial(nuevo = new Libro()));
 		}
 		return nuevo;
 	}
@@ -76,7 +76,8 @@ public class UsuarioCentroCultural extends Usuario {
 
 	public String introducirDNI() {
 		// Comprobación DNI 8 números y letra
-		String inputDNI;
+		String inputDNI; 
+		this.sc = new Scanner(System.in);
 		do {
 			System.out.println("DNI: (8 Números y una letra)");
 			inputDNI = sc.nextLine();

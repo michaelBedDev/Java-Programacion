@@ -99,7 +99,7 @@ public class CentroCultural implements plantillas.IClasePrincipal {
 		}
 	}
 
-	// asignarCodigoMaterial
+	// asignarCodigoMaterial ··
 	private MaterialAGuardar asignarCodigoMaterial(MaterialAGuardar material) {
 		java.util.Random rand = new java.util.Random();
 		material.setNumId((int) (rand.nextInt(999) / (material.getLocalizacionEstanteria() + 1)
@@ -205,15 +205,17 @@ public class CentroCultural implements plantillas.IClasePrincipal {
 
 		Cliente clientePeticion = new Cliente();
 
-		for (Cliente c : listaClientes) {
+		for (Cliente c : listaClientes) { // Mala lógica
 			if (c != null) {
 				if (c.getDNI() == DNI) {
 					clientePeticion = c;
-				} else {
-					clientePeticion.setDNI(DNI);
-					asignarClienteToLista(clientePeticion);
 				}
+			} else {
+				clientePeticion.setDNI(DNI);
+				asignarClienteToLista(clientePeticion);
+				break;
 			}
+
 		}
 
 		MaterialAGuardar material = new MaterialAGuardar();
@@ -223,50 +225,42 @@ public class CentroCultural implements plantillas.IClasePrincipal {
 				if (m != null) {
 					if (idMaterial == m.numId) {
 						material = m;
-					} else {
-						System.out.println("No hemos encontrado un disco o libro con ese numID");
 						break;
 					}
 				}
-
 			}
 		}
-
 		crearPeticion(clientePeticion, material);
 	}
 
-	private void crearPeticion(Cliente c, MaterialAGuardar material) {
+	private void crearPeticion(Cliente c, MaterialAGuardar material) { // Arreglar
 		for (int i = 0; i < c.getListaPeticiones().length; i++) {
 			if (c.getListaPeticiones()[i] == null) {
 				Peticion peticion = new Peticion();
 				peticion.setFechaIniPrestamo("29-01-2024");
 
-				if (material instanceof Disco) {
-
+				if (material instanceof Disco) { // Arreglar que siempre sea el 0
 					peticion.getPeticionDisco()[0] = (Disco) material;
-
+					c.getListaPeticiones()[i].getPeticionDisco()[0] = peticion.getPeticionDisco()[0];
 				} else if (material instanceof Libro) {
-
 					peticion.getPeticionLibro()[0] = (Libro) material;
-
-				} else {
-					System.out.println("La lista de peticiones del cliente está llena");
+					c.getListaPeticiones()[i].getPeticionDisco()[0] = peticion.getPeticionDisco()[0];
 				}
 				break;
-
+			} else {
+				System.out.println("La lista de peticiones del cliente está llena");
 			}
 		}
-
 	}
 
-	private void asignarClienteToLista(Cliente c) {
+	private void asignarClienteToLista(Cliente c) { // Mala logica
 		for (int i = 0; i < this.listaClientes.length; i++) {
 			if (listaClientes[i] == null) {
 				listaClientes[i] = c;
-			} else {
-				System.out.println("Ampliar lista de clientes");
+				break;
 			}
 		}
+		System.out.println("Ampliar lista de clientes"); // Si no es posible arreglar
 	}
 
 	// Getters & Setters

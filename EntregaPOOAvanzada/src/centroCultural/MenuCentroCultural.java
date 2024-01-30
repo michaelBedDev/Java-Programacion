@@ -25,30 +25,30 @@ public class MenuCentroCultural extends Menu {
 
 		int seleccion = user.inputSeleccionar();
 		switch (seleccion) {
-		case 1:
-			((CentroCultural) centroCultural).altaCliente((UsuarioCentroCultural) user);
-			break;
-		case 2:
-			((CentroCultural) centroCultural).altaMaterial((UsuarioCentroCultural) user);
+			case 1:
+				((CentroCultural) centroCultural).altaCliente((UsuarioCentroCultural) user);
+				break;
+			case 2:
+				((CentroCultural) centroCultural).altaMaterial((UsuarioCentroCultural) user);
 
-			break;
-		case 3:
-			((CentroCultural) centroCultural).prestarMaterial((UsuarioCentroCultural) user);
-			break;
-		case 4:
+				break;
+			case 3:
+				((CentroCultural) centroCultural).prestarMaterial((UsuarioCentroCultural) user);
+				break;
+			case 4:
 
-			break;
-		case 5:
-			((CentroCultural) centroCultural).compararLibros((UsuarioCentroCultural) user);
-			break;
+				break;
+			case 5:
+				((CentroCultural) centroCultural).compararLibros((UsuarioCentroCultural) user);
+				break;
 
-		case 6:
-			((CentroCultural) centroCultural).verLocalizacionMaterial((UsuarioCentroCultural) user);
-			;
-			break;
-		case 99:
-			exit = true;
-			System.out.println("Gracias! Hasta luego");
+			case 6:
+				((CentroCultural) centroCultural).verLocalizacionMaterial((UsuarioCentroCultural) user);
+				;
+				break;
+			case 99:
+				exit = true;
+				System.out.println("Gracias! Hasta luego");
 		}
 		if ((seleccion < 1 || seleccion > 10) && seleccion != 99) {
 			System.out.println("Por favor, introduce una de las opciones");

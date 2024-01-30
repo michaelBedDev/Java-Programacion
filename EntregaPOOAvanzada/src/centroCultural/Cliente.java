@@ -4,46 +4,41 @@ public class Cliente {
 
 	private String nombre;
 	private String DNI;
-	private Peticion [] listaPeticiones = new Peticion [6];
-	
-	
+	private Peticion[] listaPeticiones = new Peticion[6];
+
 //Constructor
 	public Cliente() {
-		//TODO Auto-generated constructor stub
+		// TODO Auto-generated constructor stub
 	}
-	
+
 	public Cliente(String nombre, String DNI, Peticion[] listaPeticiones) {
 		this.nombre = nombre;
 		this.DNI = DNI;
 		this.listaPeticiones = listaPeticiones;
 	}
 
-	
 	@Override
 	public String toString() {
-		
-		return "Nombre del cliente: "  + nombre + "\nDNI: " + DNI + "\nPeticiones restantes: " + mostrarPeticionesRestantes();
-	}
 
+		return "Nombre del cliente: " + nombre + "\nDNI: " + DNI + "\nPeticiones restantes: "
+				+ mostrarPeticionesRestantes();
+	}
 
 	private int mostrarPeticionesRestantes() {
 		int contador = 6;
 		for (int i = 0; i < listaPeticiones.length; i++) {
-			if (listaPeticiones[i]!= null) {
+			if (listaPeticiones[i] != null) {
 				contador--;
 			}
 		}
 		return contador;
 	}
-	
-	
-	
-	
-	//Getters & Setters
+
+	// Getters & Setters
 	public String getDNI() {
 		return DNI;
 	}
-	
+
 	public void setDNI(String dNI) {
 		DNI = dNI;
 	}
@@ -63,5 +58,5 @@ public class Cliente {
 	public void setListaPeticiones(Peticion[] listaPeticiones) {
 		this.listaPeticiones = listaPeticiones;
 	}
-	
+
 }
