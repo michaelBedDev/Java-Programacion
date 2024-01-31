@@ -22,7 +22,11 @@ public class GPS {
 		this.diasTripulado = diasTripulado;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "GPS [coordenadaX=" + coordenadaX + ", coordenadaY=" + coordenadaY + ", fechaYHora=" + fechaYHora
+				+ ", diasTripulado=" + diasTripulado + "]";
+	}
 	
 	
 	public String getCoordenadaX() {
@@ -49,10 +53,4 @@ public class GPS {
 	public void setDiasTripulado(int diasTripulado) {
 		this.diasTripulado = diasTripulado;
 	}
-	
-	
-	
-	
-	
-	
 }
