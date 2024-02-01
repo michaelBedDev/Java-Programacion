@@ -2,15 +2,15 @@ package plantillas;
 
 public abstract class Menu {
 
-	public void seleccionarAccion(IClasePrincipal clasePrincipal, Usuario user) {
+	public void seleccionarAccion() {
 		//nuevo objeto usuario de la clase hija USER** user = new USER**();
 		boolean exit;
 		do {
-			exit = accionARealizarSwitch(clasePrincipal, user);
+			exit = accionARealizarSwitch();
 		} while (!exit);
 	}
 
-	protected abstract boolean accionARealizarSwitch(IClasePrincipal clasePrincipal, Usuario user);
+	protected abstract boolean accionARealizarSwitch();
 //EJEMPLO DE SWITCH CLASE HIJA
 //
 //		//Switch para seleccionar acción

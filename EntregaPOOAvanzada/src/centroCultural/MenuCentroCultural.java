@@ -1,10 +1,24 @@
 package centroCultural;
 
-import plantillas.IClasePrincipal;
+
+
 import plantillas.Menu;
 import plantillas.Usuario;
 
 public class MenuCentroCultural extends Menu {
+
+	private UsuarioCentroCultural user;
+	private CentroCultural centroCultural;
+	
+	
+	
+	public MenuCentroCultural(UsuarioCentroCultural user, CentroCultural centroCultural) {
+		super();
+		this.user = user;
+		this.centroCultural = centroCultural;
+	}
+
+
 
 	@Override
 	protected void imprimirOpciones() {
@@ -17,8 +31,10 @@ public class MenuCentroCultural extends Menu {
 		System.out.println("[99] Salir");
 
 	}
+	
+	
 
-	protected boolean accionARealizarSwitch(IClasePrincipal centroCultural, Usuario user) {
+	protected boolean accionARealizarSwitch() {
 		// TODO Auto-generated method stub
 		this.imprimirOpciones();
 		boolean exit = false;
@@ -26,16 +42,17 @@ public class MenuCentroCultural extends Menu {
 		int seleccion = user.inputSeleccionar();
 		switch (seleccion) {
 			case 1:
-				((CentroCultural) centroCultural).altaCliente((UsuarioCentroCultural) user);
+				centroCultural.altaCliente(user);
 				break;
 			case 2:
-				((CentroCultural) centroCultural).altaMaterial((UsuarioCentroCultural) user);
+				centroCultural.altaDisco(user);
 
 				break;
 			case 3:
-				((CentroCultural) centroCultural).prestarMaterial((UsuarioCentroCultural) user);
+				
 				break;
 			case 4:
+				((CentroCultural) centroCultural).prestarMaterial((UsuarioCentroCultural) user);
 
 				break;
 			case 5:
@@ -58,8 +75,6 @@ public class MenuCentroCultural extends Menu {
 	}
 
 	public void seleccionarAccion(CentroCultural centroCultural) {
-		UsuarioCentroCultural user = new UsuarioCentroCultural();
-		super.seleccionarAccion(centroCultural, user);
+		super.seleccionarAccion();
 	}
-
 }

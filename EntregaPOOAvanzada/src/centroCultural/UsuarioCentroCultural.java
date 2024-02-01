@@ -1,63 +1,24 @@
 package centroCultural;
 
-import java.util.Scanner;
+
+
 import plantillas.Usuario;
 import validaciones.ValidarDNI;
 
 public class UsuarioCentroCultural extends Usuario {
 
-	// Metodos
-	public Cliente inputAltaCliente() {
-		this.sc = new Scanner(System.in);
-		Cliente c = new Cliente();
-
-		introducirNombre(c);
-		c.setDNI(introducirDNI());
-		c.setListaPeticiones(new Peticion[6]);
-		return c;
+	private static final UsuarioCentroCultural INSTANCIA = new UsuarioCentroCultural();
+	
+	public static UsuarioCentroCultural getInstance() {
+		return INSTANCIA;
+	}
+	
+	private UsuarioCentroCultural() {
+	super();	
 	}
 
-	public MaterialAGuardar inputAltaMateriales() {
-		this.sc = new Scanner(System.in);
+	
 
-		String input;
-
-		do {
-			System.out.println("¿Deseas añadir un disco, o un libro?");
-			input = sc.nextLine().toLowerCase();
-
-			if (!(input.equals("libro") || input.equals("disco"))) {
-				System.out.println("Por favor, introduce alguna de las opciones");
-			}
-		} while (!input.equals("libro") && !input.equals("disco"));
-
-		MaterialAGuardar nuevo = new MaterialAGuardar();
-		switch (input) {
-			case "disco" -> nuevo = inputAltaDisco((Disco) inputAltaMaterial(nuevo = new Disco()));
-			case "libro" -> nuevo = inputAltaLibro((Libro) inputAltaMaterial(nuevo = new Libro()));
-		}
-		return nuevo;
-	}
-
-	private MaterialAGuardar inputAltaMaterial(MaterialAGuardar nuevo) {
-
-		this.sc = new Scanner(System.in);
-		System.out.println("Introduce la información general");
-		nuevo.setInfoGeneral(sc.nextLine());
-		System.out.println("Introduce el título");
-		nuevo.setTitulo(sc.nextLine());
-		System.out.println("Introduce el autor");
-		nuevo.setAutor(sc.nextLine());
-
-		return nuevo;
-	}
-
-	private Disco inputAltaDisco(Disco nuevo) {
-		System.out.println("Introduce la discográfica");
-		nuevo.setNombreDiscografica(sc.nextLine());
-		return nuevo;
-
-	}
 
 	private Libro inputAltaLibro(Libro nuevo) {
 
@@ -66,6 +27,8 @@ public class UsuarioCentroCultural extends Usuario {
 		return nuevo;
 
 	}
+	
+//	CREAR INPUT ALTA DISCO
 
 	public void introducirNombre(Cliente c) {
 		do {
@@ -77,7 +40,7 @@ public class UsuarioCentroCultural extends Usuario {
 	public String introducirDNI() {
 		// Comprobación DNI 8 números y letra
 		String inputDNI; 
-		this.sc = new Scanner(System.in);
+		
 		do {
 			System.out.println("DNI: (8 Números y una letra)");
 			inputDNI = sc.nextLine();

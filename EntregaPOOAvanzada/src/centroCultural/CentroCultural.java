@@ -1,13 +1,11 @@
 package centroCultural;
 
-public class CentroCultural implements plantillas.IClasePrincipal {
+public class CentroCultural {
 
 	private Cliente[] listaClientes = new Cliente[5];// ????????????????
 
-	private Libro[] almacenamientoLibros = new Libro[15];
-	private Disco[] almacenamientoDiscos = new Disco[15];
+	private MaterialAGuardar[] almacenamientoMaterial = new MaterialAGuardar[30];
 
-	private MaterialAGuardar[][] localizacion = { almacenamientoLibros, almacenamientoDiscos };
 
 //Constructores
 	public CentroCultural() {
@@ -18,8 +16,8 @@ public class CentroCultural implements plantillas.IClasePrincipal {
 	public CentroCultural(Cliente[] listaClientes, Libro[] almacenamientoLibros, Disco[] almacenamientoDiscos) {
 		super();
 		this.listaClientes = listaClientes;
-		this.almacenamientoLibros = almacenamientoLibros;
-		this.almacenamientoDiscos = almacenamientoDiscos;
+		this.almacenamientoMaterial = almacenamientoLibros;
+		this.almacenamientoMaterial = almacenamientoDiscos;
 		asignarObjetosPorDefecto();
 	}
 
@@ -29,15 +27,25 @@ public class CentroCultural implements plantillas.IClasePrincipal {
 
 	}
 
-	public void altaMaterial(UsuarioCentroCultural user) {
-
-		MaterialAGuardar temp = new MaterialAGuardar();
-		temp = user.inputAltaMateriales();
-		asignarCodigoMaterial(temp);
-		asignarLocalizacionMaterial(temp);
-		asignarToString(temp);
-
+	public void altaDisco(){
+		MaterialAGuardar nuevoDisco = new Disco();
+		nuevoDisco.inputAltaMaterial();
+		asignarLocalizacionMaterial(nuevoDisco);
+		nuevoDisco.asignarCodigoMaterial();
 	}
+	
+	public void altaLibro() {
+		
+	}
+//	public void altaMaterial(UsuarioCentroCultural user) {
+//
+//		MaterialAGuardar temp = new MaterialAGuardar();
+//		temp = user.inputAltaMateriales();
+//		asignarCodigoMaterial(temp);
+//		asignarLocalizacionMaterial(temp);
+//		asignarToString(temp);
+//
+//	}
 
 	public void prestarMaterial(UsuarioCentroCultural user) {
 		mostrarMateriales();
@@ -65,24 +73,27 @@ public class CentroCultural implements plantillas.IClasePrincipal {
 	// asignar localizacion a material
 	private void asignarLocalizacionMaterial(MaterialAGuardar material) {
 		if (material instanceof Disco) {
-			for (int i = 0; i < almacenamientoDiscos.length; i++) {
-				if (almacenamientoDiscos[i] == null) {
-					almacenamientoDiscos[i] = (Disco) material;
-					material.localizacionEstanteria = 1;
-					material.localizacionAltura = i + 1;
-					break;
-				}
-			}
-		} else if (material instanceof Libro) {
-			for (int i = 0; i < almacenamientoLibros.length; i++) {
-				if (almacenamientoLibros[i] == null) {
-					almacenamientoLibros[i] = (Libro) material;
-					material.localizacionEstanteria = 2;
-					material.localizacionAltura = i + 1;
-					break;
-				}
+			material.localizacionEstanteria = 1;
+		} else {
+			material.localizacionEstanteria = 2;
+		}
+		for (int i = 0; i < almacenamientoMaterial.length; i++) {
+			if (almacenamientoMaterial[i] == null) {
+				almacenamientoMaterial[i] = material;
+				material.localizacionAltura = i + 1;
+				break;
 			}
 		}
+//		} else if (material instanceof Libro) {
+//			for (int i = 0; i < almacenamientoMaterial.length; i++) {
+//				if (almacenamientoMaterial[i] == null) {
+//					almacenamientoMaterial[i] = (Libro) material;
+//					material.localizacionEstanteria = 2;
+//					material.localizacionAltura = i + 1;
+//					break;
+//				}
+//			}
+//		}
 	}
 
 	// ver donde colocar material
@@ -99,24 +110,9 @@ public class CentroCultural implements plantillas.IClasePrincipal {
 		}
 	}
 
-	// asignarCodigoMaterial ··
-	private MaterialAGuardar asignarCodigoMaterial(MaterialAGuardar material) {
-		java.util.Random rand = new java.util.Random();
-		material.setNumId((int) (rand.nextInt(999) / (material.getLocalizacionEstanteria() + 1)
-				- (material.getLocalizacionAltura() + 1)));
-		return material;
-	}
 
-	// asignarToString a material
-	private void asignarToString(MaterialAGuardar material) {
-		if (material instanceof Disco) {
-			material = (Disco) material;
-			System.out.println(material.toString());
-		} else if (material instanceof Libro) {
-			material = (Libro) material;
-			System.out.println(material.toString());
-		}
-	}
+
+
 
 	// cliente por defecto
 	private Cliente generarCliente() {
@@ -139,15 +135,21 @@ public class CentroCultural implements plantillas.IClasePrincipal {
 	// asignar objetos por defecto
 	private void asignarObjetosPorDefecto() {
 		this.listaClientes[0] = generarCliente();
-		asignarLocalizacionMaterial(generarDisco());
+		this.almacenamientoMaterial[0] = generarLibro();
+		asignarLocalizacionMaterial(this.almacenamientoMaterial[0]);
+		this.almacenamientoMaterial[0].asignarCodigoMaterial();
+		
+		
+		
+		//Hacer con el resto de libros
 		asignarLocalizacionMaterial(generarLibro());
 		asignarLocalizacionMaterial(generarLibro());
 
-		asignarCodigoMaterial(this.almacenamientoDiscos[0]);
-		asignarCodigoMaterial(this.almacenamientoLibros[0]);
-		asignarCodigoMaterial(this.almacenamientoLibros[1]);
+		
 
 	}
+
+
 
 	private void mostrarMateriales() {
 		mostrarLibros();
@@ -156,7 +158,7 @@ public class CentroCultural implements plantillas.IClasePrincipal {
 
 	private void mostrarLibros() {
 		System.out.println("Lista de libros: \n");
-		for (Libro libro : this.almacenamientoLibros) {
+		for (Libro libro : this.almacenamientoMaterial) {
 			if (libro != null) {
 				System.out.println(libro.toString());
 			}
@@ -166,7 +168,7 @@ public class CentroCultural implements plantillas.IClasePrincipal {
 
 	private void mostrarDiscos() {
 		System.out.println("Lista de discos: \n");
-		for (Disco disco : this.almacenamientoDiscos) {
+		for (Disco disco : this.almacenamientoMaterial) {
 			if (disco != null) {
 				System.out.println(disco.toString());
 			}
@@ -178,12 +180,12 @@ public class CentroCultural implements plantillas.IClasePrincipal {
 		Libro temp1 = new Libro();
 		Libro temp2 = new Libro();
 
-		for (int i = 0; i < almacenamientoLibros.length; i++) {
-			if (almacenamientoLibros[i] != null) {
-				if (almacenamientoLibros[i].getNumId() == libro1) {
-					temp1 = almacenamientoLibros[i];
-				} else if (almacenamientoLibros[i].getNumId() == libro2) {
-					temp2 = almacenamientoLibros[i];
+		for (int i = 0; i < almacenamientoMaterial.length; i++) {
+			if (almacenamientoMaterial[i] != null) {
+				if (almacenamientoMaterial[i].getNumId() == libro1) {
+					temp1 = almacenamientoMaterial[i];
+				} else if (almacenamientoMaterial[i].getNumId() == libro2) {
+					temp2 = almacenamientoMaterial[i];
 				}
 			}
 
@@ -273,19 +275,19 @@ public class CentroCultural implements plantillas.IClasePrincipal {
 	}
 
 	public Libro[] getAlmacenamientoLibros() {
-		return almacenamientoLibros;
+		return almacenamientoMaterial;
 	}
 
 	public void setAlmacenamientoLibros(Libro[] almacenamientoLibros) {
-		this.almacenamientoLibros = almacenamientoLibros;
+		this.almacenamientoMaterial = almacenamientoLibros;
 	}
 
 	public Disco[] getAlmacenamientoDiscos() {
-		return almacenamientoDiscos;
+		return almacenamientoMaterial;
 	}
 
 	public void setAlmacenamientoDiscos(Disco[] almacenamientoDiscos) {
-		this.almacenamientoDiscos = almacenamientoDiscos;
+		this.almacenamientoMaterial = almacenamientoDiscos;
 	}
 
 }

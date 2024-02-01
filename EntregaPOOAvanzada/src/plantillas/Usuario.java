@@ -5,12 +5,38 @@ import java.util.Scanner;
 public class Usuario {
 
 	protected Scanner sc;
+	
+	
+	
+
+	protected Usuario() {
+		super();
+		this.sc = new Scanner(System.in);
+	}
 
 	// Seleccionar en menu
 	public int inputSeleccionar() {
-		this.sc = new Scanner(System.in);
 		int seleccion = sc.nextInt();
 		return seleccion;
 	}
 	
+	public int pedirNumero(String textoPeticion) {
+		int codigo;
+		do {
+			System.out.println(textoPeticion);
+			codigo = sc.nextInt();
+
+		} while (codigo < 1 && codigo > 999);
+		return codigo;
+	}
+	
+	public String pedirString(String textoPeticion) {
+		String output;
+		do {
+			System.out.println(textoPeticion);
+			output = sc.nextLine();
+
+		} while(output != "");
+		return output;
+	}
 }

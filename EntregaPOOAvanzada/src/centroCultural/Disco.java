@@ -22,6 +22,15 @@ public class Disco extends MaterialAGuardar {
 
 		return info;
 	}
+	
+	
+
+	private Disco inputAltaDisco(Disco nuevo) {
+		String nombreDiscografica = "Introduce la discográfica";
+		nuevo.setNombreDiscografica(UsuarioCentroCultural.getInstance().pedirString(nombreDiscografica)); //STRING
+		return nuevo;
+	}
+
 
 	// Getters & Setters
 	public String getNombreDiscografica() {

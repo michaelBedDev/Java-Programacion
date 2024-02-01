@@ -31,6 +31,9 @@ public class Libro extends MaterialAGuardar {
 		return (this.getTitulo() == ((Libro) obj).getTitulo())
 				&& (this.getNumPaginas() == ((Libro) obj).getNumPaginas());
 	}
+	
+	
+	
 
 // Getters & Setters
 	public int getNumPaginas() {

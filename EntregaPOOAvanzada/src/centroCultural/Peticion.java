@@ -2,8 +2,7 @@ package centroCultural;
 
 public class Peticion {
 
-	private Libro[] peticionLibro = new Libro[3];
-	private Disco[] peticionDisco = new Disco[3];
+	private MaterialAGuardar[] listaPeticiones = new MaterialAGuardar [6];
 
 	private String fechaIniPrestamo;
 	private String fechaFinalPrestamo;
@@ -11,24 +10,21 @@ public class Peticion {
 //Constructor
 	public Peticion() {
 		super();
-		this.peticionLibro = new Libro[3];
-		this.peticionDisco = new Disco[3];
 	}
 
-	public Peticion(Libro[] peticionLibro, Disco[] peticionDisco, String fechaIniPrestamo) {
+	public Peticion(MaterialAGuardar [] material, String fechaIniPrestamo) {
 		super();
-		this.peticionLibro = peticionLibro;
-		this.peticionDisco = peticionDisco;
+
 		this.fechaIniPrestamo = fechaIniPrestamo;
 	}
 
 //Getters & Setters
-	public Libro[] getPeticionLibro() {
-		return peticionLibro;
+	public MaterialAGuardar[] getPeticionLibro() {
+		return listaPeticiones;
 	}
 
 	public void setPeticionLibro(Libro[] peticionLibro) {
-		this.peticionLibro = peticionLibro;
+		this.listaPeticiones = peticionLibro;
 	}
 
 	public Disco[] getPeticionDisco() {

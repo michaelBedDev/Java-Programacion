@@ -4,7 +4,9 @@ public class App {
 
 	public static void main(String[] args) {
 		CentroCultural libreria = new CentroCultural();
-		MenuCentroCultural menu = new MenuCentroCultural();
+		UsuarioCentroCultural user = new UsuarioCentroCultural();
+
+		MenuCentroCultural menu = new MenuCentroCultural(user, libreria);
 		menu.seleccionarAccion(libreria);
 
 	}

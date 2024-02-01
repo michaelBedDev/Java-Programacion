@@ -1,6 +1,8 @@
 package centroCultural;
 
-public class MaterialAGuardar {
+import java.util.Scanner;
+
+public abstract class MaterialAGuardar {
 
 	protected String infoGeneral;
 	protected String titulo;
@@ -21,7 +23,32 @@ public class MaterialAGuardar {
 		this.autor = autor;
 
 	}
+	
+	public void inputAltaMaterial() {
 
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Introduce la información general");
+		this.setInfoGeneral(sc.nextLine());
+		System.out.println("Introduce el título");
+		this.setTitulo(sc.nextLine());
+		System.out.println("Introduce el autor");
+		this.setAutor(sc.nextLine());
+	
+		pedirMaterialEspecifico();
+		
+//		asignarLocalizacionMaterial(temp);
+//		
+//		asignarCodigoMaterial();
+		
+	}
+
+	public void asignarCodigoMaterial() {
+		java.util.Random rand = new java.util.Random();
+		this.setNumId((int) (rand.nextInt(999) / (this.getLocalizacionEstanteria() + 1)
+				- (this.getLocalizacionAltura() + 1)));
+	}
+
+	protected abstract void pedirMaterialEspecifico();
 //Getters & Setters
 	public String getInfoGeneral() {
 		return infoGeneral;
