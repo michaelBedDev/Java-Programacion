@@ -6,9 +6,6 @@ public class Usuario {
 
 	protected Scanner sc;
 	
-	
-	
-
 	protected Usuario() {
 		super();
 		this.sc = new Scanner(System.in);
@@ -36,7 +33,7 @@ public class Usuario {
 			System.out.println(textoPeticion);
 			output = sc.nextLine();
 
-		} while(output != "");
+		} while(output == "");
 		return output;
 	}
 }

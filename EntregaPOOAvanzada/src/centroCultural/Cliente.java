@@ -17,13 +17,25 @@ public class Cliente {
 		this.listaPeticiones = listaPeticiones;
 	}
 
-	@Override
-	public String toString() {
-
-		return "Nombre del cliente: " + nombre + "\nDNI: " + DNI + "\nPeticiones restantes: "
-				+ mostrarPeticionesRestantes();
+	
+	//metodo alta cliente
+	public void inputAltaCliente() {
+		String nombreCliente = "Introduce el nombre del cliente";
+		this.setNombre(UsuarioCentroCultural.getInstance().pedirString(nombreCliente));
+		
+		this.setDNI(UsuarioCentroCultural.getInstance().introducirDNI());
 	}
+	
+	public void mostrarDatos() {
 
+		String datos = "Nombre del cliente: " + nombre + "\nDNI: " + DNI + "\nPeticiones restantes: "
+				+ mostrarPeticionesRestantes() + "\n";
+		
+		System.out.println(datos);
+	}
+	
+	
+	//metodos mostrar peticiones restantes
 	private int mostrarPeticionesRestantes() {
 		int contador = 6;
 		for (int i = 0; i < listaPeticiones.length; i++) {

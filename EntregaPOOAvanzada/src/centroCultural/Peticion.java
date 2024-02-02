@@ -12,27 +12,20 @@ public class Peticion {
 		super();
 	}
 
+	
+	//Getters & Setters
 	public Peticion(MaterialAGuardar [] material, String fechaIniPrestamo) {
 		super();
 
 		this.fechaIniPrestamo = fechaIniPrestamo;
 	}
 
-//Getters & Setters
-	public MaterialAGuardar[] getPeticionLibro() {
+	public MaterialAGuardar[] getListaPeticiones() {
 		return listaPeticiones;
 	}
 
-	public void setPeticionLibro(Libro[] peticionLibro) {
-		this.listaPeticiones = peticionLibro;
-	}
-
-	public Disco[] getPeticionDisco() {
-		return peticionDisco;
-	}
-
-	public void setPeticionDisco(Disco[] peticionDisco) {
-		this.peticionDisco = peticionDisco;
+	public void setListaPeticiones(MaterialAGuardar[] listaPeticiones) {
+		this.listaPeticiones = listaPeticiones;
 	}
 
 	public String getFechaIniPrestamo() {
@@ -50,4 +43,5 @@ public class Peticion {
 	public void setFechaFinalPrestamo(String fechaFinalPrestamo) {
 		this.fechaFinalPrestamo = fechaFinalPrestamo;
 	}
+
 }

@@ -3,7 +3,6 @@ package plantillas;
 public abstract class Menu {
 
 	public void seleccionarAccion() {
-		//nuevo objeto usuario de la clase hija USER** user = new USER**();
 		boolean exit;
 		do {
 			exit = accionARealizarSwitch();
@@ -34,5 +33,4 @@ public abstract class Menu {
 
 	protected abstract void imprimirOpciones();
 		//Imprime aquí las opciones del menu
-
 }

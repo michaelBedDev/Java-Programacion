@@ -13,29 +13,19 @@ public class UsuarioCentroCultural extends Usuario {
 		return INSTANCIA;
 	}
 	
-	private UsuarioCentroCultural() {
+	public UsuarioCentroCultural() {
 	super();	
 	}
 
 	
 
 
-	private Libro inputAltaLibro(Libro nuevo) {
-
-		System.out.println("Introduce el número de páginas del libro");
-		nuevo.setNumPaginas(Integer.parseInt(sc.nextLine()));
-		return nuevo;
-
-	}
-	
-//	CREAR INPUT ALTA DISCO
-
-	public void introducirNombre(Cliente c) {
-		do {
-			System.out.println("Introduzca su nombre: ");
-			c.setNombre(sc.nextLine());
-		} while (c.getNombre() == ""); // Se repetirá si es una cadena vacía
-	}
+//	public void introducirNombre(Cliente c) {
+//		do {
+//			System.out.println("Introduzca su nombre: ");
+//			c.setNombre(sc.nextLine());
+//		} while (c.getNombre() == ""); // Se repetirá si es una cadena vacía
+//	}
 
 	public String introducirDNI() {
 		// Comprobación DNI 8 números y letra

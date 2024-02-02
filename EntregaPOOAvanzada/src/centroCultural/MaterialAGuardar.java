@@ -35,11 +35,6 @@ public abstract class MaterialAGuardar {
 		this.setAutor(sc.nextLine());
 	
 		pedirMaterialEspecifico();
-		
-//		asignarLocalizacionMaterial(temp);
-//		
-//		asignarCodigoMaterial();
-		
 	}
 
 	public void asignarCodigoMaterial() {
@@ -49,6 +44,11 @@ public abstract class MaterialAGuardar {
 	}
 
 	protected abstract void pedirMaterialEspecifico();
+	
+	protected abstract void mostrarDatos();
+	
+	
+	
 //Getters & Setters
 	public String getInfoGeneral() {
 		return infoGeneral;

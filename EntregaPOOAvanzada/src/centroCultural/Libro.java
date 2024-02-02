@@ -7,7 +7,6 @@ public class Libro extends MaterialAGuardar {
 //	Constructor
 	public Libro() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Libro(String infoGeneral, String titulo, String autor, int numPaginas) {
@@ -15,15 +14,19 @@ public class Libro extends MaterialAGuardar {
 		this.numPaginas = numPaginas;
 	}
 
+	
+	//libro toString
 	@Override
-	public String toString() {
+	public void mostrarDatos() {
 		String info = "El libro: " + titulo + " con autor: " + autor + " y con número de páginas: " + numPaginas
 				+ " se le ha asignado el código " + numId + " y deberá colocarse en la estantería "
 				+ localizacionEstanteria + " y en la altura " + localizacionAltura;
 
-		return info;
+		System.out.println(info);
 	}
 
+	
+	//metodo comparar libros
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null)
@@ -32,8 +35,14 @@ public class Libro extends MaterialAGuardar {
 				&& (this.getNumPaginas() == ((Libro) obj).getNumPaginas());
 	}
 	
-	
-	
+	//metodo polimorfico
+	@Override
+	protected void pedirMaterialEspecifico() {
+		String nombreDiscografica = "Introduce el numero de paginas";
+		this.setNumPaginas(UsuarioCentroCultural.getInstance().pedirNumero(nombreDiscografica)); //INT
+		return;
+		
+	}
 
 // Getters & Setters
 	public int getNumPaginas() {
@@ -43,5 +52,4 @@ public class Libro extends MaterialAGuardar {
 	public void setNumPaginas(int numPaginas) {
 		this.numPaginas = numPaginas;
 	}
-
 }
