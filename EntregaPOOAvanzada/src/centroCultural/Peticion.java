@@ -1,47 +1,50 @@
 package centroCultural;
 
+import java.util.Date;
+
 public class Peticion {
 
-	private MaterialAGuardar[] listaPeticiones = new MaterialAGuardar [6];
+	private int numIdMaterial;
 
-	private String fechaIniPrestamo;
-	private String fechaFinalPrestamo;
+	private Date fechaIniPrestamo;
+	private Date fechaFinalPrestamo;
 
 //Constructor
 	public Peticion() {
 		super();
 	}
 
+	//mostrar Datos
+	public void mostrarDatos() {
+		String datos = "La petición se ha realizado el " + fechaIniPrestamo 
+				+ " para el material con numId " + numIdMaterial;
+		System.out.println(datos);
+	}
+	
 	
 	//Getters & Setters
-	public Peticion(MaterialAGuardar [] material, String fechaIniPrestamo) {
-		super();
 
-		this.fechaIniPrestamo = fechaIniPrestamo;
-	}
-
-	public MaterialAGuardar[] getListaPeticiones() {
-		return listaPeticiones;
-	}
-
-	public void setListaPeticiones(MaterialAGuardar[] listaPeticiones) {
-		this.listaPeticiones = listaPeticiones;
-	}
-
-	public String getFechaIniPrestamo() {
+	public Date getFechaIniPrestamo() {
 		return fechaIniPrestamo;
 	}
 
-	public void setFechaIniPrestamo(String fechaIniPrestamo) {
+	public void setFechaIniPrestamo(Date fechaIniPrestamo) {
 		this.fechaIniPrestamo = fechaIniPrestamo;
 	}
 
-	public String getFechaFinalPrestamo() {
+	public Date getFechaFinalPrestamo() {
 		return fechaFinalPrestamo;
 	}
 
-	public void setFechaFinalPrestamo(String fechaFinalPrestamo) {
+	public void setFechaFinalPrestamo(Date fechaFinalPrestamo) {
 		this.fechaFinalPrestamo = fechaFinalPrestamo;
 	}
 
+	public int getNumIdMaterial() {
+		return numIdMaterial;
+	}
+
+	public void setNumIdMaterial(int numIdMaterial) {
+		this.numIdMaterial = numIdMaterial;
+	}
 }

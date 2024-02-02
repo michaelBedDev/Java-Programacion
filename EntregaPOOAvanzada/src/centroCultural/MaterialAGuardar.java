@@ -42,12 +42,13 @@ public abstract class MaterialAGuardar {
 		this.setNumId((int) (rand.nextInt(999) / (this.getLocalizacionEstanteria() + 1)
 				- (this.getLocalizacionAltura() + 1)));
 	}
-
+	
+	
+	
 	protected abstract void pedirMaterialEspecifico();
 	
 	protected abstract void mostrarDatos();
-	
-	
+
 	
 //Getters & Setters
 	public String getInfoGeneral() {

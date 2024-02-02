@@ -55,23 +55,109 @@ public class CentroCultural {
 		nuevoLibro.mostrarDatos();
 	}
 	
-	
-	
-
-
 	public void prestarMaterial() {
-//		mostrarMateriales();
-//		realizarPrestamo
+		mostrarMateriales();
+		String pedirDNI = "Introduce el DNI del cliente para el préstamo (00000000A)";
+		String DNI = UsuarioCentroCultural.getInstance().pedirString(pedirDNI);
+		
+		String pedirNumIdMaterial = "Introduce el numId del material para prestar";
+		int numId = UsuarioCentroCultural.getInstance().pedirNumero(pedirNumIdMaterial);
+		
+		realizarPrestamo(DNI,numId);
 	}
 
 	public void consultarPrestamo() {
-
+		String pedirDNI = "Introduce el DNI del cliente para buscar el préstamo (00000000A)\nNo hay préstamo por defecto";
+		String DNI = UsuarioCentroCultural.getInstance().pedirString(pedirDNI);
+		Cliente temp = obtenerClientePorDNI(DNI);
+		
+		if (temp != null) {
+			mostrarPrestamos(temp);
+		} else {
+			System.out.println("No ha sido posible encontrar el cliente con ese DNI\n");
+		}
 	}
 
-	public void compararLibros(UsuarioCentroCultural user) {
+	
+	
+	
+	//realizar Prestamo
+	private void realizarPrestamo(String DNI, int idMaterial) {
+		
+		boolean validoDNI = false; 
+		boolean validoID = false;
+
+		for (int i = 0; i < listaClientes.length; i++) {
+			if (listaClientes[i] != null) {
+				if (listaClientes[i].getDNI().equals(DNI)) {
+					validoDNI = true;
+				}
+			}
+		}
+		
+		for (int i = 0; i < almacenamientoMaterial.length; i++) {
+			if (this.almacenamientoMaterial[i] != null) {
+				if (almacenamientoMaterial[i].getNumId() == idMaterial) {
+					validoID = true;
+				}
+			}
+		}
+		
+		Cliente c = obtenerClientePorDNI(DNI);
+		
+		if ((validoDNI && validoID) && c != null) {
+			asignarPeticionToCliente(c, idMaterial);
+			System.out.println("La petición se ha procesado correctamente");
+		} else {
+			System.out.println("No se ha podido procesar la petición. Revisa los datos introducidos");
+		}
+	}	
+	
+	//asignar Peticion a cliente
+	private void asignarPeticionToCliente(Cliente c, int idMaterial) {
+		for (int i = 0; i < c.getListaPeticiones().length; i++) {
+			if (c.getListaPeticiones()[i] == null) {
+				Peticion nuevaPeticion = new Peticion();
+				nuevaPeticion.setNumIdMaterial(idMaterial);
+				
+				java.util.Date hoy = new java.util.Date();
+				nuevaPeticion.setFechaIniPrestamo(hoy);
+				
+				c.getListaPeticiones()[i] = nuevaPeticion;
+				break;
+			}
+		}
+	}
+	
+	// Método obtener cliente por DNI 
+	private Cliente obtenerClientePorDNI(String DNI) {
+	    for (int i = 0; i < listaClientes.length; i++) {
+	        if (listaClientes[i] != null && listaClientes[i].getDNI().equals(DNI)) {
+	            return listaClientes[i];
+	        }
+	    }
+	    return null; 
+	}
+	
+	//metodo consultarPrestamo
+	private void mostrarPrestamos(Cliente c) {
+		for (Peticion p : c.getListaPeticiones()) {
+			if (p != null) {
+				p.mostrarDatos();
+			}
+		}
+	}
+	
+	
+	
+	
+	//introducir libros a comparar
+	public void introducirLibrosToComparar() {
 		mostrarMateriales();
-		int libro1 = user.introducirCodigoLibroComparar();
-		int libro2 = user.introducirCodigoLibroComparar();
+		
+		String input = "Introduce el numId de los libros a comparar";
+		int libro1 = UsuarioCentroCultural.getInstance().pedirNumero(input);
+		int libro2 = UsuarioCentroCultural.getInstance().pedirNumero(input);
 
 		compararLibros(libro1, libro2);
 
@@ -160,7 +246,7 @@ public class CentroCultural {
 					} else if (almacenamientoMaterial[i].getNumId() == libro2) {
 						temp2 = (Libro) almacenamientoMaterial[i];
 					}
-				}
+				} 
 				
 			}
 
@@ -178,68 +264,6 @@ public class CentroCultural {
 		System.out.println(temp1.equals(temp2) ? "Son el mismo libro" : "No son el mismo libro");
 		System.out.println();
 	}
-
-//	private void realizarPrestamo(String DNI, int idMaterial) {
-//
-//		Cliente clientePeticion = new Cliente();
-//
-//		for (Cliente c : listaClientes) { // Mala lógica
-//			if (c != null) {
-//				if (c.getDNI() == DNI) {
-//					clientePeticion = c;
-//				}
-//			} else {
-//				clientePeticion.setDNI(DNI);
-//				asignarClienteToLista(clientePeticion);
-//				break;
-//			}
-//
-//		}
-//
-//		MaterialAGuardar material = new MaterialAGuardar();
-//
-//		for (MaterialAGuardar[] estanteria : localizacion) {
-//			for (MaterialAGuardar m : estanteria) {
-//				if (m != null) {
-//					if (idMaterial == m.numId) {
-//						material = m;
-//						break;
-//					}
-//				}
-//			}
-//		}
-//		crearPeticion(clientePeticion, material);
-//	}
-
-//	private void crearPeticion(Cliente c, MaterialAGuardar material) { // Arreglar
-//		for (int i = 0; i < c.getListaPeticiones().length; i++) {
-//			if (c.getListaPeticiones()[i] == null) {
-//				Peticion peticion = new Peticion();
-//				peticion.setFechaIniPrestamo("29-01-2024");
-//
-//				if (material instanceof Disco) { // Arreglar que siempre sea el 0
-//					peticion.getPeticionDisco()[0] = (Disco) material;
-//					c.getListaPeticiones()[i].getPeticionDisco()[0] = peticion.getPeticionDisco()[0];
-//				} else if (material instanceof Libro) {
-//					peticion.getPeticionLibro()[0] = (Libro) material;
-//					c.getListaPeticiones()[i].getPeticionDisco()[0] = peticion.getPeticionDisco()[0];
-//				}
-//				break;
-//			} else {
-//				System.out.println("La lista de peticiones del cliente está llena");
-//			}
-//		}
-//	}
-
-//	private void asignarClienteToLista(Cliente c) { // Mala logica
-//		for (int i = 0; i < this.listaClientes.length; i++) {
-//			if (listaClientes[i] == null) {
-//				listaClientes[i] = c;
-//				break;
-//			}
-//		}
-//		System.out.println("Ampliar lista de clientes"); // Si no es posible arreglar
-//	}
 
 	// Getters & Setters
 	public Cliente[] getListaClientes() {

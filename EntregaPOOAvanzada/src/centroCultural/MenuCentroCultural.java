@@ -56,19 +56,15 @@ public class MenuCentroCultural extends Menu {
 				break;
 			case 4:
 				centroCultural.prestarMaterial();
-
 				break;
 			case 5:
-				//consultar Prestamo
-
+				centroCultural.consultarPrestamo();
 				break;
 			case 6:
-				centroCultural.compararLibros(user);
+				centroCultural.introducirLibrosToComparar();
 				break;
-
 			case 7:
 				centroCultural.mostrarMateriales();
-				
 				break;
 			case 99:
 				exit = true;
