@@ -67,7 +67,7 @@ public class CentroCultural {
 	}
 
 	public void consultarPrestamo() {
-		String pedirDNI = "Introduce el DNI del cliente para buscar el préstamo (00000000A)\nNo hay préstamo por defecto";
+		String pedirDNI = "Introduce el DNI del cliente para buscar el préstamo (00000000A) No hay préstamo por defecto";
 		String DNI = UsuarioCentroCultural.getInstance().pedirString(pedirDNI);
 		Cliente temp = obtenerClientePorDNI(DNI);
 		

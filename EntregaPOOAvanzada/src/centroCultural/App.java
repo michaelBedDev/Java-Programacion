@@ -7,7 +7,5 @@ public class App {
 		UsuarioCentroCultural user = new UsuarioCentroCultural();
 		MenuCentroCultural menu = new MenuCentroCultural(user, libreria);
 		menu.seleccionarAccion(libreria);
-
 	}
-
 }

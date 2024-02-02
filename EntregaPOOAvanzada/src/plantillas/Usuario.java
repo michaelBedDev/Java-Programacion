@@ -13,7 +13,7 @@ public class Usuario {
 
 	// Seleccionar en menu
 	public int inputSeleccionar() {
-		int seleccion = sc.nextInt();
+		int seleccion = Integer.parseInt(sc.nextLine());
 		return seleccion;
 	}
 	
@@ -21,7 +21,7 @@ public class Usuario {
 		int codigo;
 		do {
 			System.out.println(textoPeticion);
-			codigo = sc.nextInt();
+			codigo = Integer.parseInt(sc.nextLine());
 
 		} while (codigo < 1 && codigo > 999);
 		return codigo;

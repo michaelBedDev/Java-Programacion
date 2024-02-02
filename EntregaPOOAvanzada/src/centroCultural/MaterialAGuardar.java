@@ -38,9 +38,14 @@ public abstract class MaterialAGuardar {
 	}
 
 	public void asignarCodigoMaterial() {
-		java.util.Random rand = new java.util.Random();
-		this.setNumId((int) (rand.nextInt(999) / (this.getLocalizacionEstanteria() + 1)
-				- (this.getLocalizacionAltura() + 1)));
+		int codigo;
+		do {
+			java.util.Random rand = new java.util.Random();
+			codigo = rand.nextInt(999) / (this.getLocalizacionEstanteria() + 1)
+					- (this.getLocalizacionAltura() + 1);
+		} while (codigo <= 0);
+		
+		this.setNumId(codigo);
 	}
 	
 	

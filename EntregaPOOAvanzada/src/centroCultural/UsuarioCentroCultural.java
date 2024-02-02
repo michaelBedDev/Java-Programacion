@@ -17,16 +17,6 @@ public class UsuarioCentroCultural extends Usuario {
 	super();	
 	}
 
-	
-
-
-//	public void introducirNombre(Cliente c) {
-//		do {
-//			System.out.println("Introduzca su nombre: ");
-//			c.setNombre(sc.nextLine());
-//		} while (c.getNombre() == ""); // Se repetirá si es una cadena vacía
-//	}
-
 	public String introducirDNI() {
 		// Comprobación DNI 8 números y letra
 		String inputDNI; 
