@@ -14,24 +14,22 @@ public class Disco extends MaterialAGuardar {
 		this.nombreDiscografica = nombreDiscografica;
 	}
 
-	
-	//disco toString
-	
+	// disco toString
+
 	public void mostrarDatos() {
 		String info = "El disco: " + titulo + " con autor: " + autor + " y discográfica: " + nombreDiscografica
 				+ " se le ha asignado el código " + numId + " y deberá colocarse en la estantería "
 				+ localizacionEstanteria + " y en la altura " + localizacionAltura;
-	System.out.println(info);
+		System.out.println(info);
 	}
-	
-	//metodo polimorfico
+
+	// metodo polimorfico
 	@Override
 	protected void pedirMaterialEspecifico() {
 		String nombreDiscografica = "Introduce la discográfica";
-		this.setNombreDiscografica(UsuarioCentroCultural.getInstance().pedirString(nombreDiscografica)); //STRING
+		this.setNombreDiscografica(UsuarioCentroCultural.getInstance().pedirString(nombreDiscografica)); // STRING
 		return;
 	}
-	
 
 	// Getters & Setters
 	public String getNombreDiscografica() {
@@ -41,6 +39,5 @@ public class Disco extends MaterialAGuardar {
 	public void setNombreDiscografica(String nombreDiscografica) {
 		this.nombreDiscografica = nombreDiscografica;
 	}
-
 
 }

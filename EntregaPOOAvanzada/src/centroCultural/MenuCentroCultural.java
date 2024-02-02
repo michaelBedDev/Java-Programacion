@@ -1,7 +1,5 @@
 package centroCultural;
 
-
-
 import plantillas.Menu;
 import plantillas.Usuario;
 
@@ -9,16 +7,12 @@ public class MenuCentroCultural extends Menu {
 
 	private UsuarioCentroCultural user;
 	private CentroCultural centroCultural;
-	
-	
-	
+
 	public MenuCentroCultural(UsuarioCentroCultural user, CentroCultural centroCultural) {
 		super();
 		this.user = user;
 		this.centroCultural = centroCultural;
 	}
-
-
 
 	@Override
 	protected void imprimirOpciones() {
@@ -32,8 +26,7 @@ public class MenuCentroCultural extends Menu {
 		System.out.println("[99] Salir");
 
 	}
-	
-	
+
 	public void seleccionarAccion(CentroCultural centroCultural) {
 		super.seleccionarAccion();
 	}

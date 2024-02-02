@@ -6,7 +6,6 @@ public class CentroCultural {
 
 	private MaterialAGuardar[] almacenamientoMaterial = new MaterialAGuardar[30];
 
-
 //Constructores
 	public CentroCultural() {
 		// TODO Auto-generated constructor stub
@@ -37,40 +36,40 @@ public class CentroCultural {
 		}
 	}
 
-	public void altaDisco(){
+	public void altaDisco() {
 		MaterialAGuardar nuevoDisco = new Disco();
 		nuevoDisco.inputAltaMaterial();
 		asignarLocalizacionMaterial(nuevoDisco);
 		nuevoDisco.asignarCodigoMaterial();
-		
+
 		nuevoDisco.mostrarDatos();
 	}
-	
+
 	public void altaLibro() {
 		MaterialAGuardar nuevoLibro = new Libro();
 		nuevoLibro.inputAltaMaterial();
 		asignarLocalizacionMaterial(nuevoLibro);
 		nuevoLibro.asignarCodigoMaterial();
-		
+
 		nuevoLibro.mostrarDatos();
 	}
-	
+
 	public void prestarMaterial() {
 		mostrarMateriales();
 		String pedirDNI = "Introduce el DNI del cliente para el préstamo (00000000A)";
 		String DNI = UsuarioCentroCultural.getInstance().pedirString(pedirDNI);
-		
+
 		String pedirNumIdMaterial = "Introduce el numId del material para prestar";
 		int numId = UsuarioCentroCultural.getInstance().pedirNumero(pedirNumIdMaterial);
-		
-		realizarPrestamo(DNI,numId);
+
+		realizarPrestamo(DNI, numId);
 	}
 
 	public void consultarPrestamo() {
 		String pedirDNI = "Introduce el DNI del cliente para buscar el préstamo (00000000A) No hay préstamo por defecto";
 		String DNI = UsuarioCentroCultural.getInstance().pedirString(pedirDNI);
 		Cliente temp = obtenerClientePorDNI(DNI);
-		
+
 		if (temp != null) {
 			mostrarPrestamos(temp);
 		} else {
@@ -78,13 +77,10 @@ public class CentroCultural {
 		}
 	}
 
-	
-	
-	
-	//realizar Prestamo
+	// realizar Prestamo
 	private void realizarPrestamo(String DNI, int idMaterial) {
-		
-		boolean validoDNI = false; 
+
+		boolean validoDNI = false;
 		boolean validoID = false;
 
 		for (int i = 0; i < listaClientes.length; i++) {
@@ -94,7 +90,7 @@ public class CentroCultural {
 				}
 			}
 		}
-		
+
 		for (int i = 0; i < almacenamientoMaterial.length; i++) {
 			if (this.almacenamientoMaterial[i] != null) {
 				if (almacenamientoMaterial[i].getNumId() == idMaterial) {
@@ -102,44 +98,44 @@ public class CentroCultural {
 				}
 			}
 		}
-		
+
 		Cliente c = obtenerClientePorDNI(DNI);
-		
+
 		if ((validoDNI && validoID) && c != null) {
 			asignarPeticionToCliente(c, idMaterial);
 			System.out.println("La petición se ha procesado correctamente");
 		} else {
 			System.out.println("No se ha podido procesar la petición. Revisa los datos introducidos");
 		}
-	}	
-	
-	//asignar Peticion a cliente
+	}
+
+	// asignar Peticion a cliente
 	private void asignarPeticionToCliente(Cliente c, int idMaterial) {
 		for (int i = 0; i < c.getListaPeticiones().length; i++) {
 			if (c.getListaPeticiones()[i] == null) {
 				Peticion nuevaPeticion = new Peticion();
 				nuevaPeticion.setNumIdMaterial(idMaterial);
-				
+
 				java.util.Date hoy = new java.util.Date();
 				nuevaPeticion.setFechaIniPrestamo(hoy);
-				
+
 				c.getListaPeticiones()[i] = nuevaPeticion;
 				break;
 			}
 		}
 	}
-	
-	// Método obtener cliente por DNI 
+
+	// Método obtener cliente por DNI
 	private Cliente obtenerClientePorDNI(String DNI) {
-	    for (int i = 0; i < listaClientes.length; i++) {
-	        if (listaClientes[i] != null && listaClientes[i].getDNI().equals(DNI)) {
-	            return listaClientes[i];
-	        }
-	    }
-	    return null; 
+		for (int i = 0; i < listaClientes.length; i++) {
+			if (listaClientes[i] != null && listaClientes[i].getDNI().equals(DNI)) {
+				return listaClientes[i];
+			}
+		}
+		return null;
 	}
-	
-	//metodo consultarPrestamo
+
+	// metodo consultarPrestamo
 	private void mostrarPrestamos(Cliente c) {
 		for (Peticion p : c.getListaPeticiones()) {
 			if (p != null) {
@@ -147,14 +143,11 @@ public class CentroCultural {
 			}
 		}
 	}
-	
-	
-	
-	
-	//introducir libros a comparar
+
+	// introducir libros a comparar
 	public void introducirLibrosToComparar() {
 		mostrarMateriales();
-		
+
 		String input = "Introduce el numId de los libros a comparar";
 		int libro1 = UsuarioCentroCultural.getInstance().pedirNumero(input);
 		int libro2 = UsuarioCentroCultural.getInstance().pedirNumero(input);
@@ -179,8 +172,7 @@ public class CentroCultural {
 		}
 	}
 
-
-	//metodo mostrarMateriales
+	// metodo mostrarMateriales
 	public void mostrarMateriales() {
 		System.out.println("Lista de materiales: \n");
 		for (MaterialAGuardar m : this.almacenamientoMaterial) {
@@ -190,9 +182,6 @@ public class CentroCultural {
 		}
 		System.out.println();
 	}
-
-
-
 
 	// cliente por defecto
 	private Cliente generarCliente() {
@@ -215,25 +204,24 @@ public class CentroCultural {
 	// asignar objetos por defecto
 	private void asignarObjetosPorDefecto() {
 		this.listaClientes[0] = generarCliente();
-		
-		//libro por defecto
+
+		// libro por defecto
 		MaterialAGuardar libroDefault = generarLibro();
 		asignarLocalizacionMaterial(libroDefault);
 		libroDefault.asignarCodigoMaterial();
-		
-		//disco por defecto
+
+		// disco por defecto
 		MaterialAGuardar discoDefault = generarDisco();
 		asignarLocalizacionMaterial(discoDefault);
 		discoDefault.asignarCodigoMaterial();
-		
-		//otro libro por defecto
+
+		// otro libro por defecto
 		MaterialAGuardar libroDefault2 = generarLibro();
 		asignarLocalizacionMaterial(libroDefault2);
 		libroDefault2.asignarCodigoMaterial();
 	}
 
-	
-	//metodo comparar libros
+	// metodo comparar libros
 	public void compararLibros(int libro1, int libro2) {
 		Libro temp1 = new Libro();
 		Libro temp2 = new Libro();
@@ -246,8 +234,8 @@ public class CentroCultural {
 					} else if (almacenamientoMaterial[i].getNumId() == libro2) {
 						temp2 = (Libro) almacenamientoMaterial[i];
 					}
-				} 
-				
+				}
+
 			}
 
 		}

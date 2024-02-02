@@ -14,15 +14,14 @@ public class Peticion {
 		super();
 	}
 
-	//mostrar Datos
+	// mostrar Datos
 	public void mostrarDatos() {
-		String datos = "La petición se ha realizado el " + fechaIniPrestamo 
-				+ " para el material con numId " + numIdMaterial;
+		String datos = "La petición se ha realizado el " + fechaIniPrestamo + " para el material con numId "
+				+ numIdMaterial;
 		System.out.println(datos);
 	}
-	
-	
-	//Getters & Setters
+
+	// Getters & Setters
 
 	public Date getFechaIniPrestamo() {
 		return fechaIniPrestamo;

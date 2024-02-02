@@ -23,7 +23,7 @@ public abstract class MaterialAGuardar {
 		this.autor = autor;
 
 	}
-	
+
 	public void inputAltaMaterial() {
 
 		Scanner sc = new Scanner(System.in);
@@ -33,7 +33,7 @@ public abstract class MaterialAGuardar {
 		this.setTitulo(sc.nextLine());
 		System.out.println("Introduce el autor");
 		this.setAutor(sc.nextLine());
-	
+
 		pedirMaterialEspecifico();
 	}
 
@@ -41,20 +41,16 @@ public abstract class MaterialAGuardar {
 		int codigo;
 		do {
 			java.util.Random rand = new java.util.Random();
-			codigo = rand.nextInt(999) / (this.getLocalizacionEstanteria() + 1)
-					- (this.getLocalizacionAltura() + 1);
+			codigo = rand.nextInt(999) / (this.getLocalizacionEstanteria() + 1) - (this.getLocalizacionAltura() + 1);
 		} while (codigo <= 0);
-		
+
 		this.setNumId(codigo);
 	}
-	
-	
-	
+
 	protected abstract void pedirMaterialEspecifico();
-	
+
 	protected abstract void mostrarDatos();
 
-	
 //Getters & Setters
 	public String getInfoGeneral() {
 		return infoGeneral;
