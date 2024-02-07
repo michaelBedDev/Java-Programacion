@@ -1,6 +1,7 @@
 package listas;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -81,5 +82,14 @@ public class ExplicacionArrayList {
 		
 		
 		//Añadir equals y hash code a la clase si se puede (util para ordenar) (dependiendo del tipo de coleccion)
+		
+		
+		
+		//Forma 1
+		ArrayList<Integer> listaEspecial = new ArrayList<>(List.of(1,2,3,4,5,6));
+		//Forma 2
+		String[] lista2 = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+		List<String> list = Arrays.asList(lista2);
+		
 	}
 }
