@@ -14,7 +14,6 @@ public class Avion implements Ejercicio6<Pasajero> {
 	@Override
 	public void insert(Pasajero x) {
 		listaPasajeros.add(x);
-
 	}
 
 	@Override
@@ -28,7 +27,6 @@ public class Avion implements Ejercicio6<Pasajero> {
 				it.remove();
 				flagEliminado = true;
 			}
-
 		}
 
 		// hacelo con try catch
@@ -56,7 +54,6 @@ public class Avion implements Ejercicio6<Pasajero> {
 
 	@Override
 	public void goFirst() {
-		// ?
 		it = listaPasajeros.listIterator(0);
 	}
 
@@ -69,21 +66,16 @@ public class Avion implements Ejercicio6<Pasajero> {
 	public boolean isOnList() { //no entiendo muy bien lo del metodo
 		while (it.hasNext()) {
 			Pasajero p = (Pasajero) it.next();
-
 			if (p == null) {
 				return true;
 			}
-
 		}
 		return false;
 	}
 
 	@Override
 	public Object getCurrent() {
-		//?
-		
 		Object o = it.next();
-		
 		return o;
 	}
 
@@ -93,6 +85,10 @@ public class Avion implements Ejercicio6<Pasajero> {
 		return null;
 	}
 
+	
+	
+	
+	
 	protected Avion() {
 		super();
 		// TODO Auto-generated constructor stub
