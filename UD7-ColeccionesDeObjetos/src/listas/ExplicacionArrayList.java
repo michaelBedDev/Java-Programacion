@@ -88,8 +88,9 @@ public class ExplicacionArrayList {
 		//Forma 1
 		ArrayList<Integer> listaEspecial = new ArrayList<>(List.of(1,2,3,4,5,6));
 		//Forma 2
-		String[] lista2 = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
-		List<String> list = Arrays.asList(lista2);
+		String[] lista2 = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}; //or
+		
+		List<String> list = Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
 		
 	}
 }

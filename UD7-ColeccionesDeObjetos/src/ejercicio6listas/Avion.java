@@ -1,15 +1,15 @@
 package ejercicio6listas;
 
-import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 public class Avion implements Ejercicio6<Pasajero> {
 	private String origen;
 	private String destino;
 	private int plaza;
 	private boolean business;
-	private LinkedList<Pasajero> listaPasajeros;
-	private Iterator<Pasajero> it = listaPasajeros.iterator();
+	public LinkedList<Pasajero> listaPasajeros = new LinkedList<Pasajero>();
+	private ListIterator<Pasajero> it = listaPasajeros.listIterator();
 
 	@Override
 	public void insert(Pasajero x) {
@@ -18,6 +18,9 @@ public class Avion implements Ejercicio6<Pasajero> {
 
 	@Override
 	public void remove(Pasajero x) {
+
+		// recorrer lista desde inicio
+		goFirst();
 
 		boolean flagEliminado = false;
 		while (it.hasNext()) {
@@ -28,8 +31,6 @@ public class Avion implements Ejercicio6<Pasajero> {
 				flagEliminado = true;
 			}
 		}
-
-		// hacelo con try catch
 		if (!flagEliminado) {
 			System.out.println("No se ha encontrado al pasajero para eliminarlo");
 		}
@@ -37,15 +38,20 @@ public class Avion implements Ejercicio6<Pasajero> {
 
 	@Override
 	public void removeCurrent() {
+		// probar si lo elimina de la lista
+			advance(); //?
 		it.remove();
 	}
 
 	@Override
 	public boolean find(Pasajero x) {
+
+		goFirst();
+
 		while (it.hasNext()) {
 			Pasajero p = (Pasajero) it.next();
 
-			if (it.equals(p)) {
+			if (p.equals(x)) {
 				return true;
 			}
 		}
@@ -59,36 +65,40 @@ public class Avion implements Ejercicio6<Pasajero> {
 
 	@Override
 	public void advance() {
-		it.next();
+		if (it.hasNext()) {
+			it.next();
+		}
 	}
 
 	@Override
-	public boolean isOnList() { //no entiendo muy bien lo del metodo
-		while (it.hasNext()) {
-			Pasajero p = (Pasajero) it.next();
-			if (p == null) {
-				return true;
-			}
-		}
-		return false;
+	public boolean isOnList() {
+		
+		goFirst();
+		return it.hasNext();
+		
+//		if (it.hasNext()) {
+//			return true;
+//		}
+//		
+//		while (it.hasNext()) {
+//			Pasajero p = (Pasajero) it.next();
+//			if (p == null) {
+//				return true;
+//			}
+//		}
+//		return false;
 	}
 
 	@Override
 	public Object getCurrent() {
-		Object o = it.next();
-		return o;
+		return it.next();
 	}
 
 	@Override
 	public Object getPrevious() {
-		// return objeto al que apunta el iterator -1
-		return null;
+		return it.previous();
 	}
 
-	
-	
-	
-	
 	protected Avion() {
 		super();
 		// TODO Auto-generated constructor stub

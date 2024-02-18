@@ -18,7 +18,7 @@ public class App {
 			String s = (String) iterator.next();
 
 			if (s.length() == 4) {
-				iterator.set(s);
+				iterator.set(cadena);
 			}
 		}
 		return lista;

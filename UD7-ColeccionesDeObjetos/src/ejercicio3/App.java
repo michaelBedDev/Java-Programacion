@@ -12,17 +12,16 @@ public class App {
 
 	public static ArrayList<Integer> minToFront(ArrayList<Integer> lista) {
 
-		Integer indice = 0;
-		Integer x = lista.get(indice);
+
+		Integer x = lista.get(0); // x = primer numero de la lista
 		
 		for (Iterator<Integer> iterator = lista.iterator(); iterator.hasNext();) {
 			Integer i = (Integer) iterator.next();
 			if (i < x) {
 				x = i;
-				indice = i;
 			}
 		}
-		lista.remove(indice);
+		lista.remove(x);
 		lista.add(0, x);
 		
 		return lista;
