@@ -1,4 +1,4 @@
-package ejercicio1Agenda;
+package listasEjercicio1Agenda;
 
 public class Persona {
 

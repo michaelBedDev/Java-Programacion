@@ -1,4 +1,4 @@
-package ejercicio1Agenda;
+package listasEjercicio1Agenda;
 
 import java.util.ArrayList;
 import java.util.Iterator;

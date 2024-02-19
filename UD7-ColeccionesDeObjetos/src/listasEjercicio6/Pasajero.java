@@ -1,4 +1,4 @@
-package ejercicio6listas;
+package listasEjercicio6;
 
 public class Pasajero {
 	private String DNI;

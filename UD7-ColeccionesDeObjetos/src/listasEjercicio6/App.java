@@ -1,4 +1,4 @@
-package ejercicio6listas;
+package listasEjercicio6;
 
 
 

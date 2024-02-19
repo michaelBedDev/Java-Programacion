@@ -1,4 +1,4 @@
-package ejercicio6listas;
+package listasEjercicio6;
 
 public interface Ejercicio6<T> {
 	
