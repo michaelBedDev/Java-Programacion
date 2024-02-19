@@ -9,7 +9,7 @@ public class Avion implements Ejercicio6<Pasajero> {
 	private int plaza;
 	private boolean business;
 	public LinkedList<Pasajero> listaPasajeros = new LinkedList<Pasajero>();
-	private ListIterator<Pasajero> it = listaPasajeros.listIterator();
+	private ListIterator<Pasajero> it;
 
 	@Override
 	public void insert(Pasajero x) {
@@ -101,11 +101,13 @@ public class Avion implements Ejercicio6<Pasajero> {
 
 	protected Avion() {
 		super();
-		// TODO Auto-generated constructor stub
+		//inicializarlo en cada metodo o en el constructor
+		it = listaPasajeros.listIterator();
 	}
 
 	protected Avion(String origen, String destino, int plaza, boolean business) {
 		super();
+		it = listaPasajeros.listIterator();
 		this.origen = origen;
 		this.destino = destino;
 		this.plaza = plaza;

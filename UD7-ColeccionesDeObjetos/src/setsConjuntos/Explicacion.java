@@ -71,4 +71,9 @@ public class Explicacion {
     numbersValues.retainAll(numbersValuesToRetain);
 
     System.out.println("HashSet after retainAll " + numbersValues);
+    
+    
+    
+    //hashset acepta nulos
+    //añadir siempre hashCode y equals
 }
