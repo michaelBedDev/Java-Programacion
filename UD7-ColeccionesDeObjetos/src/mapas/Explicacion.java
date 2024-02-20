@@ -102,4 +102,7 @@ public class Explicacion {
 			System.out.println("clave: " + e.getKey() + "-> val: " + e.getValue());
 		}
 	}	
+	
+	//keyset convierte un mapa en un conjunto de solo las claves. con un for se puede recorrer
+	//y con el metodo get y la clave se puede obtener el objeto
 }
