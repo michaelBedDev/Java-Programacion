@@ -3,7 +3,7 @@ package centroAcademico;
 import java.util.LinkedList;
 import java.util.Objects;
 
-public class Asignatura implements Comparable{
+public class Asignatura {
 
 	private String codigo;
 	private String nombre;
@@ -25,8 +25,6 @@ public class Asignatura implements Comparable{
 		this.listaAlumnosMatriculados = listaAlumnosMatriculados;
 	}
 
-	
-	
 	
 	
 	@Override 
@@ -76,11 +74,5 @@ public class Asignatura implements Comparable{
 
 	public void setListaAlumnosMatriculados(LinkedList<Alumno> listaAlumnosMatriculados) {
 		this.listaAlumnosMatriculados = listaAlumnosMatriculados;
-	}
-
-	@Override
-	public int compareTo(Object o) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 }

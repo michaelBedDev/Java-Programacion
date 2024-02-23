@@ -1,31 +1,31 @@
 package centroAcademico;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Objects;
+import java.util.TreeSet;
 
 public class Alumno {
 	
 	private String numExp;
 	private String nombre;
 
-	private ArrayList <Asignatura> listaAsignaturas; //Sorted
+	private TreeSet<Asignatura> listaAsignaturas; //Sorted
 	private HashMap <String,Double> mapaCalificaciones; //Asignatura.codigo , calificacion
 
 	
 	
 	protected Alumno() {
 		super();
-		//Arreglar
-		listaAsignaturas = new ArrayList<Asignatura>(new SortByAlphabetical());
+
+		listaAsignaturas = new TreeSet<>(new SortByAlphabetical());
 		mapaCalificaciones = new HashMap<>();
 	}
 	
-	protected Alumno(String numExp, String nombre, LinkedList<Asignatura> listaAsignaturas,
+	protected Alumno(String numExp, String nombre, TreeSet<Asignatura> listaAsignaturas,
 			HashMap<String, Double> mapaCalificaciones) {
 		super();
-		listaAsignaturas = new LinkedList<>();
+		listaAsignaturas = new TreeSet<>();
 		mapaCalificaciones = new HashMap<>();
 		this.numExp = numExp;
 		this.nombre = nombre;
@@ -41,7 +41,7 @@ public class Alumno {
 		return Objects.hash(numExp);
 	}
 	
-	@Override //Repasar
+	@Override 
 	public boolean equals(Object obj) {
 		
 		if (obj == this)
@@ -75,10 +75,10 @@ public class Alumno {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public LinkedList<Asignatura> getListaAsignaturas() {
+	public TreeSet<Asignatura> getListaAsignaturas() {
 		return listaAsignaturas;
 	}
-	public void setListaAsignaturas(LinkedList<Asignatura> listaAsignaturas) {
+	public void setListaAsignaturas(TreeSet<Asignatura> listaAsignaturas) {
 		this.listaAsignaturas = listaAsignaturas;
 	}
 	public HashMap<String, Double> getMapaCalificaciones() {
@@ -93,6 +93,4 @@ public class Alumno {
 	public String toString() {
 		return "Alumno [numExp=" + numExp + ", nombre=" + nombre + ", mapaCalificaciones=" + mapaCalificaciones + "]";
 	}
-	
-	
 }

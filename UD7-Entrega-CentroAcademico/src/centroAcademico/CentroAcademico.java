@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.ListIterator;
 
-
 public class CentroAcademico implements IMetodosCA {
 
 	HashMap<String, Alumno> mapaAlumnos;
@@ -61,7 +60,7 @@ public class CentroAcademico implements IMetodosCA {
 		return true;
 	}
 
-	@Override //Done
+	@Override // Done
 	public boolean matricular(String expediente, String codigo) {
 
 		// el metodo get devuelve el objeto
@@ -86,35 +85,68 @@ public class CentroAcademico implements IMetodosCA {
 		return true;
 	}
 
-	@Override
+	@Override // Done (?)
 	public void imprimirAlumno(String expediente) {
 		System.out.println(mapaAlumnos.get(expediente));
-		mapaAlumnos.get(expediente).getMapaCalificaciones().forEach((asignatura,calificacion) -> System.out.println("Asignatura: " + asignatura + "\t Calificacion: " + calificacion));
+		mapaAlumnos.get(expediente).getMapaCalificaciones().forEach((asignatura, calificacion) -> System.out
+				.println("Asignatura: " + asignatura + "\t Calificacion: " + calificacion));
 
 	}
 
-	@Override
+	@Override // Done (?)
 	public void imprimirAlumnos() {
-		// TODO Auto-generated method stub
 
+		mapaAlumnos.forEach((exp, alumno) -> imprimirAlumno(exp));
 	}
 
-	@Override
+	@Override //Done
 	public void imprimirAsignatura(String código) {
-		// TODO Auto-generated method stub
-
+		mapaAsignaturas.get(código).listaAlumnosMatriculados.forEach(alumno -> alumno.toString());
+		System.out.println("Número total de alumnos: " + mapaAsignaturas.get(código).listaAlumnosMatriculados.size());
 	}
 
-	@Override
+	@Override //Done
 	public boolean agregarCalificacion(String expediente, String codigo, double calificacion) {
-		// TODO Auto-generated method stub
-		return false;
+
+		// el metodo get devuelve el objeto
+		if (mapaAlumnos.get(expediente) == null) {
+			return false; // el alumno no existe
+		}
+
+		if (mapaAsignaturas.get(codigo) == null) {
+			return false; // la asignatura no existe
+		}
+		
+		if (!mapaAsignaturas.get(codigo).listaAlumnosMatriculados.contains(mapaAlumnos.get(expediente))){
+			return false; //el alumno no está matriculado en la asignatura
+		}
+
+		mapaAlumnos.get(expediente).getMapaCalificaciones().put(codigo, calificacion);
+		return true;
 	}
 
-	@Override
+	@Override //Done
 	public void compararAlumno(String expediente1, String expediente2) {
-		// TODO Auto-generated method stub
-
+		double notaMedia1 = 0, notaMedia2 = 0;
+		
+		Collection<Double> calificaciones1 = mapaAlumnos.get(expediente1).getMapaCalificaciones().values();
+		for (Double calificacion : calificaciones1 ) {
+			notaMedia1 += calificacion;
+		}
+		notaMedia1 = notaMedia1 / calificaciones1.size();
+		
+		Collection<Double> calificaciones2 = mapaAlumnos.get(expediente2).getMapaCalificaciones().values();
+		for (Double calificacion : calificaciones2 ) {
+			notaMedia2 += calificacion;
+		}
+		notaMedia2 = notaMedia1 / calificaciones2.size();
+		
+		
+		switch (Double.compare(notaMedia1, notaMedia2)) {
+			case 0 -> System.out.println("Los alumnos tienen la misma nota media, un " + notaMedia1);
+			case 1 -> System.out.println("El primer alumno tiene mayor nota media, con un " + notaMedia1);
+			case -1 -> System.out.println("El segundo alumno tiene mayor nota media, con un " + notaMedia2);
+		}
 	}
 
 	// Getters & Setters
