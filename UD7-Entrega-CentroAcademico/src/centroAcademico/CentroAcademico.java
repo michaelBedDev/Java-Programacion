@@ -166,3 +166,6 @@ public class CentroAcademico implements IMetodosCA {
 		this.mapaAsignaturas = listaAsignaturas;
 	}
 }
+//NOTAS
+//no duplicar info
+

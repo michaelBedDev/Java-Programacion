@@ -58,7 +58,7 @@ public class MenuCentroAcademico extends Menu {
 				centroAcademico.imprimirAsignatura(null);
 				break;
 			case 7:
-				centroAcademico.agregarCalificacion(null, null, seleccion);
+				centroAcademico.agregarCalificacion(null, null, 0);
 				break;
 			case 8:
 				centroAcademico.compararAlumno(null, null);

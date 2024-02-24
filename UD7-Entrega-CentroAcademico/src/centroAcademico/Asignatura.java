@@ -9,11 +9,8 @@ public class Asignatura {
 	private String nombre;
 	private String creditos;
 	
-	LinkedList <Alumno> listaAlumnosMatriculados;
-	
 	protected Asignatura() {
 		super();
-		listaAlumnosMatriculados = new LinkedList<>();
 	}
 
 	protected Asignatura(String codigo, String nombre, String creditos, LinkedList<Alumno> listaAlumnosMatriculados) {
@@ -22,7 +19,6 @@ public class Asignatura {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.creditos = creditos;
-		this.listaAlumnosMatriculados = listaAlumnosMatriculados;
 	}
 
 	
@@ -32,7 +28,7 @@ public class Asignatura {
 		return Objects.hash(nombre);
 	}
 	
-	@Override //Repasar
+	@Override
 	public boolean equals(Object obj) {
 		if (obj == this)
 			return true;
@@ -66,13 +62,5 @@ public class Asignatura {
 
 	public void setCreditos(String creditos) {
 		this.creditos = creditos;
-	}
-
-	public LinkedList<Alumno> getListaAlumnosMatriculados() {
-		return listaAlumnosMatriculados;
-	}
-
-	public void setListaAlumnosMatriculados(LinkedList<Alumno> listaAlumnosMatriculados) {
-		this.listaAlumnosMatriculados = listaAlumnosMatriculados;
 	}
 }

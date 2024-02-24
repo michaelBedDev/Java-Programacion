@@ -6,9 +6,9 @@ public class App {
 		
 		App app = new App();
 		CentroAcademico cole = new CentroAcademico();
-		UsuarioCentroAcademico user = new UsuarioCentroAcademico();
+		UsuarioCentroAcademico user = UsuarioCentroAcademico.getInstance();
 		MenuCentroAcademico menu = new MenuCentroAcademico(user, cole);
 		menu.seleccionarAccion(cole);
-
+		
 	}
 }

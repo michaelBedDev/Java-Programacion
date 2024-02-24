@@ -11,7 +11,7 @@ public class UsuarioCentroAcademico extends Usuario {
 		return INSTANCIA;
 	}
 
-	public UsuarioCentroAcademico() {
+	private UsuarioCentroAcademico() {
 		super();
 	}
 }
