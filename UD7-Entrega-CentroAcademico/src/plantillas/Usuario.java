@@ -23,7 +23,14 @@ public class Usuario {
 			System.out.println(textoPeticion);
 			codigo = Integer.parseInt(sc.nextLine());
 
-		} while (codigo < 1 && codigo > 999);
+		} while (codigo < 1 || codigo > 999);
+		return codigo;
+	}
+	
+	public double pedirNumeroD(String textoPeticion) {
+		double codigo;
+		System.out.println(textoPeticion);
+		codigo = Double.parseDouble(sc.nextLine());
 		return codigo;
 	}
 

@@ -40,25 +40,25 @@ public class MenuCentroAcademico extends Menu {
 		int seleccion = user.inputSeleccionar();
 		switch (seleccion) {
 			case 1:
-				centroAcademico.crearAlumno(null, null);
+				centroAcademico.crearAlumno(user.pedirNumExpediente(), user.pedirNombreAlumno());
 				break;
 			case 2:
-				centroAcademico.crearAsignatura(null, null, null);
+				centroAcademico.crearAsignatura(user.pedirCodigoAsignatura(), user.pedirNombreAsignatura(), user.pedirCreditosAsignatura());
 				break;
 			case 3:
-				centroAcademico.matricular(null, null);
+				centroAcademico.matricular(user.pedirNumExpediente(), user.pedirCodigoAsignatura());
 				break;
 			case 4:
-				centroAcademico.imprimirAlumno(null);
+				centroAcademico.imprimirAlumno(user.pedirNumExpediente());
 				break;
 			case 5:
 				centroAcademico.imprimirAlumnos();
 				break;
 			case 6:
-				centroAcademico.imprimirAsignatura(null);
+				centroAcademico.imprimirAsignatura(user.pedirCodigoAsignatura());
 				break;
 			case 7:
-				centroAcademico.agregarCalificacion(null, null, 0);
+				centroAcademico.agregarCalificacion(user.pedirNumExpediente(), user.pedirCodigoAsignatura(), user.pedirCalificacionAlumno());
 				break;
 			case 8:
 				centroAcademico.compararAlumno(null, null);

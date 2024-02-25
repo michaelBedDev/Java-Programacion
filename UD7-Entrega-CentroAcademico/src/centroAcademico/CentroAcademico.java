@@ -87,8 +87,14 @@ public class CentroAcademico implements IMetodosCA {
 		return true;
 	}
 
-	@Override // Done (?)
+	@Override // hacerlo con try catch
 	public void imprimirAlumno(String expediente) {
+		
+		// hacerlo con try catch
+		if (mapaAlumnos.get(expediente) == null) {
+			 // el alumno no existe
+		}
+		
 		System.out.println(mapaAlumnos.get(expediente));
 		mapaAlumnos.get(expediente).getMapaCalificaciones().forEach((asignatura, calificacion) -> System.out
 				.println("Asignatura: " + asignatura + "\t Calificacion: " + calificacion));
@@ -101,10 +107,16 @@ public class CentroAcademico implements IMetodosCA {
 		mapaAlumnos.forEach((exp, alumno) -> imprimirAlumno(exp));
 	}
 
-	@Override //Done
-	public void imprimirAsignatura(String código) {
-		listaAlumnosMatriculados(mapaAsignaturas.get(código)).forEach(alumno -> alumno.toString());
-		System.out.println("Número total de alumnos: " + listaAlumnosMatriculados(mapaAsignaturas.get(código)).size());
+	@Override // hacerlo con try catch
+	public void imprimirAsignatura(String codigo) {
+		
+		if (mapaAsignaturas.get(codigo) == null) {
+			 // la asignatura no existe
+		}
+		
+		
+		listaAlumnosMatriculados(mapaAsignaturas.get(codigo)).forEach(alumno -> alumno.toString());
+		System.out.println("Número total de alumnos: " + listaAlumnosMatriculados(mapaAsignaturas.get(codigo)).size());
 	}
 
 	@Override //Done
@@ -127,9 +139,18 @@ public class CentroAcademico implements IMetodosCA {
 		return true;
 	}
 
-	@Override //Done
+	@Override //hacerlo con try catch
 	public void compararAlumno(String expediente1, String expediente2) {
 		double notaMedia1 = 0, notaMedia2 = 0;
+		
+		// el metodo get devuelve el objeto
+		if (mapaAlumnos.get(expediente1) == null) {
+			; // el alumno no existe
+		}
+		if (mapaAlumnos.get(expediente2) == null) {
+			; // el alumno no existe
+		}
+		
 		
 		Collection<Double> calificaciones1 = mapaAlumnos.get(expediente1).getMapaCalificaciones().values();
 		for (Double calificacion : calificaciones1 ) {
@@ -151,10 +172,8 @@ public class CentroAcademico implements IMetodosCA {
 		}
 	}
 	
-	
-	
-	//Decidí crear un método que me devuelva la lista de alumnos matriculados en una Asignatura para no repetir información
-	public LinkedList <Alumno> listaAlumnosMatriculados(Asignatura asignatura) {
+	//Decidí crear un método que me devuelva la lista de alumnos matriculados de una Asignatura para no repetir información
+	private LinkedList <Alumno> listaAlumnosMatriculados(Asignatura asignatura) {
 		
 		LinkedList <Alumno> devolverLista = new LinkedList<>();
 		
@@ -170,6 +189,11 @@ public class CentroAcademico implements IMetodosCA {
 		}
 		return devolverLista;
 	}
+	
+	
+	//mostrar codigos de los alumnos?
+	//crear alumno asignatura por defecto
+	
 
 	// Getters & Setters
 	public HashMap<String, Alumno> getListaAlumnos() {
@@ -188,6 +212,4 @@ public class CentroAcademico implements IMetodosCA {
 		this.mapaAsignaturas = listaAsignaturas;
 	}
 }
-//NOTAS
-//no duplicar info
 

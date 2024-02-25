@@ -22,15 +22,12 @@ public class Alumno {
 		mapaCalificaciones = new HashMap<>();
 	}
 	
-	protected Alumno(String numExp, String nombre, TreeSet<Asignatura> listaAsignaturas,
-			HashMap<String, Double> mapaCalificaciones) {
+	protected Alumno(String numExp, String nombre) {
 		super();
 		listaAsignaturas = new TreeSet<>();
 		mapaCalificaciones = new HashMap<>();
 		this.numExp = numExp;
 		this.nombre = nombre;
-		this.listaAsignaturas = listaAsignaturas;
-		this.mapaCalificaciones = mapaCalificaciones;
 	}
 	
 	
