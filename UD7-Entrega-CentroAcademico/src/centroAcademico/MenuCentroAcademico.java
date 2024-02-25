@@ -16,6 +16,7 @@ public class MenuCentroAcademico extends Menu {
 
 	@Override
 	protected void imprimirOpciones() {
+		System.out.println("----VALORES POR DEFECTO: ALUMNOS 101 & 102. ASIGNATURA: 99----");
 		System.out.println("[1] Crear Alumno");
 		System.out.println("[2] Crear Asignatura");
 		System.out.println("[3] Matricular");
@@ -61,7 +62,8 @@ public class MenuCentroAcademico extends Menu {
 				centroAcademico.agregarCalificacion(user.pedirNumExpediente(), user.pedirCodigoAsignatura(), user.pedirCalificacionAlumno());
 				break;
 			case 8:
-				centroAcademico.compararAlumno(null, null);
+				centroAcademico.compararAlumno(user.pedirNumExpediente(), user.pedirNumExpediente());
+				break;
 			case 99:
 				exit = true;
 				System.out.println("Gracias! Hasta luego");

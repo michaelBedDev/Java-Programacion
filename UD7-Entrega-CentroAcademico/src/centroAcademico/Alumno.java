@@ -24,7 +24,7 @@ public class Alumno {
 	
 	protected Alumno(String numExp, String nombre) {
 		super();
-		listaAsignaturas = new TreeSet<>();
+		listaAsignaturas = new TreeSet<>(new SortByAlphabetical());
 		mapaCalificaciones = new HashMap<>();
 		this.numExp = numExp;
 		this.nombre = nombre;

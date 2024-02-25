@@ -15,14 +15,14 @@ public class CentroAcademico implements IMetodosCA {
 		super();
 		mapaAlumnos = new HashMap<>();
 		mapaAsignaturas = new HashMap<>();
+		crearValoresPorDefecto();
 	}
 
 	protected CentroAcademico(HashMap<String, Alumno> listaAlumnos, HashMap<String, Asignatura> listaAsignaturas) {
 		super();
-		mapaAlumnos = new HashMap<>();
-		mapaAsignaturas = new HashMap<>();
 		this.mapaAlumnos = listaAlumnos;
 		this.mapaAsignaturas = listaAsignaturas;
+		crearValoresPorDefecto();
 	}
 
 	@Override // Done
@@ -74,7 +74,8 @@ public class CentroAcademico implements IMetodosCA {
 			return false; // la asignatura no existe
 		}
 
-		ListIterator<Alumno> it = listaAlumnosMatriculados(mapaAsignaturas.get(codigo)).listIterator();
+		LinkedList<Alumno> lista1 = listaAlumnosMatriculados(mapaAsignaturas.get(codigo));
+		ListIterator<Alumno> it = lista1.listIterator(); 
 		while (it.hasNext()) {
 			Alumno alu = it.next();
 			if (alu.getNumExp() == (mapaAlumnos.get(expediente).getNumExp())) {
@@ -83,7 +84,7 @@ public class CentroAcademico implements IMetodosCA {
 		}
 
 		// matricular al alumno
-		listaAlumnosMatriculados(mapaAsignaturas.get(codigo)).add(mapaAlumnos.get(expediente));
+		mapaAlumnos.get(expediente).getListaAsignaturas().add(mapaAsignaturas.get(codigo));
 		return true;
 	}
 
@@ -95,9 +96,9 @@ public class CentroAcademico implements IMetodosCA {
 			 // el alumno no existe
 		}
 		
-		System.out.println(mapaAlumnos.get(expediente));
+		System.out.printf("Alumno: %s \t NumExpediente: %s\n", mapaAlumnos.get(expediente).getNombre(),mapaAlumnos.get(expediente).getNumExp());
 		mapaAlumnos.get(expediente).getMapaCalificaciones().forEach((asignatura, calificacion) -> System.out
-				.println("Asignatura: " + asignatura + "\t Calificacion: " + calificacion));
+				.println("Asignatura: " + asignatura + "\t\t\t Calificacion: " + calificacion + "\n"));
 
 	}
 
@@ -115,8 +116,9 @@ public class CentroAcademico implements IMetodosCA {
 		}
 		
 		
-		listaAlumnosMatriculados(mapaAsignaturas.get(codigo)).forEach(alumno -> alumno.toString());
+		listaAlumnosMatriculados(mapaAsignaturas.get(codigo)).forEach(alumno -> imprimirAlumno(alumno.getNumExp()));
 		System.out.println("Número total de alumnos: " + listaAlumnosMatriculados(mapaAsignaturas.get(codigo)).size());
+		System.out.println();
 	}
 
 	@Override //Done
@@ -162,7 +164,7 @@ public class CentroAcademico implements IMetodosCA {
 		for (Double calificacion : calificaciones2 ) {
 			notaMedia2 += calificacion;
 		}
-		notaMedia2 = notaMedia1 / calificaciones2.size();
+		notaMedia2 = notaMedia2 / calificaciones2.size();
 		
 		
 		switch (Double.compare(notaMedia1, notaMedia2)) {
@@ -170,6 +172,7 @@ public class CentroAcademico implements IMetodosCA {
 			case 1 -> System.out.println("El primer alumno tiene mayor nota media, con un " + notaMedia1);
 			case -1 -> System.out.println("El segundo alumno tiene mayor nota media, con un " + notaMedia2);
 		}
+		System.out.println();
 	}
 	
 	//Decidí crear un método que me devuelva la lista de alumnos matriculados de una Asignatura para no repetir información
@@ -190,9 +193,22 @@ public class CentroAcademico implements IMetodosCA {
 		return devolverLista;
 	}
 	
-	
-	//mostrar codigos de los alumnos?
-	//crear alumno asignatura por defecto
+	private void crearValoresPorDefecto() {
+		Alumno defaultA = new Alumno("101","AlumnoPorDefecto 1");
+		Alumno defaultB = new Alumno("102","AlumnoPorDefecto 2");
+		mapaAlumnos.put("101", defaultA);
+		mapaAlumnos.put("102", defaultB);
+		
+		Asignatura defaultSub = new Asignatura("99","AsignaturaPorDefecto","100");
+		mapaAsignaturas.put("99", defaultSub);
+		
+		//matricular
+		matricular("101","99");
+		matricular("102","99");
+		//añadir calificaciones
+		agregarCalificacion("101","99",5);
+		agregarCalificacion("102","99",7.55);
+	}
 	
 
 	// Getters & Setters
@@ -211,5 +227,21 @@ public class CentroAcademico implements IMetodosCA {
 	public void setListaAsignaturas(HashMap<String, Asignatura> listaAsignaturas) {
 		this.mapaAsignaturas = listaAsignaturas;
 	}
+	
+//	Extra:
+//
+//		Debes crear una excepción personalizada que salte cuando se muestre una asignatura y no haya alumnos matriculados. 
+//		(indique el motivo y la fecha de cuando se produjo la excepción)
+	
+//		Debes validar los datos de entrada de alumno y asignatura correctamente, 
+//		si el usuario introduce algún formato no esperado no debe cerrarse el programa
+//		Se le indicará que debe volver a introducir el dato.
+	
+//		Debes limpiar la entrada de datos de espacios.
+//		Créditos y calificación siempre positivos.
+	
+//		El número de expediente del alumno se corresponderá con su dni,
+//		debe validarse con una expresión regular. Lo mismo que el código de asignatura,
+//		que siempre consta de una letra mayúscula A con guion y tres números. Ejemplo: A-111
 }
 
