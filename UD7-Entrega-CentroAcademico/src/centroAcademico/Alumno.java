@@ -55,13 +55,6 @@ public class Alumno {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
 	//Getters & Setters
 	public String getNumExp() {
 		return numExp;

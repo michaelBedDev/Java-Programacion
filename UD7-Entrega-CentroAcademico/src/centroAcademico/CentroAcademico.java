@@ -2,6 +2,8 @@ package centroAcademico;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.ListIterator;
 
 public class CentroAcademico implements IMetodosCA {
@@ -72,7 +74,7 @@ public class CentroAcademico implements IMetodosCA {
 			return false; // la asignatura no existe
 		}
 
-		ListIterator<Alumno> it = (ListIterator<Alumno>) mapaAsignaturas.get(codigo).listaAlumnosMatriculados;
+		ListIterator<Alumno> it = listaAlumnosMatriculados(mapaAsignaturas.get(codigo)).listIterator();
 		while (it.hasNext()) {
 			Alumno alu = it.next();
 			if (alu.getNumExp() == (mapaAlumnos.get(expediente).getNumExp())) {
@@ -81,7 +83,7 @@ public class CentroAcademico implements IMetodosCA {
 		}
 
 		// matricular al alumno
-		mapaAsignaturas.get(codigo).listaAlumnosMatriculados.add(mapaAlumnos.get(expediente));
+		listaAlumnosMatriculados(mapaAsignaturas.get(codigo)).add(mapaAlumnos.get(expediente));
 		return true;
 	}
 
@@ -101,8 +103,8 @@ public class CentroAcademico implements IMetodosCA {
 
 	@Override //Done
 	public void imprimirAsignatura(String código) {
-		mapaAsignaturas.get(código).listaAlumnosMatriculados.forEach(alumno -> alumno.toString());
-		System.out.println("Número total de alumnos: " + mapaAsignaturas.get(código).listaAlumnosMatriculados.size());
+		listaAlumnosMatriculados(mapaAsignaturas.get(código)).forEach(alumno -> alumno.toString());
+		System.out.println("Número total de alumnos: " + listaAlumnosMatriculados(mapaAsignaturas.get(código)).size());
 	}
 
 	@Override //Done
@@ -117,7 +119,7 @@ public class CentroAcademico implements IMetodosCA {
 			return false; // la asignatura no existe
 		}
 		
-		if (!mapaAsignaturas.get(codigo).listaAlumnosMatriculados.contains(mapaAlumnos.get(expediente))){
+		if (!listaAlumnosMatriculados(mapaAsignaturas.get(codigo)).contains(mapaAlumnos.get(expediente))){
 			return false; //el alumno no está matriculado en la asignatura
 		}
 
@@ -147,6 +149,26 @@ public class CentroAcademico implements IMetodosCA {
 			case 1 -> System.out.println("El primer alumno tiene mayor nota media, con un " + notaMedia1);
 			case -1 -> System.out.println("El segundo alumno tiene mayor nota media, con un " + notaMedia2);
 		}
+	}
+	
+	
+	
+	//Decidí crear un método que me devuelva la lista de alumnos matriculados en una Asignatura para no repetir información
+	public LinkedList <Alumno> listaAlumnosMatriculados(Asignatura asignatura) {
+		
+		LinkedList <Alumno> devolverLista = new LinkedList<>();
+		
+		Collection<Alumno> tempAlumnos = mapaAlumnos.values();
+		Iterator<Alumno> itAlumnos = tempAlumnos.iterator();
+		
+		while(itAlumnos.hasNext()) {
+			
+			Alumno tempAlumno = itAlumnos.next();
+			if(tempAlumno.getListaAsignaturas().contains(asignatura)) {
+				devolverLista.add(tempAlumno);
+			}
+		}
+		return devolverLista;
 	}
 
 	// Getters & Setters

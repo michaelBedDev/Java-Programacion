@@ -1,6 +1,6 @@
 package centroAcademico;
 
-import java.util.LinkedList;
+
 import java.util.Objects;
 
 public class Asignatura {
@@ -13,9 +13,8 @@ public class Asignatura {
 		super();
 	}
 
-	protected Asignatura(String codigo, String nombre, String creditos, LinkedList<Alumno> listaAlumnosMatriculados) {
+	protected Asignatura(String codigo, String nombre, String creditos) {
 		super();
-		listaAlumnosMatriculados = new LinkedList<>();
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.creditos = creditos;
