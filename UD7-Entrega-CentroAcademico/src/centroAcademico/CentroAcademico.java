@@ -1,10 +1,16 @@
 package centroAcademico;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
+
+import excepciones.AlumnoDoesntExistException;
+import excepciones.AlumnoNoMatriculadoException;
+import excepciones.AlumnoYaMatriculadoException;
+import excepciones.SubjectDoesntExistException;
 
 public class CentroAcademico implements IMetodosCA {
 
@@ -65,22 +71,35 @@ public class CentroAcademico implements IMetodosCA {
 	@Override // Done
 	public boolean matricular(String expediente, String codigo) {
 
-		// el metodo get devuelve el objeto
-		if (mapaAlumnos.get(expediente) == null) {
-			return false; // el alumno no existe
-		}
+		try {
+			// el metodo get devuelve el objeto
+			if (mapaAlumnos.get(expediente) == null) {
+				
+				throw new AlumnoDoesntExistException("el alumno no existe");
 
-		if (mapaAsignaturas.get(codigo) == null) {
-			return false; // la asignatura no existe
-		}
-
-		LinkedList<Alumno> lista1 = listaAlumnosMatriculados(mapaAsignaturas.get(codigo));
-		ListIterator<Alumno> it = lista1.listIterator();
-		while (it.hasNext()) {
-			Alumno alu = it.next();
-			if (alu.getNumExp() == (mapaAlumnos.get(expediente).getNumExp())) {
-				return false; // el alumno ya estaba matriculado;
 			}
+
+			if (mapaAsignaturas.get(codigo) == null) {
+				throw new SubjectDoesntExistException("la asignatura no existe");   //throw new SubjectDoesntExistException("la asignatura no existe");
+			}
+
+			LinkedList<Alumno> lista1 = listaAlumnosMatriculados(mapaAsignaturas.get(codigo));
+			ListIterator<Alumno> it = lista1.listIterator(); 
+			while (it.hasNext()) {
+				Alumno alu = it.next();
+				if (alu.getNumExp() == (mapaAlumnos.get(expediente).getNumExp())) {
+					throw new AlumnoYaMatriculadoException("el alumno ya estaba matriculado en la asignatura");
+				}
+			}
+		} catch (AlumnoDoesntExistException e) {
+			System.out.println("Alumno no matriculado: " + e.getMessage());
+			return false;
+		} catch (SubjectDoesntExistException e) {
+			System.out.println("Alumno no matriculado: " + e.getMessage());
+			return false;
+		} catch (AlumnoYaMatriculadoException e) {
+			System.out.println("Alumno no matriculado: " + e.getMessage());
+			return false;
 		}
 
 		// matricular al alumno
@@ -88,12 +107,15 @@ public class CentroAcademico implements IMetodosCA {
 		return true;
 	}
 
-	@Override // hacerlo con try catch
+	@Override //Done
 	public void imprimirAlumno(String expediente) {
-
-		// hacerlo con try catch
-		if (mapaAlumnos.get(expediente) == null) {
-			// el alumno no existe
+		try {
+			if (mapaAlumnos.get(expediente) == null) {
+				 throw new AlumnoDoesntExistException("el alumno no existe"); 
+			}
+		} catch (AlumnoDoesntExistException e) {
+			System.out.println("No se ha podido imprimir: " + e.getMessage());
+			return;
 		}
 
 		System.out.printf("Alumno: %s \t NumExpediente: %s\n", mapaAlumnos.get(expediente).getNombre(),
@@ -103,17 +125,22 @@ public class CentroAcademico implements IMetodosCA {
 
 	}
 
-	@Override // Done (?)
+	@Override // Done
 	public void imprimirAlumnos() {
 
 		mapaAlumnos.forEach((exp, alumno) -> imprimirAlumno(exp));
 	}
 
-	@Override // hacerlo con try catch
+	@Override  //Done
 	public void imprimirAsignatura(String codigo) {
-
-		if (mapaAsignaturas.get(codigo) == null) {
-			// la asignatura no existe
+		
+		try {
+			if (mapaAsignaturas.get(codigo) == null) {
+				 throw new SubjectDoesntExistException("la asignatura no existe");
+			}
+		} catch (SubjectDoesntExistException e) {
+			System.out.println("No se ha podido imprimir: " + e.getMessage());
+			return;
 		}
 
 		listaAlumnosMatriculados(mapaAsignaturas.get(codigo)).forEach(alumno -> imprimirAlumno(alumno.getNumExp()));
@@ -123,34 +150,51 @@ public class CentroAcademico implements IMetodosCA {
 
 	@Override // Done
 	public boolean agregarCalificacion(String expediente, String codigo, double calificacion) {
+		
+		try {
+			if (mapaAlumnos.get(expediente) == null) {
+				throw new AlumnoDoesntExistException("el alumno no existe");
+			}
 
-		// el metodo get devuelve el objeto
-		if (mapaAlumnos.get(expediente) == null) {
-			return false; // el alumno no existe
-		}
+			if (mapaAsignaturas.get(codigo) == null) {
+				throw new SubjectDoesntExistException("la asignatura no existe");
+			}
+			
+			if (!listaAlumnosMatriculados(mapaAsignaturas.get(codigo)).contains(mapaAlumnos.get(expediente))){
+				throw new AlumnoNoMatriculadoException("el alumno no está matriculado en la asignatura");
+			}
+		} catch (AlumnoDoesntExistException e) {
+			System.out.println("Alumno no matriculado: " + e.getMessage());
+			return false;
+		} catch (SubjectDoesntExistException e) {
+			System.out.println("Alumno no matriculado: " + e.getMessage());
+			return false;
+		} catch (AlumnoNoMatriculadoException e) {
+			System.out.println("No se ha podido agregar calificacion: " + e.getMessage());
+			System.out.println("FECHA: " + new Date());
+			return false;
 
-		if (mapaAsignaturas.get(codigo) == null) {
-			return false; // la asignatura no existe
-		}
-
-		if (!listaAlumnosMatriculados(mapaAsignaturas.get(codigo)).contains(mapaAlumnos.get(expediente))) {
-			return false; // el alumno no está matriculado en la asignatura
 		}
 
 		mapaAlumnos.get(expediente).getMapaCalificaciones().put(codigo, calificacion);
 		return true;
 	}
 
-	@Override // hacerlo con try catch
+
+	@Override //Done
 	public void compararAlumno(String expediente1, String expediente2) {
 		double notaMedia1 = 0, notaMedia2 = 0;
 
-		// el metodo get devuelve el objeto
-		if (mapaAlumnos.get(expediente1) == null) {
-			; // el alumno no existe
-		}
-		if (mapaAlumnos.get(expediente2) == null) {
-			; // el alumno no existe
+		try {
+			if (mapaAlumnos.get(expediente1) == null) {
+				throw new AlumnoDoesntExistException("el alumno no existe"); 
+			}
+			if (mapaAlumnos.get(expediente2) == null) {
+				throw new AlumnoDoesntExistException("el alumno no existe"); 
+			}
+		} catch (AlumnoDoesntExistException e) {
+			System.out.println("No se ha podido comparar a los alumnos: " + e.getMessage());
+			return;
 		}
 
 		Collection<Double> calificaciones1 = mapaAlumnos.get(expediente1).getMapaCalificaciones().values();
@@ -197,16 +241,17 @@ public class CentroAcademico implements IMetodosCA {
 		Alumno defaultB = new Alumno("102", "AlumnoPorDefecto 2");
 		mapaAlumnos.put("101", defaultA);
 		mapaAlumnos.put("102", defaultB);
+		
+		Asignatura defaultSub = new Asignatura("A-111","AsignaturaPorDefecto","100");
+		mapaAsignaturas.put("A-111", defaultSub);
+		
+		//matricular
+		matricular("101","A-111");
+		matricular("102","A-111");
+		//añadir calificaciones
+		agregarCalificacion("101","A-111",5);
+		agregarCalificacion("102","A-111",7.55);
 
-		Asignatura defaultSub = new Asignatura("99", "AsignaturaPorDefecto", "100");
-		mapaAsignaturas.put("99", defaultSub);
-
-		// matricular
-		matricular("101", "99");
-		matricular("102", "99");
-		// añadir calificaciones
-		agregarCalificacion("101", "99", 5);
-		agregarCalificacion("102", "99", 7.55);
 	}
 
 	// Getters & Setters
@@ -226,17 +271,6 @@ public class CentroAcademico implements IMetodosCA {
 		this.mapaAsignaturas = listaAsignaturas;
 	}
 
-//	Extra:
-//
-//		Debes crear una excepción personalizada que salte cuando se muestre una asignatura y no haya alumnos matriculados. 
-//		(indique el motivo y la fecha de cuando se produjo la excepción)
-
-//		Debes validar los datos de entrada de alumno y asignatura correctamente, 
-//		si el usuario introduce algún formato no esperado no debe cerrarse el programa
-//		Se le indicará que debe volver a introducir el dato.
-
-//		Debes limpiar la entrada de datos de espacios.
-//		Créditos y calificación siempre positivos.
 
 //		El número de expediente del alumno se corresponderá con su dni,
 //		debe validarse con una expresión regular. Lo mismo que el código de asignatura,
