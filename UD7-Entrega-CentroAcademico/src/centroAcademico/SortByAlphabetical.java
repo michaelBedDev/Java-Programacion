@@ -2,8 +2,7 @@ package centroAcademico;
 
 import java.util.Comparator;
 
-public class SortByAlphabetical implements Comparator<Asignatura>{
-
+public class SortByAlphabetical implements Comparator<Asignatura> {
 
 	@Override
 	public int compare(Asignatura o1, Asignatura o2) {

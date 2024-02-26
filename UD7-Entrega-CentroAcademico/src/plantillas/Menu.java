@@ -10,8 +10,8 @@ public abstract class Menu {
 	}
 
 	protected abstract boolean accionARealizarSwitch();
-	//Switch de las acciones en la clase hija
+	// Switch de las acciones en la clase hija
 
 	protected abstract void imprimirOpciones();
-		//Imprime aquí las opciones del menu
+	// Imprime aquí las opciones del menu
 }

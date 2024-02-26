@@ -1,6 +1,5 @@
 package centroAcademico;
 
-
 import java.util.Objects;
 
 public class Asignatura {
@@ -8,7 +7,7 @@ public class Asignatura {
 	private String codigo;
 	private String nombre;
 	private String creditos;
-	
+
 	protected Asignatura() {
 		super();
 	}
@@ -20,25 +19,22 @@ public class Asignatura {
 		this.creditos = creditos;
 	}
 
-	
-	
-	@Override 
+	@Override
 	public int hashCode() {
 		return Objects.hash(nombre);
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == this)
 			return true;
-		if(!(obj instanceof Asignatura ))
+		if (!(obj instanceof Asignatura))
 			return false;
 		Asignatura subject = (Asignatura) obj;
 		return this.getCodigo() == subject.getCodigo();
 	}
-	
-	
-	//Getters & Setters
+
+	// Getters & Setters
 	public String getCodigo() {
 		return codigo;
 	}

@@ -24,7 +24,7 @@ public class MenuCentroAcademico extends Menu {
 		System.out.println("[5] Imprimir Alumnos");
 		System.out.println("[6] Imprimir Asignatura");
 		System.out.println("[7] Agregar Calificacion");
-		System.out.println("[8] Comparar Alumno");		
+		System.out.println("[8] Comparar Alumno");
 		System.out.println("[99] Salir");
 
 	}
@@ -44,7 +44,8 @@ public class MenuCentroAcademico extends Menu {
 				centroAcademico.crearAlumno(user.pedirNumExpediente(), user.pedirNombreAlumno());
 				break;
 			case 2:
-				centroAcademico.crearAsignatura(user.pedirCodigoAsignatura(), user.pedirNombreAsignatura(), user.pedirCreditosAsignatura());
+				centroAcademico.crearAsignatura(user.pedirCodigoAsignatura(), user.pedirNombreAsignatura(),
+						user.pedirCreditosAsignatura());
 				break;
 			case 3:
 				centroAcademico.matricular(user.pedirNumExpediente(), user.pedirCodigoAsignatura());
@@ -59,7 +60,8 @@ public class MenuCentroAcademico extends Menu {
 				centroAcademico.imprimirAsignatura(user.pedirCodigoAsignatura());
 				break;
 			case 7:
-				centroAcademico.agregarCalificacion(user.pedirNumExpediente(), user.pedirCodigoAsignatura(), user.pedirCalificacionAlumno());
+				centroAcademico.agregarCalificacion(user.pedirNumExpediente(), user.pedirCodigoAsignatura(),
+						user.pedirCalificacionAlumno());
 				break;
 			case 8:
 				centroAcademico.compararAlumno(user.pedirNumExpediente(), user.pedirNumExpediente());

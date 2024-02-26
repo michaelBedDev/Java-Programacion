@@ -26,7 +26,7 @@ public class Usuario {
 		} while (codigo < 1 || codigo > 999);
 		return codigo;
 	}
-	
+
 	public double pedirNumeroD(String textoPeticion) {
 		double codigo;
 		System.out.println(textoPeticion);
