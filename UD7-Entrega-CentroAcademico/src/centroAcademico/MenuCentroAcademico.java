@@ -1,8 +1,6 @@
 package centroAcademico;
 
-
 import plantillas.Menu;
-
 
 public class MenuCentroAcademico extends Menu {
 
@@ -17,7 +15,7 @@ public class MenuCentroAcademico extends Menu {
 
 	@Override
 	protected void imprimirOpciones() {
-		System.out.println("----VALORES POR DEFECTO: ALUMNOS 101 & 102. ASIGNATURA: A-111----");
+		System.out.println("----VALORES POR DEFECTO: ALUMNOS 00000000A & 00000000B. ASIGNATURA: A-111----");
 		System.out.println("[1] Crear Alumno");
 		System.out.println("[2] Crear Asignatura");
 		System.out.println("[3] Matricular");
@@ -39,44 +37,52 @@ public class MenuCentroAcademico extends Menu {
 		this.imprimirOpciones();
 		boolean exit = false;
 
-		int seleccion = user.inputSeleccionar();
+		int seleccion = 0;
+		try {
+			seleccion = user.inputSeleccionar();
 
-		switch (seleccion) {
-		case 1:
-			centroAcademico.crearAlumno(user.pedirNumExpediente(), user.pedirNombreAlumno());
-			break;
-		case 2:
-			centroAcademico.crearAsignatura(user.pedirCodigoAsignatura(), user.pedirNombreAsignatura(),
-					user.pedirCreditosAsignatura());
-			break;
-		case 3:
-			centroAcademico.matricular(user.pedirNumExpediente(), user.pedirCodigoAsignatura());
-			break;
-		case 4:
-			centroAcademico.imprimirAlumno(user.pedirNumExpediente());
-			break;
-		case 5:
-			centroAcademico.imprimirAlumnos();
-			break;
-		case 6:
-			centroAcademico.imprimirAsignatura(user.pedirCodigoAsignatura());
-			break;
-		case 7:
-			centroAcademico.agregarCalificacion(user.pedirNumExpediente(), user.pedirCodigoAsignatura(),
-					user.pedirCalificacionAlumno());
-			break;
-		case 8:
-			centroAcademico.compararAlumno(user.pedirNumExpediente(), user.pedirNumExpediente());
-			break;
-		case 99:
-			exit = true;
-			System.out.println("Gracias! Hasta luego");
+			switch (seleccion) {
+				case 1:
+					centroAcademico.crearAlumno(user.pedirNumExpediente(), user.pedirNombreAlumno());
+					break;
+				case 2:
+					centroAcademico.crearAsignatura(user.pedirCodigoAsignatura(), user.pedirNombreAsignatura(),
+							user.pedirCreditosAsignatura());
+					break;
+				case 3:
+					centroAcademico.matricular(user.pedirNumExpediente(), user.pedirCodigoAsignatura());
+					break;
+				case 4:
+					centroAcademico.imprimirAlumno(user.pedirNumExpediente());
+					break;
+				case 5:
+					centroAcademico.imprimirAlumnos();
+					break;
+				case 6:
+					centroAcademico.imprimirAsignatura(user.pedirCodigoAsignatura());
+					break;
+				case 7:
+					centroAcademico.agregarCalificacion(user.pedirNumExpediente(), user.pedirCodigoAsignatura(),
+							user.pedirCalificacionAlumno());
+					break;
+				case 8:
+					centroAcademico.compararAlumno(user.pedirNumExpediente(), user.pedirNumExpediente());
+					break;
+				case 99:
+					exit = true;
+					System.out.println("Gracias! Hasta luego");
+			}
+
+			if ((seleccion < 1 || seleccion > 10) && seleccion != 99) {
+				System.out.println("Por favor, introduce una de las opciones");
+				System.out.println();
+			}
+
+		} catch (NumberFormatException e) {
+
+			System.out.println("Introduce un formato de número válido\n");
 		}
 
-		if ((seleccion < 1 || seleccion > 10) && seleccion != 99) {
-			System.out.println("Por favor, introduce una de las opciones");
-			System.out.println();
-		}
 		return exit;
 	}
 }

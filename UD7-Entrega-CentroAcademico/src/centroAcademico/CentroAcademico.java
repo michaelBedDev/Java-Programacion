@@ -34,17 +34,14 @@ public class CentroAcademico implements IMetodosCA {
 	@Override // Done
 	public boolean crearAlumno(String expediente, String nombre) {
 
+		if (mapaAlumnos.containsKey(expediente)) {
+			System.out.println("Alumno no creado: el alumno ya existe");
+			return false;
+		}
 		Alumno alumnoNew = new Alumno();
 		alumnoNew.setNumExp(expediente);
 		alumnoNew.setNombre(nombre);
 
-		Collection<Alumno> tempAlumnos = mapaAlumnos.values();
-
-		for (Alumno alumno : tempAlumnos) {
-			if (alumno.equals(alumnoNew)) {
-				return false;
-			}
-		}
 		mapaAlumnos.put(expediente, alumnoNew);
 		return true;
 	}
@@ -52,18 +49,16 @@ public class CentroAcademico implements IMetodosCA {
 	@Override // Done
 	public boolean crearAsignatura(String codigo, String nombre, String creditos) {
 
+		if (mapaAsignaturas.containsKey(codigo)) {
+			System.out.println("Asignatura no creada: la asignatura ya existe");
+			return false;
+		}
+
 		Asignatura asignaturaNew = new Asignatura();
 		asignaturaNew.setCodigo(codigo);
 		asignaturaNew.setNombre(nombre);
 		asignaturaNew.setCreditos(creditos);
 
-		Collection<Asignatura> tempAsignaturas = mapaAsignaturas.values();
-
-		for (Asignatura subject : tempAsignaturas) {
-			if (subject.equals(asignaturaNew)) {
-				return false;
-			}
-		}
 		mapaAsignaturas.put(codigo, asignaturaNew);
 		return true;
 	}
@@ -72,19 +67,17 @@ public class CentroAcademico implements IMetodosCA {
 	public boolean matricular(String expediente, String codigo) {
 
 		try {
-			// el metodo get devuelve el objeto
-			if (mapaAlumnos.get(expediente) == null) {
-				
-				throw new AlumnoDoesntExistException("el alumno no existe");
 
+			if (mapaAlumnos.get(expediente) == null) {
+				throw new AlumnoDoesntExistException("el alumno no existe");
 			}
 
 			if (mapaAsignaturas.get(codigo) == null) {
-				throw new SubjectDoesntExistException("la asignatura no existe");   //throw new SubjectDoesntExistException("la asignatura no existe");
+				throw new SubjectDoesntExistException("la asignatura no existe"); 
 			}
 
 			LinkedList<Alumno> lista1 = listaAlumnosMatriculados(mapaAsignaturas.get(codigo));
-			ListIterator<Alumno> it = lista1.listIterator(); 
+			ListIterator<Alumno> it = lista1.listIterator();
 			while (it.hasNext()) {
 				Alumno alu = it.next();
 				if (alu.getNumExp() == (mapaAlumnos.get(expediente).getNumExp())) {
@@ -107,11 +100,11 @@ public class CentroAcademico implements IMetodosCA {
 		return true;
 	}
 
-	@Override //Done
+	@Override // Done
 	public void imprimirAlumno(String expediente) {
 		try {
 			if (mapaAlumnos.get(expediente) == null) {
-				 throw new AlumnoDoesntExistException("el alumno no existe"); 
+				throw new AlumnoDoesntExistException("el alumno no existe\n");
 			}
 		} catch (AlumnoDoesntExistException e) {
 			System.out.println("No se ha podido imprimir: " + e.getMessage());
@@ -131,12 +124,12 @@ public class CentroAcademico implements IMetodosCA {
 		mapaAlumnos.forEach((exp, alumno) -> imprimirAlumno(exp));
 	}
 
-	@Override  //Done
+	@Override // Done
 	public void imprimirAsignatura(String codigo) {
-		
+
 		try {
 			if (mapaAsignaturas.get(codigo) == null) {
-				 throw new SubjectDoesntExistException("la asignatura no existe");
+				throw new SubjectDoesntExistException("la asignatura no existe\n");
 			}
 		} catch (SubjectDoesntExistException e) {
 			System.out.println("No se ha podido imprimir: " + e.getMessage());
@@ -150,7 +143,7 @@ public class CentroAcademico implements IMetodosCA {
 
 	@Override // Done
 	public boolean agregarCalificacion(String expediente, String codigo, double calificacion) {
-		
+
 		try {
 			if (mapaAlumnos.get(expediente) == null) {
 				throw new AlumnoDoesntExistException("el alumno no existe");
@@ -159,8 +152,8 @@ public class CentroAcademico implements IMetodosCA {
 			if (mapaAsignaturas.get(codigo) == null) {
 				throw new SubjectDoesntExistException("la asignatura no existe");
 			}
-			
-			if (!listaAlumnosMatriculados(mapaAsignaturas.get(codigo)).contains(mapaAlumnos.get(expediente))){
+
+			if (!listaAlumnosMatriculados(mapaAsignaturas.get(codigo)).contains(mapaAlumnos.get(expediente))) {
 				throw new AlumnoNoMatriculadoException("el alumno no está matriculado en la asignatura");
 			}
 		} catch (AlumnoDoesntExistException e) {
@@ -180,17 +173,16 @@ public class CentroAcademico implements IMetodosCA {
 		return true;
 	}
 
-
-	@Override //Done
+	@Override // Done
 	public void compararAlumno(String expediente1, String expediente2) {
 		double notaMedia1 = 0, notaMedia2 = 0;
 
 		try {
 			if (mapaAlumnos.get(expediente1) == null) {
-				throw new AlumnoDoesntExistException("el alumno no existe"); 
+				throw new AlumnoDoesntExistException("el alumno no existe");
 			}
 			if (mapaAlumnos.get(expediente2) == null) {
-				throw new AlumnoDoesntExistException("el alumno no existe"); 
+				throw new AlumnoDoesntExistException("el alumno no existe");
 			}
 		} catch (AlumnoDoesntExistException e) {
 			System.out.println("No se ha podido comparar a los alumnos: " + e.getMessage());
@@ -237,20 +229,20 @@ public class CentroAcademico implements IMetodosCA {
 	}
 
 	private void crearValoresPorDefecto() {
-		Alumno defaultA = new Alumno("101", "AlumnoPorDefecto 1");
-		Alumno defaultB = new Alumno("102", "AlumnoPorDefecto 2");
-		mapaAlumnos.put("101", defaultA);
-		mapaAlumnos.put("102", defaultB);
-		
-		Asignatura defaultSub = new Asignatura("A-111","AsignaturaPorDefecto","100");
+		Alumno defaultA = new Alumno("00000000A", "AlumnoPorDefecto 1");
+		Alumno defaultB = new Alumno("00000000B", "AlumnoPorDefecto 2");
+		mapaAlumnos.put("00000000A", defaultA);
+		mapaAlumnos.put("00000000B", defaultB);
+
+		Asignatura defaultSub = new Asignatura("A-111", "AsignaturaPorDefecto", "100");
 		mapaAsignaturas.put("A-111", defaultSub);
-		
-		//matricular
-		matricular("101","A-111");
-		matricular("102","A-111");
-		//añadir calificaciones
-		agregarCalificacion("101","A-111",5);
-		agregarCalificacion("102","A-111",7.55);
+
+		// matricular
+		matricular("00000000A", "A-111");
+		matricular("00000000B", "A-111");
+		// añadir calificaciones
+		agregarCalificacion("00000000A", "A-111", 5);
+		agregarCalificacion("00000000B", "A-111", 7.55);
 
 	}
 
@@ -270,7 +262,6 @@ public class CentroAcademico implements IMetodosCA {
 	public void setListaAsignaturas(HashMap<String, Asignatura> listaAsignaturas) {
 		this.mapaAsignaturas = listaAsignaturas;
 	}
-
 
 //		El número de expediente del alumno se corresponderá con su dni,
 //		debe validarse con una expresión regular. Lo mismo que el código de asignatura,
