@@ -41,18 +41,13 @@ public class Pokemon {
 
 	// Metodos
 	public void asignarNombreAPokemon() {
-		String vacío = "";
-		String nombrePoke;
 
 		System.out.println("Dime, cómo se llama tu pokémon? Pulsa [enter] para no introducir ningún mote");
 		Scanner sc = new Scanner(System.in);
-		nombrePoke = sc.nextLine();
-		if (nombrePoke == vacío)
-			setNombre(getTipo().toString());
-		else
-			this.nombre = nombrePoke;
-		System.out.println("Fantástico! " + getNombre() + " ya es parte de tu equipo");
-		System.out.println();
+		String nombrePoke = sc.nextLine();
+		
+		this.nombre = (nombrePoke == "") ? getTipo().toString() : nombrePoke;
+		System.out.println("Fantástico! " + getNombre() + " ya es parte de tu equipo\n");
 	}
 
 	public void sanarTotalmente() {
@@ -77,14 +72,10 @@ public class Pokemon {
 	}
 
 	public void mostrarDatos() {
-		System.out.println("Pokemon: " + this.nombre);
-		System.out.println("Tipo: " + this.tipo);
-		System.out.println("Vida: " + this.vida);
-		System.out.println("Vida Maxima: " + this.vidaMaxima);
-		System.out.println("Nivel: " + this.nivel);
+		System.out.printf("Pokemon: %s\nTipo: %s\nVida: %s\nVida Maxima: %s\nNivel: %s\n", tipo, vida, vidaMaxima, nivel);
 	}
 
-	//
+
 	private void asignarPokemonFusion() {
 
 	}
