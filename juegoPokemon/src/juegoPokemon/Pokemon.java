@@ -72,7 +72,12 @@ public class Pokemon {
 	}
 
 	public void mostrarDatos() {
-		System.out.printf("Pokemon: %s\nTipo: %s\nVida: %s\nVida Maxima: %s\nNivel: %s\n", tipo, vida, vidaMaxima, nivel);
+		System.out.println("Pokémon: " + nombre);
+		System.out.println("Tipo: " + tipo);
+		System.out.println("Vida: " + vida);
+		System.out.println("VidaMaxima: " + vidaMaxima);
+		System.out.println("Nivel: " + nivel);
+		System.out.println();
 	}
 
 

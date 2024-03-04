@@ -33,15 +33,15 @@ public class Entrenador {
 	}
 
 	// Agregar Pokémon
-	private void agregarPokemon(Pokemon poke) {
+	public void agregarPokemon(Pokemon poke) {
 		int seleccion;
 		do {
 			this.mostrarEquipo();
 			System.out.println("En qué posición quieres agregar el nuevo pokemon? [0-4]");
 			sc = new Scanner(System.in);
 			seleccion = sc.nextInt();
-			this.equipoPokemon[seleccion] = poke;
 		} while (seleccion < 0 || seleccion > 4);
+		this.equipoPokemon[seleccion] = poke;
 		System.out.println("Genial! " + poke.getNombre() + " te acompañará a partir de ahora en tu aventura.");
 	}
 
@@ -52,15 +52,30 @@ public class Entrenador {
 	// Eliminar pokémon por posición
 	public void eliminarPokemonPosicion() throws InterruptedException {
 		int seleccion;
+		boolean vacio = false;
 		do {
 			this.mostrarEquipo();
-			System.out.println("En qué posición quieres eliminar el pokemon? [0-4]");
-			sc = new Scanner(System.in);
-			seleccion = sc.nextInt();
+			do {
+				System.out.println("En qué posición quieres eliminar el pokemon? [0-4]");
+				sc = new Scanner(System.in);
+				seleccion = sc.nextInt();
+				if (seleccion <0 || seleccion >4) {
+					System.out.println("Por favor, introduce la posición entre los valores establecidos");
+				}
+			} while (seleccion <0 || seleccion >4);
+			if(this.equipoPokemon[seleccion] == null) {
+				vacio = true;
+			}
 			this.equipoPokemon[seleccion] = null;
 		} while (seleccion < 0 || seleccion > 4);
-		Menu.barraCargando();
-		System.out.println("Pokemon eliminado correctamente");
+		
+		if (vacio) {
+			System.out.println("El hueco para el pokémon estaba vacío. No se ha eliminado");
+		} else {
+			Menu.barraCargando();
+			System.out.println("Pokemon eliminado correctamente");
+		
+		}
 	}
 
 	// Eliminar Pokémon por nombre
@@ -83,8 +98,9 @@ public class Entrenador {
 					System.out.println("Pokemon eliminado correctamente");
 					System.out.println();
 					break;
+				} else {
+					System.out.println("El nombre no es correcto. No se ha podido eliminar.");
 				}
-
 			}
 		
 		Pokemon [] equipoNuevo = this.equipoPokemon;
@@ -92,8 +108,6 @@ public class Entrenador {
 		if (equipoAnterior == equipoNuevo) {
 			System.out.println("Introduce bien el nombre. No se ha eliminado a ningún Pokémon\n");
 		}
-
-		
 
 	}
 

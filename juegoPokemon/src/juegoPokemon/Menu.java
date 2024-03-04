@@ -13,12 +13,13 @@ public class Menu {
 		int seleccion;
 		do {
 			System.out.println("[1] Iniciar aventura y crear equipo");
-			System.out.println("[2] Eliminar Pokemon por nombre");
-			System.out.println("[3] Eliminar Pokemon por posicion");
-			System.out.println("[4] Mostrar equipo Pokemon");
-			System.out.println("[5] Tabla Equipos");
-			System.out.println("[6] Fusionar Pokémon");
-			System.out.println("[7] Salir");
+			System.out.println("[2] Agregar Pokémon a tu equipo");
+			System.out.println("[3] Eliminar Pokemon por nombre");
+			System.out.println("[4] Eliminar Pokemon por posicion");
+			System.out.println("[5] Mostrar equipo Pokemon");
+			System.out.println("[6] Tabla Equipos");
+			System.out.println("[7] Fusionar Pokémon");
+			System.out.println("[99] Salir");
 
 			seleccion = sc.nextInt();
 			sc.nextLine();
@@ -30,21 +31,24 @@ public class Menu {
 
 				break;
 			case 2:
-				trainer.eliminarPokemonNombre();
+				trainer.agregarPokemon(new Pokemon("Nuevo Pokémon"));
 				break;
 			case 3:
-				trainer.eliminarPokemonPosicion();
+				trainer.eliminarPokemonNombre();
 				break;
 			case 4:
-				trainer.mostrarEquipo();
+				trainer.eliminarPokemonPosicion();
 				break;
 			case 5:
-				trainer.crearTabla();
+				trainer.mostrarEquipo();
 				break;
 			case 6:
-				trainer.asignarPokemonFusion();
+				trainer.crearTabla();
 				break;
 			case 7:
+				trainer.asignarPokemonFusion();
+				break;
+			case 99:
 				dibujoPikachu();
 				System.out.println("Hasta Pronto!!");
 				System.out.println();

@@ -11,7 +11,6 @@ public class App {
 		Menu menu = new Menu();
 		Menu.dibujoInicial();
 		menu.seleccionarAccion(trainer);
-
 	}
 
 }
