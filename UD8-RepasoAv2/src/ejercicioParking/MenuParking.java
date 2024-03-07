@@ -2,7 +2,7 @@ package ejercicioParking;
 
 import plantillas.Menu;
 
-public class MenuParking extends Menu{
+public class MenuParking extends Menu {
 	private UsuarioParking user;
 	private Parking parking;
 
@@ -28,22 +28,23 @@ public class MenuParking extends Menu{
 		boolean exit = false;
 
 		int seleccion = 0;
+
 		try {
 			seleccion = user.inputSeleccionar();
 
 			switch (seleccion) {
-				case 1:
-					parking.addVehiculoParking(user.escogerTipoCoche(),
-							user.pedirMatricula(),
-							user.pedirString("Introduce el color del coche"),
-							user.pedirString("Introduce la hora de entrada en el parking"));
-					break;
-				case 2:
-					parking.removeVehiculoParking(user.pedirMatricula(), user.pedirString("Introduce la hora de salida del parking"));
-					break;
-				case 99:
-					exit = true;
-					System.out.println("Gracias! Hasta luego");
+			case 1:
+				parking.addVehiculoParking(user.escogerTipoCoche(), user.pedirMatricula(),
+						user.pedirString("Introduce el color del coche"),
+						user.pedirString("Introduce la hora de entrada en el parking"));
+				break;
+			case 2:
+				parking.removeVehiculoParking(user.pedirMatricula(),
+						user.pedirString("Introduce la hora de salida del parking"));
+				break;
+			case 99:
+				exit = true;
+				System.out.println("Gracias! Hasta luego");
 			}
 
 			if ((seleccion < 1 || seleccion > 10) && seleccion != 99) {
