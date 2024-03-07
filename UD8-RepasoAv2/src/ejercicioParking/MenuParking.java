@@ -33,7 +33,10 @@ public class MenuParking extends Menu{
 
 			switch (seleccion) {
 				case 1:
-					parking.addVehiculoParking(user.escogerTipoCoche(),user.pedirMatricula(), user.pedirString("Introduce el color del coche"), user.pedirString("Introduce la hora de entrada en el parking"));
+					parking.addVehiculoParking(user.escogerTipoCoche(),
+							user.pedirMatricula(),
+							user.pedirString("Introduce el color del coche"),
+							user.pedirString("Introduce la hora de entrada en el parking"));
 					break;
 				case 2:
 					parking.removeVehiculoParking(user.pedirMatricula(), user.pedirString("Introduce la hora de salida del parking"));
