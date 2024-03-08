@@ -20,10 +20,10 @@ public class UsuarioParking extends Usuario{
 		
 		do {
 			input = super.pedirString("Introduce el número de matrícula del coche").trim();
-			if (!input.matches("[0-9]{4}[A-Z]")) {
+			if (!input.matches("[0-9]{4}[A-Z]{3}")) {
 				System.out.println("Por favor, introduce el formato correctamente");
 			}
-		} while (!input.matches("[0-9]{4}[A-Z]"));
+		} while (!input.matches("[0-9]{4}[A-Z]{3}"));
 		
 		return input;
 	}
@@ -33,7 +33,9 @@ public class UsuarioParking extends Usuario{
 		
 		do {
 			seleccion = super.pedirString("Introduce el tipo de coche a registrar. [C] para coche)/[F] para furgoneta").toUpperCase().charAt(0);
-			
+			if (seleccion!='F' && seleccion !='C') {
+				System.out.println("Por favor, introduce la letra correspondiente");
+			}
 		} while (seleccion!='F' && seleccion !='C');
 		return seleccion;
 	}

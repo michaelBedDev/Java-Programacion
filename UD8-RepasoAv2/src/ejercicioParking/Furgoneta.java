@@ -22,4 +22,11 @@ public class Furgoneta extends Coche{
 	public void removeHuecosParking() {
 		Parking.setContadorPlazas(Parking.getContadorPlazas()-2);
 	}
+
+	@Override
+	public String toString() {
+		return "Furgoneta [matricula=" + matricula + ", color=" + color + "]";
+	}
+	
+	
 }

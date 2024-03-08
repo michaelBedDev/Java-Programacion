@@ -1,5 +1,6 @@
 package plantillas;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Usuario {

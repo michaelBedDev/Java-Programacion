@@ -2,8 +2,8 @@ package ejercicioParking;
 
 public class Coche {
 
-	private String matricula;
-	private String color;
+	protected String matricula;
+	protected String color;
 	
 	
 	protected Coche() {

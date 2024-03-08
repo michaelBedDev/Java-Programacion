@@ -3,6 +3,7 @@ package ejercicioParking;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 import excepciones.AlreadyInParkingException;
@@ -17,16 +18,24 @@ public class Parking {
 	private double importeFacturadoDia;
 	private static final double facturacionHora = 1.50;
 	private File entradasYSalidasLog;
-
-	protected Parking() {
+	//generar un objeto registro solo a la salida del coche
+	
+	
+	public Parking() {
 		super();
 		mapaCoches = new HashMap<>();
 		// TODO Auto-generated constructor stub
 	}
 
-	public boolean addVehiculoParking(char tipoCoche, String matricula, String color, String horaEntrada) {
+	public boolean addVehiculoParking(char tipoCoche, String matricula, String color) {
 
+		LocalDateTime horaActual = LocalDateTime.now();
 		Coche cocheToAdd = tipoCoche == 'F' ? new Furgoneta(matricula,color) : new Coche(matricula,color);
+		
+		
+		if (!entradasYSalidasLog.exists()) {
+			entradasYSalidasLog = new File("./src/entradasYSalidas.txt");			
+		}
 		
 		try {
 			if (contadorPlazas >= 10) {
@@ -40,7 +49,9 @@ public class Parking {
 			cocheToAdd.addHuecosParking();
 
 			try (BufferedWriter bw = new BufferedWriter(new FileWriter(entradasYSalidasLog.getAbsoluteFile(), true))) {
-				bw.write(cocheToAdd + ":" + horaEntrada);
+				bw.newLine();
+				bw.write("ENTERING:" + cocheToAdd + "|" + horaActual.getHour()+":"+horaActual.getMinute());
+				
 			}
 
 		} catch (Exception e) {
@@ -50,38 +61,38 @@ public class Parking {
 		return true;
 	}
 
+	//seleccionar el coche para salir
 	public void removeVehiculoParking(String matricula, String horaSalida) {
+
+		LocalDateTime horaActual = LocalDateTime.now();
 
 		try {
 			if (!mapaCoches.containsKey(matricula)) {
 				throw new NotInParkingException("No se ha podido eliminar el coche, no está en el parking");
 			}
 			Coche cocheToLeave = mapaCoches.get(matricula);
-			mapaCoches.remove(matricula,cocheToLeave);
+			mapaCoches.remove(matricula, cocheToLeave);
 			cocheToLeave.removeHuecosParking();
-			
+
 			try (BufferedWriter bw = new BufferedWriter(new FileWriter(entradasYSalidasLog.getAbsoluteFile(), true))) {
-				bw.write(cocheToLeave + ":" + horaSalida);
+				bw.newLine();
+				bw.write("EXIT:" + cocheToLeave + "|" + horaActual.getHour() + ":" + horaActual.getMinute());
 			}
-			
+
 		} catch (Exception e) {
 			e.getMessage();
 		}
 	}
-	
+
 	public void comprobarPlazasLibres() {
-		System.out.printf("Hay actualmente %d plazas libres en el parking", 10-contadorPlazas);
+		System.out.printf("Hay actualmente %d plazas libres en el parking", 10 - contadorPlazas);
+	}
+
+	public void generarFicheroHistorial() {
+		System.out.println("El historial de entradas y salidas de vehículos está en: " + entradasYSalidasLog.getAbsolutePath());
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	//Getters & Setters
+	// Getters & Setters
 	public static int getContadorPlazas() {
 		return contadorPlazas;
 	}
