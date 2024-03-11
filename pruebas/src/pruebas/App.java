@@ -9,6 +9,7 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.List;
 
@@ -84,8 +85,9 @@ public class App {
 		try {
 			Files.write(archivoNio, listatexto);
 			
+			String append = "append con nio";
+			Files.writeString(archivoNio, append, StandardOpenOption.APPEND);
 			
-			//Append????????????????????????????????????
 			
 			BufferedWriter bw = new BufferedWriter(new FileWriter(archivoNio.toFile(), true));
 			bw.newLine();
