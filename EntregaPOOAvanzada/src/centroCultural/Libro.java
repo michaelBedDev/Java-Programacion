@@ -29,7 +29,7 @@ public class Libro extends MaterialAGuardar {
 	public boolean equals(Object obj) {
 		if (obj == null)
 			return false;
-		return (this.getTitulo() == ((Libro) obj).getTitulo())
+		return ((this.getTitulo()).equals(((Libro) obj).getTitulo()))
 				&& (this.getNumPaginas() == ((Libro) obj).getNumPaginas());
 	}
 

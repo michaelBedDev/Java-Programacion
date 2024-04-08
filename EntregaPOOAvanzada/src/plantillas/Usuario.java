@@ -33,7 +33,7 @@ public class Usuario {
 			System.out.println(textoPeticion);
 			output = sc.nextLine();
 
-		} while (output == "");
+		} while (output.equals(""));
 		return output;
 	}
 }
