@@ -63,6 +63,7 @@ public class MenuSupermercado extends Menu {
 				
 				case 99:
 					exit = true;
+					cajero.mostrarComprasDia();
 					System.out.println("Gracias! Hasta luego");
 			}
 			if ((seleccion < 1 || seleccion > 10) && seleccion != 99) {

@@ -1,14 +1,17 @@
 package supermercado;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
+import java.nio.file.StandardOpenOption;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Cajero {
@@ -66,6 +69,9 @@ public class Cajero {
 		System.out.println("Importe Total de la cesta: " + colaCestas.get(0).getImporteTotal());
 		colaCestas.removeFirst();
 		System.out.println("Cesta pagada satisfactoriamente");
+		
+		//Añadir al fichero de compras del dia
+		crearFicheroComprasDia(String.valueOf(colaCestas.get(0).getImporteTotal()) + "\n");	
 	}
 
 //Aplicar descuento a la primera cesta de un usuario
@@ -229,6 +235,83 @@ public class Cajero {
 		}
 		return true;
 	}
+	
+	
+//Fichero con las compras del dia //REVISARR
+	private void crearFicheroComprasDia(String precioCesta) {
+		
+		Path ficheroCompras = Paths.get("comprasDia.txt");
+
+		try {	
+			 Files.write(ficheroCompras, precioCesta.getBytes(), StandardOpenOption.APPEND);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	//mostrar las compras del dia
+	public void mostrarComprasDia() {
+		Path ficheroCompras = Paths.get("comprasDia.txt");
+		try {
+			byte [] data = Files.readAllBytes(ficheroCompras);
+			System.out.println(new String(data));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	//crear fichero de las cestas en la cola
+	public void escribirCestasFichero() {
+		Path ficheroCestas = Paths.get("ficheroCestas.txt");
+		
+		List<Cesta> listaCestas = colaCestas.stream().collect(Collectors.toList());
+		
+		try {
+			Files.write(ficheroCestas, listaCestas.toString().getBytes(), StandardOpenOption.CREATE);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	//leer fichero de cestas
+	public void leerCestasFichero() {
+		Path ficheroCestas = Paths.get("ficheroCestas.txt");
+
+		try {
+			byte[] data = Files.readAllBytes(ficheroCestas);
+			System.out.println(new String(data));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	//comprobar si el fichero de productos es correcto
+	public void comprobarFicheroProductos() {
+		Path ficheroProductos = Paths.get("productosToAdd.txt");
+		
+		try(Stream<String>lines = Files.lines(ficheroProductos)){
+			int numLineas = (int) lines.filter(line -> !line.isBlank()).count();
+			System.out.printf("Hay %d lineas en el fichero de productos", numLineas);
+			
+			boolean isFormatCorrect = Files.lines(ficheroProductos)
+				    .allMatch(line -> line.matches("[A-Z]-\\d{4}:[\\p{L}\\s]+:\\d+(\\.\\d+)?")); //coregir
+			isFormatCorrect ? System.out.println("El formato del fichero es correcto") : System.out.println("El formato del fichero no es correcto");
+			
+			boolean anyBlankLine = Files.lines(ficheroProductos)
+					.allMatch(line -> !line.isEmpty());
+			anyBlankLine ? System.out.println("No existen líneas blancas en el fichero") : System.out.println("Existen líneas vacías en el fichero");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	
 
 	public LinkedList<Cesta> getColaCestas() {
 		return colaCestas;
