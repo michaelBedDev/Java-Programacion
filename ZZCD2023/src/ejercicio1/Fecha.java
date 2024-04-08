@@ -14,21 +14,16 @@ public class Fecha {
 
 	}
 
-	public boolean valida() {
+	public boolean valida() { // verificación de fecha válida. Devuelve true si es válida.
+		return dayMonthOnRange() && dia <= calcularDiasMes();
+	}
 
-		if (dia < 1 || dia > 31)
-			return false;
-
-		if (mes < 1 || mes > 12)
-			return false;
-		
-		return dia <= calcularDiasMes();
+	private boolean dayMonthOnRange() { // verificación de rango de día y mes. Devuelve false si no está en rango.
+		return (dia >= 1 && dia <= 31 && mes >= 1 && mes <= 12);
 	}
 	
 	
-	private int calcularDiasMes() {
-// determinamos la cantidad de días del mes:
-
+	private int calcularDiasMes() { // determinamos la cantidad de días del mes:
 		int diasMes = 0;
 
 		switch (mes) {
@@ -38,7 +33,6 @@ public class Fecha {
 		case 2 -> diasMes = esBisiesto() ? 29 : 28; // verificación de año bisiesto
 		
 		}
-		
 		return diasMes;
 	}
 
