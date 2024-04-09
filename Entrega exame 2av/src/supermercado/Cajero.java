@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -69,9 +70,9 @@ public class Cajero {
 		System.out.println("Importe Total de la cesta: " + colaCestas.get(0).getImporteTotal());
 		colaCestas.removeFirst();
 		System.out.println("Cesta pagada satisfactoriamente");
-		
-		//Añadir al fichero de compras del dia
-		crearFicheroComprasDia(String.valueOf(colaCestas.get(0).getImporteTotal()) + "\n");	
+
+		// Añadir al fichero de compras del dia
+		anadirComprasDia(String.valueOf(colaCestas.get(0).getImporteTotal()) + "\n");
 	}
 
 //Aplicar descuento a la primera cesta de un usuario
@@ -151,6 +152,7 @@ public class Cajero {
 				if (c.getidCliente().equals(idCliente)) {
 					ClienteExiste = true;
 					c.getProductosAComprar().add(mapaProductos.get(idProducto));
+					c.calcularImporteTotal();
 					cestaTemp = c;
 				}
 			}
@@ -172,6 +174,8 @@ public class Cajero {
 
 //Añadir productos por fichero
 	public boolean altaProductosPorFichero() {
+		imprimirProductosActuales();
+		
 		Path ficheroProductos = Paths.get("productosToAdd.txt");
 
 		try { // escribo si el fichero está vacío
@@ -184,99 +188,101 @@ public class Cajero {
 
 		boolean flagAnadido = false;
 
-		
-		
-		
-		try (Stream<String> lines = Files.lines(ficheroProductos)){
-			lines.filter(line -> line.matches("[A-Z]-\\d{4}:[\\p{L}\\s]+:\\d+(\\.\\d+)?"))
-		    .forEach(line -> {
-		        Producto p1 = new Producto();
-		        String[] datosTemporales = line.split(":");
-		        p1.setIdProducto(datosTemporales[0]);
-		        p1.setDescripcion(datosTemporales[1]);
-		        double importeProducto = Double.parseDouble(datosTemporales[2]);
-		        p1.setImporteProducto(importeProducto);
-		        mapaProductos.put(p1.getIdProducto(), p1);
-		    });
+		try (Stream<String> lines = Files.lines(ficheroProductos)) {
+			lines.filter(line -> line.matches("[A-Z]-\\d{4}:[\\p{L}\\s]+:\\d+(\\.\\d+)?")).forEach(line -> {
+				Producto p1 = new Producto();
+				String[] datosTemporales = line.split(":");
+				p1.setIdProducto(datosTemporales[0]);
+				p1.setDescripcion(datosTemporales[1]);
+				double importeProducto = Double.parseDouble(datosTemporales[2]);
+				p1.setImporteProducto(importeProducto);
+				mapaProductos.put(p1.getIdProducto(), p1);
+			});
 			flagAnadido = true;
 
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		
-		
-		try {
-			List<String> lineasProductos = Files.readAllLines(ficheroProductos);
-			for (String line : lineasProductos) {
-				
-				if (line.matches("[A-Z]-\\d{4}:[\\p{L}\\s]+:\\d+(\\.\\d+)?")) {
-
-					Producto p1 = new Producto();
-					String[] datosTemporales = line.split(":");
-					p1.setIdProducto(datosTemporales[0]);
-					p1.setDescripcion(datosTemporales[1]);
-					double importeProducto = Double.parseDouble(datosTemporales[2]);
-					p1.setImporteProducto(importeProducto);
-
-					mapaProductos.put(p1.getIdProducto(), p1);
-					flagAnadido = true;
-				}
-			}
 			if (flagAnadido) {
 				System.out.println("El producto se ha añadido correctamente");
 				System.out.println("Ver fichero en: " + ficheroProductos.toUri() + "\n");
 			}
+			
+			imprimirProductosActuales();
 
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 			return false;
 		}
 		return true;
 	}
-	
-	
-//Fichero con las compras del dia //REVISARR
-	private void crearFicheroComprasDia(String precioCesta) {
-		
-		Path ficheroCompras = Paths.get("comprasDia.txt");
 
-		try {	
-			 Files.write(ficheroCompras, precioCesta.getBytes(), StandardOpenOption.APPEND);
+	private void imprimirProductosActuales() {
+		System.out.println("Los productos actuales son: ");
+		mapaProductos.forEach((p,cod) -> System.out.println(p));
+	}
+
+//Fichero con las compras del dia
+	private void anadirComprasDia(String precioCesta) {
+
+		Path ficheroCompras = Paths.get("comprasDia.txt");
+		crearFicheroSiNoExisteAun(ficheroCompras);
+
+		try {
+			Files.write(ficheroCompras, precioCesta.getBytes(), StandardOpenOption.APPEND);
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	//mostrar las compras del dia
+
+	private void crearFicheroSiNoExisteAun(Path fichero) {
+		if (Files.notExists(fichero)) {
+			try {
+				Files.createFile(fichero);
+				Files.writeString(fichero, "# Resumen de las compras de hoy: (necesitas pagar la cesta primero)");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	// mostrar las compras del dia
 	public void mostrarComprasDia() {
 		Path ficheroCompras = Paths.get("comprasDia.txt");
+		crearFicheroSiNoExisteAun(ficheroCompras);
+		
+		//Añadir si el fichero está vacío mostrar que está vacío,
+		//no hay compras aún
+		
 		try {
-			byte [] data = Files.readAllBytes(ficheroCompras);
+			
+			byte[] data = Files.readAllBytes(ficheroCompras);
 			System.out.println(new String(data));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		//Comprobar si el fichero está vacío
 	}
-	
-	//crear fichero de las cestas en la cola
+
+	// crear fichero de las cestas en la cola
 	public void escribirCestasFichero() {
 		Path ficheroCestas = Paths.get("ficheroCestas.txt");
-		
+
 		List<Cesta> listaCestas = colaCestas.stream().collect(Collectors.toList());
-		
+
 		try {
 			Files.write(ficheroCestas, listaCestas.toString().getBytes(), StandardOpenOption.CREATE);
+			System.out.println("Fichero de Cestas escrito correctamente");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	//leer fichero de cestas
+
+	// leer fichero de cestas
 	public void leerCestasFichero() {
 		Path ficheroCestas = Paths.get("ficheroCestas.txt");
 
@@ -288,31 +294,52 @@ public class Cajero {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	//comprobar si el fichero de productos es correcto
+
+	// comprobar si el fichero de productos es correcto
 	public void comprobarFicheroProductos() {
 		Path ficheroProductos = Paths.get("productosToAdd.txt");
-		
-		try(Stream<String>lines = Files.lines(ficheroProductos)){
+
+		try (Stream<String> lines = Files.lines(ficheroProductos)) {
 			int numLineas = (int) lines.filter(line -> !line.isBlank()).count();
-			System.out.printf("Hay %d lineas en el fichero de productos", numLineas);
-			
-			boolean isFormatCorrect = Files.lines(ficheroProductos)
-				    .allMatch(line -> line.matches("[A-Z]-\\d{4}:[\\p{L}\\s]+:\\d+(\\.\\d+)?")); //coregir
-			isFormatCorrect ? System.out.println("El formato del fichero es correcto") : System.out.println("El formato del fichero no es correcto");
-			
-			boolean anyBlankLine = Files.lines(ficheroProductos)
-					.allMatch(line -> !line.isEmpty());
-			anyBlankLine ? System.out.println("No existen líneas blancas en el fichero") : System.out.println("Existen líneas vacías en el fichero");
+			System.out.printf("Hay %d lineas en el fichero de productos\n", numLineas);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try (Stream<String> lines = Files.lines(ficheroProductos)) {
+			boolean isFormatCorrect = lines.allMatch(line -> line.matches("[A-Z]-\\d{4}:[\\p{L}\\s]+:\\d+(\\.\\d+)?"));
+			String stringIsCorrect = isFormatCorrect ? "El formato del fichero es correcto"
+					: "El formato del fichero no es correcto";
+			System.out.println(stringIsCorrect);
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try (Stream<String> lines = Files.lines(ficheroProductos)) {
+			boolean anyBlankLine = lines.allMatch(line -> !line.isEmpty());
+			String anyBlankString = anyBlankLine ? "No existen líneas blancas en el fichero"
+					: "Existen líneas vacías en el fichero";
+			System.out.println(anyBlankString + "\n");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} //Como escribir el ternario sin retornar la String
+
+	}
+
+	public void eliminarFicheroComprasDia() {
+		Path ficheroCompras = Paths.get("comprasDia.txt");
+		try {
+			Files.deleteIfExists(ficheroCompras);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
 	
-
+	
 	public LinkedList<Cesta> getColaCestas() {
 		return colaCestas;
 	}

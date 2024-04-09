@@ -24,7 +24,7 @@ public class UsuarioEntradaDeDatos extends Usuario {
 		String input;
 
 		do {
-			input = super.pedirString("Introduce el identificador del Producto. Ejemplo: A-000").trim();
+			input = super.pedirString("Introduce el identificador del Producto. Ejemplo: A-0001").trim();
 
 			if (!input.matches("[A-Z]-[0-9]{4}")) {
 				System.out.println("Por favor, introduce el formato del identificador correctamente");
