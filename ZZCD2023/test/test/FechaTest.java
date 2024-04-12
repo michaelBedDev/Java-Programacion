@@ -58,6 +58,5 @@ class FechaTest {
 		assertFalse(diaMalFebreroBisiesto1.valida());
 
 		assertFalse(diaMalFebreroBisiesto2.valida());
-
 	}
 }
