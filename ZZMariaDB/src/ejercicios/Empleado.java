@@ -1,16 +1,17 @@
-package test;
+package ejercicios;
 
-public class Employee {
+public class Empleado {
+	
 	private int id;
 	private String name;
 	private String posicion;
 	private double salary;
 
-	public Employee() {
+	public Empleado() {
 		super();
 	}
 
-	public Employee(int id, String name, String posicion, double salary) {
+	public Empleado(int id, String name, String posicion, double salary) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -46,14 +47,12 @@ public class Employee {
 		return salary;
 	}
 
-	public void setSalary(double salary) {
-		this.salary = salary;
+	public void setSalary(double d) {
+		this.salary = d;
 	}
 
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", name=" + name + ", posicion=" + posicion + ", salary=" + salary + "]";
 	}
-
-	
 }

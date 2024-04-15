@@ -10,9 +10,9 @@ public class Prueba {
 
 	public static void main(String[] args) {
 
-		Connection conex = null;
+
 		try {
-			conex = DriverManager
+			Connection conex = DriverManager
 					.getConnection("jdbc:sqlite:L:\\Programacion\\nuevoEclipseWorkspace\\emb\\Lite");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -35,7 +35,9 @@ public class Prueba {
 		}
 		
 		
-		try (Statement stmt = conex.createStatement()) {
+		try ( Connection conex2 = DriverManager
+				.getConnection("jdbc:sqlite:L:\\Programacion\\nuevoEclipseWorkspace\\emb\\Lite"); Statement stmt = conex2.createStatement();) {
+			
 			String selectSql = "SELECT * FROM NewTable"; 
 			try (ResultSet resultSet = stmt.executeQuery(selectSql)) {
 				while (resultSet.next()) {

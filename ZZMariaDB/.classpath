@@ -6,6 +6,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="F:/Projectos programación/reposGitEclipse/Java-Programacion/ZZMariaDB/mariadb-java-client-2.7.8.jar"/>
+	<classpathentry kind="lib" path="L:/Programacion/nuevoReposGit/Java-Programacion/ZZMariaDB/mariadb-java-client-2.7.8.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
