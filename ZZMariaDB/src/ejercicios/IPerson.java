@@ -9,4 +9,6 @@ public interface IPerson <T>{
     public  int insertPerson(Connection connection, Person person) throws SQLException;
     public  void updatePersonAgeById(Connection connection, int id, int newAge) throws SQLException;
     public  List<T> selectAllPeople(Connection connection) throws SQLException;
+    public int deletePerson(Connection connection, int id) throws SQLException;
+    public Person maxAgePerson(Connection connection) throws SQLException;
 }
