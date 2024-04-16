@@ -37,7 +37,7 @@ public class Ejercicio2 implements IPerson<Person> {
 
 	@Override
 	public Connection openConnection() throws SQLException {
-		String sURL = "jdbc:mariadb://dbalumnos.sanclemente.local:3319/test";
+		String sURL = "jdbc:mariadb://dbalumnos.sanclemente.local:3314/MCMEmpresa";
 
 
 		Connection con = DriverManager.getConnection(sURL, "alumno", "abc123..");
