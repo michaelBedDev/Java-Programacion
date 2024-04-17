@@ -7,5 +7,8 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="L:/Programacion/nuevoReposGit/Java-Programacion/ZZMariaDB/mariadb-java-client-2.7.8.jar"/>
+	<classpathentry kind="lib" path="L:/Programacion/nuevoReposGit/Java-Programacion/ZZMariaDB/commons-dbcp2-2.9.0.jar"/>
+	<classpathentry kind="lib" path="L:/Programacion/nuevoReposGit/Java-Programacion/ZZMariaDB/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="L:/Programacion/nuevoReposGit/Java-Programacion/ZZMariaDB/commons-pool2-2.11.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

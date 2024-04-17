@@ -10,26 +10,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.dbcp2.BasicDataSource;
+
 public class Ejercicio2 implements IPerson<Person> {
 
 	public static void main(String[] args) {
 
 		Ejercicio2 main = new Ejercicio2();
 
-		try (Connection con = main.openConnection()){
-			
-			Person miguel = new Person(99,"Miguel","Caamaño",23);
+		try (Connection con = main.openConnectionPool()) {
+
+			Person miguel = new Person(99, "Miguel", "Caamaño", 23);
 			main.insertPerson(con, miguel);
-			
+
 			main.updatePersonAgeById(con, 99, 24);
 			List<Person> listaPersonas = main.selectAllPeople(con);
 			System.out.println(Arrays.asList(listaPersonas));
-			
+
 			main.deletePerson(con, 99);
 			System.out.println(main.maxAgePerson(con).toString());
-			
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -39,13 +40,26 @@ public class Ejercicio2 implements IPerson<Person> {
 	public Connection openConnection() throws SQLException {
 		String sURL = "jdbc:mariadb://dbalumnos.sanclemente.local:3314/MCMEmpresa";
 
-
 		Connection con = DriverManager.getConnection(sURL, "alumno", "abc123..");
 		System.out.println("¡Conexión exitosa!");
 		return con;
 	}
 
+	public Connection openConnectionPool() throws SQLException {
 
+		try (// Configurar el pool de conexiones
+				BasicDataSource dataSource = new BasicDataSource()) {
+			dataSource.setUrl("jdbc:mariadb://dbalumnos.sanclemente.local:3314/MCMEmpresa");
+			dataSource.setUsername("alumno");
+			dataSource.setPassword("abc123..");
+			dataSource.setInitialSize(5);
+			dataSource.setMaxTotal(10);
+
+			// Obtener una conexión del pool
+			return dataSource.getConnection();
+		}
+
+	}
 
 	@Override
 	public int insertPerson(Connection connection, Person person) throws SQLException {
@@ -80,7 +94,7 @@ public class Ejercicio2 implements IPerson<Person> {
 		try (Statement stmt = connection.createStatement()) {
 			try (ResultSet res = stmt.executeQuery("SELECT id,name,lastname,age FROM person")) {
 				while (res.next()) {
-					Person person = new Person(res.getInt(1),res.getString(2),res.getString(3),res.getInt(4));
+					Person person = new Person(res.getInt(1), res.getString(2), res.getString(3), res.getInt(4));
 					listOfPeople.add(person);
 				}
 			}
@@ -100,17 +114,17 @@ public class Ejercicio2 implements IPerson<Person> {
 
 	@Override
 	public Person maxAgePerson(Connection connection) throws SQLException {
-		Person person = new Person();
 
+		Person person = null;
 		try (Statement stmt = connection.createStatement()) {
 			try (ResultSet result = stmt
 					.executeQuery("Select id,name,lastname,age from person order by age desc limit 1")) {
-				person.setId(result.getInt(1));
-				person.setName(result.getString(2));
-				person.setLastName(result.getString(3));
-				person.setAge(result.getInt(4));
+
+				result.next(); //Necesario while si son varios
+				person = new Person(result.getInt(1), result.getString(2), result.getString(3), result.getInt(4));
 			}
 		}
+
 		return person;
 	}
 }
