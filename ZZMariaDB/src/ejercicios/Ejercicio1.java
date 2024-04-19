@@ -20,7 +20,7 @@ public class Ejercicio1 {
 				sentencia.setInt(1, /* PEDIR ID EMPLEADO */ 100);
 				try (ResultSet resultSet = sentencia.executeQuery()) { //AQUI NO VA LA CONSULTA PORQUE ESTA PREPARADA
 					while (resultSet.next()) {
-						Empleado emp = new Empleado();
+						Employee emp = new Employee();
 						emp.setSalary(resultSet.getDouble("salary")); //AQUI VA SIN COMILLAS numero de columna o nombre
 						emp.setPosicion(resultSet.getString("posicion"));
 						System.out.println(emp.toString());

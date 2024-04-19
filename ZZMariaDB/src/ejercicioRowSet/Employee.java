@@ -1,17 +1,17 @@
-package ejercicios;
+package ejercicioRowSet;
 
-public class Empleado {
+public class Employee {
 	
 	private int id;
 	private String name;
 	private String posicion;
 	private double salary;
 
-	public Empleado() {
+	public Employee() {
 		super();
 	}
 
-	public Empleado(int id, String name, String posicion, double salary) {
+	public Employee(int id, String name, String posicion, double salary) {
 		super();
 		this.id = id;
 		this.name = name;
