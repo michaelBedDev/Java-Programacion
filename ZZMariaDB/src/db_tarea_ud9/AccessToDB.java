@@ -12,12 +12,18 @@ public class AccessToDB implements IPodcast {
 
 	private static AccessToDB instance;
 
-	private AccessToDB() throws SQLException {
-		JdbcRowSet rs = RowSetProvider.newFactory().createJdbcRowSet();
-		rs.setUrl("jdbc:mariadb://dbalumnos.sanclemente.local:3314/MCMpodcast_bd");
-		rs.setUsername("alumno");
-		rs.setPassword("abc123..");
-	}
+	private AccessToDB() {
+
+		try (JdbcRowSet rs = RowSetProvider.newFactory().createJdbcRowSet()){
+			rs.setUrl("jdbc:mariadb://dbalumnos.sanclemente.local:3314/MCMpodcast_bd");
+			rs.setUsername("alumno");
+			rs.setPassword("abc123..");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 
 	private AccessToDB(String URL, String username, String password) throws SQLException {
 		JdbcRowSet rs = RowSetProvider.newFactory().createJdbcRowSet();
