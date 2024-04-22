@@ -79,10 +79,14 @@ public class AccessToBD {
 	}
 	
 //	Actualizar una edad de una persona, indicando la posición.
+	
+	
 //	Eliminar último registro.
 	public void deleteLastRow(JdbcRowSet rs) throws SQLException {
-		String query = "select id, name, lastname, age from person";
+		String query = "select limit(1) id, name, lastname, age from person order by desc";
 		executeQueryNoParameters(rs, query);
+		String delete = "";
+		
 	}
 }
 //	Insertar una nueva persona en la empresa.
