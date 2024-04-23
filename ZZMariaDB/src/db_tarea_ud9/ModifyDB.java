@@ -12,22 +12,43 @@ import javax.sql.rowset.RowSetProvider;
 
 public class ModifyDB implements IPodcast {
 
-	@Override // validate autor is in bbdd
+	@Override
 	public boolean insertPodcast(Podcast p) {
 		try (Connection conn = AccessToDB.getInstance();
 				CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet()) {
 
-			// necesario select * from Podcast ?
+			crs.setCommand("select * from podcast");
+			crs.execute();
+
 			crs.moveToInsertRow();
 
-			crs.updateInt("idPodcast", p.getIdPodcast());
+			//if IDPodcast not unique, loop +1
+			if (isIDPodcastUnique(p.getIdPodcast())) {
+				crs.updateInt("idPodcast", p.getIdPodcast());
+			} else {
+				
+				do {
+					p.setIdPodcast(p.getIdPodcast() + 1);
+				} while (!isIDPodcastUnique(p.getIdPodcast()));
+				
+				crs.updateInt("idPodcast", p.getIdPodcast());
+				
+			}
+
 			crs.updateString("titulo", p.getTitulo());
 			crs.updateInt("tipo", p.getTipo());
 			crs.updateString("calidad", p.getCalidad());
 			crs.updateInt("duracion", p.getDuracion());
 			crs.updateString("periocidad", p.getPeriodicidad());
 			crs.updateString("formato_video", p.getFormato_video());
-			crs.updateInt("autor", p.getAutor().getIdAutor());
+
+			// Verify the author is already in DB. If not, create one;
+			if (isAuthorinDB(p.getAutor().getIdAutor())) {
+				crs.updateInt("autor", p.getAutor().getIdAutor());
+			} else {
+				crs.updateInt("autor", new Autor(99, "", "", "").getIdAutor());
+				// or ask for info to create author
+			}
 
 			crs.insertRow();
 		} catch (SQLException e) {
@@ -36,7 +57,14 @@ public class ModifyDB implements IPodcast {
 		}
 		return true;
 	}
-
+	
+/**
+ * Verify if there is an author with that id in DB
+ * 
+ * @param authorID
+ * @return boolean
+ * @throws SQLException
+ */
 	private boolean isAuthorinDB(int authorID) throws SQLException {
 
 		try (Connection conn = AccessToDB.getInstance();
@@ -52,10 +80,36 @@ public class ModifyDB implements IPodcast {
 			}
 		}
 		return false;
-	} //Continuar
+	}
+	
+/**
+ * Verify if the podcastID is already repeated in DB
+ * 
+ * @param idPodcast
+ * @return boolean
+ * @throws SQLException
+ */
+	private boolean isIDPodcastUnique(int idPodcast) throws SQLException {
 
+		try (Connection conn = AccessToDB.getInstance();
+				CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet()) {
+
+			crs.setCommand("select idPodcast from Podcast");
+			crs.execute();
+			while (crs.next()) {
+
+				if (crs.getInt(0) == idPodcast) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	
+	
 	@Override
-	public boolean newGenPodcast(Genero g, RowSet rs) {
+	public boolean newGenPodcast(Genero g) {
 
 		// necesario select * from Genero ?
 		try {
@@ -71,13 +125,13 @@ public class ModifyDB implements IPodcast {
 	}
 
 	@Override
-	public boolean updatePodcast(Podcast p, RowSet rs) {
+	public boolean updatePodcast(Podcast p) {
 
 		return false;
 	}
 
 	@Override
-	public boolean deletePodcast(Podcast p, RowSet rs) {
+	public boolean deletePodcast(Podcast p) {
 
 		try {
 			rs.setCommand("select idPodcast from Podcast");
@@ -96,7 +150,7 @@ public class ModifyDB implements IPodcast {
 	}
 
 	@Override // verificar autor
-	public List<Podcast> viewAllPodcast(RowSet rs) {
+	public List<Podcast> viewAllPodcast() {
 
 		String query = "select idPodcast, titulo, tipo, calidad, duracion,"
 				+ " periocidad, formato_video, autor from Podcast";
@@ -127,7 +181,7 @@ public class ModifyDB implements IPodcast {
 	}
 
 	@Override
-	public Podcast findByIdPodcast(int id, RowSet rs) {
+	public Podcast findByIdPodcast(int id) {
 
 		String query = "select * from Podcast where idPodcast = ?";
 		Podcast aux = new Podcast();
@@ -155,37 +209,6 @@ public class ModifyDB implements IPodcast {
 	}
 
 	public void demo() {
-		Podcast default = new Podcast();
-		insertPodcast(null)
-	}
-
-	@Override
-	public boolean newGenPodcast(Genero g) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean updatePodcast(Podcast p) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean deletePodcast(Podcast p) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public List<Podcast> viewAllPodcast() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Podcast findByIdPodcast(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		insertPodcast(new Podcast(99, "titulo", (byte) 0, "", 0, "", "", new Autor(99, "", "", "")));
 	}
 }

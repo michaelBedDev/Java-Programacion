@@ -41,6 +41,7 @@ public class Podcast {
 		this.periodicidad = periodicidad;
 		this.formato_video = formato_video;
 		this.autor = autor;
+		this.generos = new HashSet<Genero>();
 	}
 	
 	public HashSet<Genero> getGeneros() {

@@ -5,6 +5,8 @@ import java.sql.SQLException;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 public class AccessToDB {
 
 	private static AccessToDB instance;
@@ -13,16 +15,16 @@ public class AccessToDB {
 	private AccessToDB() {
 
 			dataSource = new BasicDataSource();
-			dataSource.setUrl("jdbc:mariadb://dbalumnos.sanclemente.local:3314/");
-			dataSource.setUsername("alumno");
+			dataSource.setUrl("jdbc:mariadb://localhost:3306/");
+			dataSource.setUsername("root");
 			dataSource.setPassword("abc123..");
 			dataSource.setInitialSize(5);
 			dataSource.setMaxTotal(10);
 
-//			Dotenv dotenv = Dotenv.load();
-//			(dotenv.get("URL"));
-//			(dotenv.get("user"));
-//			(dotenv.get("pass"));
+			Dotenv dotenv = Dotenv.load();
+			dataSource.setUrl(dotenv.get("URL"));
+			dataSource.setUsername(dotenv.get("user"));
+			dataSource.setPassword(dotenv.get("pass"));
 	}
 
 	public BasicDataSource getDataSource() {
@@ -35,5 +37,4 @@ public class AccessToDB {
 		}
 		return  instance.getDataSource().getConnection();
 	}
-	
 }

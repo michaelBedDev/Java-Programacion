@@ -9,6 +9,8 @@ public class App {
 
 		try (Connection con = AccessToDB.getInstance()) {
 			System.out.println("Conexión establecida");
+			ModifyDB tasks = new ModifyDB();
+			tasks.demo();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
