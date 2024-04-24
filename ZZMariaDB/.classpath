@@ -6,15 +6,10 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="L:/Programacion/nuevoReposGit/Java-Programacion/Java-Programacion/ZZMariaDB/commons-dbcp2-2.9.0.jar"/>
-	<classpathentry kind="lib" path="L:/Programacion/nuevoReposGit/Java-Programacion/Java-Programacion/ZZMariaDB/commons-logging-1.2.jar"/>
-	<classpathentry kind="lib" path="L:/Programacion/nuevoReposGit/Java-Programacion/Java-Programacion/ZZMariaDB/commons-pool2-2.11.1.jar"/>
-	<classpathentry kind="lib" path="L:/Programacion/nuevoReposGit/Java-Programacion/Java-Programacion/ZZMariaDB/dotenv-java-3.0.0.jar"/>
-	<classpathentry kind="lib" path="L:/Programacion/nuevoReposGit/Java-Programacion/Java-Programacion/ZZMariaDB/mariadb-java-client-2.7.8.jar"/>
-	<classpathentry kind="lib" path="F:/Projectos programación/reposGitEclipse/Java-Programacion/ZZMariaDB/JARs/commons-dbcp2-2.9.0.jar"/>
-	<classpathentry kind="lib" path="F:/Projectos programación/reposGitEclipse/Java-Programacion/ZZMariaDB/JARs/commons-logging-1.2.jar"/>
-	<classpathentry kind="lib" path="F:/Projectos programación/reposGitEclipse/Java-Programacion/ZZMariaDB/JARs/commons-pool2-2.11.1.jar"/>
-	<classpathentry kind="lib" path="F:/Projectos programación/reposGitEclipse/Java-Programacion/ZZMariaDB/JARs/dotenv-java-3.0.0.jar"/>
-	<classpathentry kind="lib" path="F:/Projectos programación/reposGitEclipse/Java-Programacion/ZZMariaDB/JARs/mariadb-java-client-2.7.8.jar"/>
+	<classpathentry kind="lib" path="L:/Programacion/nuevoReposGit/Java-Programacion/Java-Programacion/ZZMariaDB/JARs/commons-dbcp2-2.9.0.jar"/>
+	<classpathentry kind="lib" path="L:/Programacion/nuevoReposGit/Java-Programacion/Java-Programacion/ZZMariaDB/JARs/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="L:/Programacion/nuevoReposGit/Java-Programacion/Java-Programacion/ZZMariaDB/JARs/commons-pool2-2.11.1.jar"/>
+	<classpathentry kind="lib" path="L:/Programacion/nuevoReposGit/Java-Programacion/Java-Programacion/ZZMariaDB/JARs/dotenv-java-3.0.0.jar"/>
+	<classpathentry kind="lib" path="L:/Programacion/nuevoReposGit/Java-Programacion/Java-Programacion/ZZMariaDB/JARs/mariadb-java-client-2.7.8.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
