@@ -15,8 +15,8 @@ public class AccessToDB {
 	private AccessToDB() {
 
 			dataSource = new BasicDataSource();
-//			dataSource.setUrl("jdbc:mariadb://dbalumnos.sanclemente.local:3314/MCMpodcast_bd?tinyInt1isBit=false");
-//			dataSource.setUsername("alumno");
+//			dataSource.setUrl("jdbc:mariadb://localhost:3306/mcmpodcast_bd?tinyInt1isBit=false");
+//			dataSource.setUsername("root");
 //			dataSource.setPassword("abc123..");
 //			dataSource.setInitialSize(5);
 //			dataSource.setMaxTotal(10);
