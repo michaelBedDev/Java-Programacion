@@ -23,8 +23,8 @@ public class AccessToDB {
 
 			Dotenv dotenv = Dotenv.load();
 			dataSource.setUrl(dotenv.get("URL"));
-			dataSource.setUsername(dotenv.get("user"));
-			dataSource.setPassword(dotenv.get("pass"));
+			dataSource.setUsername(dotenv.get("USER"));
+			dataSource.setPassword(dotenv.get("PASS"));
 	}
 
 	public BasicDataSource getDataSource() {
