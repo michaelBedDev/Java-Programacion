@@ -10,21 +10,9 @@ public class Podcast {
 	private String calidad;
 	private int duracion;
 	private String periodicidad;
-	private String formato_video;
+	private String formatoVideo;
 	private Autor autor;
 	private HashSet<Genero> generos;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	public Podcast() {
 		super();
@@ -39,7 +27,7 @@ public class Podcast {
 		this.calidad = calidad;
 		this.duracion = duracion;
 		this.periodicidad = periodicidad;
-		this.formato_video = formato_video;
+		this.formatoVideo = formato_video;
 		this.autor = autor;
 		this.generos = new HashSet<Genero>();
 	}
@@ -88,11 +76,11 @@ public class Podcast {
 	public void setPeriodicidad(String periodicidad) {
 		this.periodicidad = periodicidad;
 	}
-	public String getFormato_video() {
-		return formato_video;
+	public String getFormatoVideo() {
+		return formatoVideo;
 	}
-	public void setFormato_video(String formato_video) {
-		this.formato_video = formato_video;
+	public void setFormatoVideo(String formato_video) {
+		this.formatoVideo = formato_video;
 	}
 	public Autor getAutor() {
 		return autor;
@@ -104,7 +92,7 @@ public class Podcast {
 	@Override
 	public String toString() {
 		return "Podcast [idPodcast=" + idPodcast + ", titulo=" + titulo + ", tipo=" + tipo + ", calidad=" + calidad
-				+ ", duracion=" + duracion + ", periodicidad=" + periodicidad + ", formato_video=" + formato_video
+				+ ", duracion=" + duracion + ", periodicidad=" + periodicidad + ", formato_video=" + formatoVideo
 				+ ", autor=" + autor + ", generos=" + generos + "]";
 	}
 }

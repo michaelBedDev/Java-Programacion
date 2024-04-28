@@ -7,16 +7,6 @@ public class Autor {
 	private String apellidos;
 	private String nombre;
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public Autor() {
 		super();
 	}
