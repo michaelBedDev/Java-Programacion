@@ -1,7 +1,5 @@
 package userAndMenu;
 
-import java.util.Arrays;
-
 import db_tarea_ud9.ModifyDB;
 
 public class Menu {
