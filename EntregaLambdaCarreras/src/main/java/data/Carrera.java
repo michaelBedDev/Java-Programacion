@@ -9,7 +9,7 @@ public class Carrera {
 	private String nombre;
 	private LocalDate fecha;
 	private double kms;
-	private int[] premios;
+	private int[] premios; /* 3 premios */
 	private ArrayList<Equipo> equipos;
 	
 	

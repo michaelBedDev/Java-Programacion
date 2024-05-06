@@ -7,7 +7,7 @@ public class Equipo {
 	private String nombre;
 	private double puntosAcumulados;
 	private Participante capitan;
-	private Participante[] participantes;
+	private Participante[] participantes; /* max 5 participantes */
 	
 	
 	public Equipo() {

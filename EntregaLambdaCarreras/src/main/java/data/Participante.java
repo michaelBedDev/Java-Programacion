@@ -27,6 +27,23 @@ public class Participante {
 	
 	
 	
+	private void asignarCategoria(int edad) {
+		if (edad < 7) {
+			this.categoria = Categoria.BENJAMIN;
+		} else if (edad > 7 && edad <= 10){
+			this.categoria = Categoria.ALEVIN;
+		} else if (edad > 10 && edad <= 12){
+			this.categoria = Categoria.INFANTIL;
+		} else if (edad > 12 && edad <=14){
+			this.categoria = Categoria.CADETE;
+		} else if (edad > 14 && edad <=18){
+			this.categoria = Categoria.JUVENIL;
+		} else {
+			this.categoria = Categoria.SENIOR;
+		}
+	}
+	
+	
 	public String getNombre() {
 		return nombre;
 	}
