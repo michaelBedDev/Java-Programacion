@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import data.DB;
+import data.ENUM_AVANZADO;
 import data.Equipo;
 import view.View;
 
@@ -20,7 +21,8 @@ public class Controller {
 		
 		Optional<Equipo> op = db.getEquiposTotales().stream().filter(e -> e.getNombre().equalsIgnoreCase(equipo)).findFirst();
 		
-		if;
+		//if;
+		
 	}
 	
 	

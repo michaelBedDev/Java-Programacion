@@ -1,5 +1,7 @@
 package data;
 
 public enum Categoria {
- BENJAMIN, ALEVIN, INFANTIL, CADETE, JUVENIL, SENIOR
+ BENJAMIN, ALEVIN, INFANTIL, CADETE, JUVENIL, SENIOR;
+ 
+ public static void metodo() {}
 }

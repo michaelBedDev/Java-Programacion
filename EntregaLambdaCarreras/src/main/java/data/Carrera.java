@@ -3,6 +3,7 @@ package data;
 
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -12,12 +13,12 @@ public class Carrera {
 	private String fecha;
 	private double kms;
 	private final int[] premios; 
-	private HashMap<Participante,Equipo> equipos;
+	private ArrayList<Equipo> equipos;
 	
 	
 	public Carrera() {
 		this.premios = new int[] {25,18,15};
-		this.equipos = new HashMap<>();
+		this.equipos = new ArrayList<>();
 	}
 	
 	public Carrera(String nombre, String fecha, double kms) {
@@ -25,7 +26,7 @@ public class Carrera {
 		this.nombre = nombre;
 		this.fecha = fecha;
 		this.kms = kms;
-		this.equipos = new HashMap<>();
+		this.equipos = new ArrayList<>();
 		this.premios = new int[] {25,18,15};
 	}
 
