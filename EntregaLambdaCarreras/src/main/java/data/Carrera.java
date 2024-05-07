@@ -1,29 +1,32 @@
 package data;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
+
+
+
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Carrera {
 
 	private String nombre;
-	private LocalDate fecha;
+	private String fecha;
 	private double kms;
-	private int[] premios; /* 3 premios */
-	private ArrayList<Equipo> equipos;
+	private final int[] premios; 
+	private HashMap<Participante,Equipo> equipos;
 	
 	
 	public Carrera() {
-		super();
+		this.premios = new int[] {25,18,15};
+		this.equipos = new HashMap<>();
 	}
 	
-	public Carrera(String nombre, LocalDate fecha, double kms, int[] premios, ArrayList<Equipo> equipos) {
+	public Carrera(String nombre, String fecha, double kms) {
 		super();
 		this.nombre = nombre;
 		this.fecha = fecha;
 		this.kms = kms;
-		this.premios = premios;
-		this.equipos = equipos;
+		this.equipos = new HashMap<>();
+		this.premios = new int[] {25,18,15};
 	}
 
 	
@@ -38,11 +41,11 @@ public class Carrera {
 		this.nombre = nombre;
 	}
 
-	public LocalDate getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(LocalDate fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 
@@ -57,19 +60,16 @@ public class Carrera {
 	public int[] getPremios() {
 		return premios;
 	}
-
-	public void setPremios(int[] premios) {
-		this.premios = premios;
-	}
-
-	public ArrayList<Equipo> getEquipos() {
+	
+	public HashMap<Participante, Equipo> getEquipos() {
 		return equipos;
 	}
 
-	public void setEquipos(ArrayList<Equipo> equipos) {
+	public void setEquipos(HashMap<Participante, Equipo> equipos) {
 		this.equipos = equipos;
 	}
 
+	
 	@Override
 	public String toString() {
 		return "Carrera [nombre=" + nombre + ", fecha=" + fecha + ", kms=" + kms + ", premios="

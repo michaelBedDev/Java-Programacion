@@ -14,15 +14,14 @@ public class Participante {
 	
 	public Participante() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	public Participante(String nombre, String apellidos, char sexo, int edad, Categoria categoria) {
+	
+	public Participante(String nombre, String apellidos, char sexo, int edad) {
 		super();
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.sexo = sexo;
 		this.edad = edad;
-		this.categoria = categoria;
 	}
 	
 	

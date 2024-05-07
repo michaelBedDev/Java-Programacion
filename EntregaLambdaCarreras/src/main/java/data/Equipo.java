@@ -1,6 +1,7 @@
 package data;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class Equipo {
 
@@ -12,17 +13,21 @@ public class Equipo {
 	
 	public Equipo() {
 		super();
+		this.participantes = new Participante[5];
 		
 	}
-	public Equipo(String nombre, double puntosAcumulados, Participante capitan, Participante[] participantes) {
+	public Equipo(String nombre) {
 		super();
 		this.nombre = nombre;
-		this.puntosAcumulados = puntosAcumulados;
-		this.capitan = capitan;
-		this.participantes = participantes;
+		this.participantes = new Participante[5];
 	}
 	
 	
+	
+	public void seleccionarCapitan() {
+		Random rand = new Random();
+		capitan = participantes[rand.nextInt(0,5)];
+	}
 	
 	public String getNombre() {
 		return nombre;
@@ -48,8 +53,6 @@ public class Equipo {
 	public void setParticipantes(Participante[] participantes) {
 		this.participantes = participantes;
 	}
-	
-	
 	
 	
 	@Override
