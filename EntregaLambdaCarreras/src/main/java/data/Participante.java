@@ -2,6 +2,7 @@ package data;
 
 public class Participante {
 
+	/* No cuento a participantes que no tengan equipo */
 	private String nombre;
 	private String apellidos;
 	private char sexo;

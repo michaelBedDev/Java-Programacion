@@ -8,11 +8,12 @@ import java.util.HashMap;
 
 public class Carrera {
 
+	private String id;
 	private String nombre;
 	private String fecha;
 	private double kms;
 	private final int[] premios; 
-	private HashMap<Participante,Equipo> equipos;
+	private HashMap<String,Equipo> equipos;
 	
 	
 	public Carrera() {
@@ -61,18 +62,25 @@ public class Carrera {
 		return premios;
 	}
 	
-	public HashMap<Participante, Equipo> getEquipos() {
+	public HashMap<String, Equipo> getEquipos() {
 		return equipos;
 	}
 
-	public void setEquipos(HashMap<Participante, Equipo> equipos) {
+	public void setEquipos(HashMap<String, Equipo> equipos) {
 		this.equipos = equipos;
+	}
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	
 	@Override
 	public String toString() {
-		return "Carrera [nombre=" + nombre + ", fecha=" + fecha + ", kms=" + kms + ", premios="
+		return "Carrera [id=" + id + ", nombre=" + nombre + ", fecha=" + fecha + ", kms=" + kms + ", premios="
 				+ Arrays.toString(premios) + ", equipos=" + equipos + "]";
 	}
 }
