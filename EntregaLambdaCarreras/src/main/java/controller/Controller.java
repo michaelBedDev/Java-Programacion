@@ -17,26 +17,12 @@ public class Controller {
 	private DB db;
 	
 	
-<<<<<<< HEAD
 	public Controller() {
 		view = new View();
 		db = DB.getInstance();
-=======
-	
-	public void altaEquipo() {
-		mostrarEquipos(DB.getInstance().getEquiposTotales());
-		String equipo = view.askForString("Introduce el nombre del equipo");
-		
-		Optional<Equipo> op = db.getEquiposTotales().stream().filter(e -> e.getNombre().equalsIgnoreCase(equipo)).findFirst();
-		
-		//if;
-		
->>>>>>> branch 'main' of https://github.com/michaelBedDev/Java-Programacion.git
 	}
 
-
-
-
+	
 	public void altaEquipo() { //Revisar
 		/* Select Team */
 		mostrarEquipos(db.getEquiposTotales());	

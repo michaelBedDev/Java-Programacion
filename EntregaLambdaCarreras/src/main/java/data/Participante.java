@@ -77,7 +77,6 @@ public class Participante {
 	
 	
 	
-	
 	@Override
 	public String toString() {
 		return "Participante [nombre=" + nombre + ", apellidos=" + apellidos + ", sexo=" + sexo + ", edad=" + edad
