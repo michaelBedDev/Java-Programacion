@@ -1,10 +1,6 @@
 package view;
 
-import java.util.ArrayList;
-
 import java.util.Scanner;
-
-import data.Equipo;
 
 public class View {
 
@@ -13,14 +9,6 @@ public class View {
 	public View() {
 		sc = new Scanner(System.in);
 	}
-	
-	
-	public void mostrarEquipos(ArrayList<Equipo> equipos) {
-		for (Equipo e : equipos) {
-			showMessage(e.toString());
-		}
-	}
-	
 	
 	public void showMessage(String message) {
 		System.out.println(message);
@@ -35,5 +23,16 @@ public class View {
 		} while (output == null);
 		
 		return sc.nextLine();
+	}
+	
+	public int askForInt(String message) {
+		int output;
+
+		do {
+			showMessage(message);
+			output = sc.nextInt();
+		} while (output < 0);
+
+		return output;
 	}
 }
