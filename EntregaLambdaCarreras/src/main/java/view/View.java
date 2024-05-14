@@ -20,17 +20,21 @@ public class View {
 		do {
 			showMessage(message);
 			output = sc.nextLine();
-		} while (output == null);
+		} while (output.isBlank() || output.isEmpty());
 		
-		return sc.nextLine();
+		return output;
 	}
 	
 	public int askForInt(String message) {
-		int output;
+		int output = -1;
 
 		do {
-			showMessage(message);
-			output = sc.nextInt();
+			try {
+				showMessage(message);
+				output = Integer.parseInt(sc.nextLine());
+			} catch (Exception e) {
+				showMessage("Núúmero no válido");
+			}
 		} while (output < 0);
 
 		return output;

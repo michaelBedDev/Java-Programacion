@@ -1,39 +1,49 @@
 package data;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.Optional;
 
-public class Carrera implements IUnique{
+public class Carrera implements IUnique {
 
 	private String id;
 	private String nombre;
 	private String fecha;
 	private double kms;
-	private final int[] premios; 
-	private HashMap<String,Equipo> equipos;
+	private final int[] premios;
+	private HashMap<String, Equipo> equipos;
 
-	
 	public Carrera() {
-		this.premios = new int[] {25,18,15};
+		this.premios = new int[] { 25, 18, 15 };
 		this.equipos = new HashMap<>();
 		generateID();
 	}
-	
+
 	public Carrera(String nombre, String fecha, double kms) {
 		super();
 		this.nombre = nombre;
 		this.fecha = fecha;
 		this.kms = kms;
 		this.equipos = new HashMap<>();
-		this.premios = new int[] {25,18,15};
+		this.premios = new int[] { 25, 18, 15 };
 		generateID();
 	}
 
+	public Equipo getEquipoConMasPuntos() {
+
+		Optional<Equipo> equipoConMasPuntos = getEquipos().values().stream()
+				.max(Comparator.comparing(Equipo::getPuntosAcumulados));
+		
+		return equipoConMasPuntos.orElse(null);
+	}
 	
+	public int getTotalParticipantes() {
+		return getEquipos().values().stream().mapToInt(e -> e.getParticipantes().size()).sum();
+	}
 	
-	
-	
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -61,7 +71,7 @@ public class Carrera implements IUnique{
 	public int[] getPremios() {
 		return premios;
 	}
-	
+
 	public HashMap<String, Equipo> getEquipos() {
 		return equipos;
 	}
@@ -69,6 +79,7 @@ public class Carrera implements IUnique{
 	public void setEquipos(HashMap<String, Equipo> equipos) {
 		this.equipos = equipos;
 	}
+
 	public String getId() {
 		return id;
 	}
@@ -77,7 +88,6 @@ public class Carrera implements IUnique{
 		this.id = id;
 	}
 
-	
 	@Override
 	public String toString() {
 		return "Carrera [id=" + id + ", nombre=" + nombre + ", fecha=" + fecha + ", kms=" + kms + ", premios="
@@ -105,6 +115,6 @@ public class Carrera implements IUnique{
 
 	@Override
 	public void generateID() {
-		this.id = "C" + (int)(Math.random()*1000);
+		this.id = "C" + (int) (Math.random() * 1000);
 	}
 }

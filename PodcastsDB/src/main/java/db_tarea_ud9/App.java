@@ -2,8 +2,8 @@ package db_tarea_ud9;
 
 import java.sql.Connection;
 
-import java.sql.SQLException;
 
+import java.sql.SQLException;
 import userAndMenu.Menu;
 import userAndMenu.Usuario;
 
