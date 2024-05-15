@@ -1,4 +1,4 @@
-package db_tarea_ud9;
+package data;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -12,12 +12,12 @@ public class AccessToDB {
 
 	private AccessToDB() {
 
-			dataSource = new BasicDataSource();
-			Dotenv dotenv = Dotenv.load();
-			
-			dataSource.setUrl(dotenv.get("URL"));
-			dataSource.setUsername(dotenv.get("USER"));
-			dataSource.setPassword(dotenv.get("PASS"));
+		dataSource = new BasicDataSource();
+		Dotenv dotenv = Dotenv.load();
+
+		dataSource.setUrl(dotenv.get("URL"));
+		dataSource.setUsername(dotenv.get("USER"));
+		dataSource.setPassword(dotenv.get("PASS"));
 	}
 
 	public BasicDataSource getDataSource() {
@@ -28,6 +28,6 @@ public class AccessToDB {
 		if (instance == null) {
 			instance = new AccessToDB();
 		}
-		return  instance.getDataSource().getConnection();
+		return instance.getDataSource().getConnection();
 	}
 }

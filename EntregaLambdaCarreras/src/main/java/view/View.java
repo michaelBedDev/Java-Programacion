@@ -33,7 +33,7 @@ public class View {
 				showMessage(message);
 				output = Integer.parseInt(sc.nextLine());
 			} catch (Exception e) {
-				showMessage("Núúmero no válido");
+				showMessage("Número no válido");
 			}
 		} while (output < 0);
 

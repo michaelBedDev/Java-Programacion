@@ -1,4 +1,4 @@
-package db_tarea_ud9;
+package data;
 
 import java.sql.Connection;
 
@@ -11,44 +11,54 @@ import java.util.List;
 import javax.sql.rowset.CachedRowSet;
 import javax.sql.rowset.RowSetProvider;
 
-import userAndMenu.Usuario;
+import view.View;
 
 public class ModifyDB implements IPodcast {
 
-	/*Insert podcast in DB*/
+	private static Connection conn;
+	private View view = new View(); // move to controller
+
+	public ModifyDB() throws SQLException {
+		conn = AccessToDB.getInstance();
+		view = new View();
+	}
+
+	/* Insert podcast in DB */
 	@Override
 	public boolean insertPodcast(Podcast p) {
-		try (Connection conn = AccessToDB.getInstance();
-				Statement query = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-				ResultSet crs = query.executeQuery("select * from Podcast")) {
+		try (Statement query = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+				ResultSet rs = query.executeQuery("select * from Podcast")) {
 
-			crs.moveToInsertRow();
+			rs.moveToInsertRow();
 
-			// if IDPodcast not unique, loop +1
+			// Verify if the idPodcast is unique or set a new one
+			//rs = validateID(rs, p);
+			
+			//ARREGLAR A PARTIR DE AQUI
+			
+
 			if (isIDPodcastUnique(p.getIdPodcast())) {
-				crs.updateInt("idPodcast", p.getIdPodcast());
+				rs.updateInt("idPodcast", p.getIdPodcast());
 			} else {
-
 				do {
 					p.setIdPodcast(p.getIdPodcast() + 1);
 				} while (!isIDPodcastUnique(p.getIdPodcast()));
-
-				crs.updateInt("idPodcast", p.getIdPodcast());
+				rs.updateInt("idPodcast", p.getIdPodcast());
 			}
 
-			crs.updateString("titulo", p.getTitulo());
-			crs.updateInt("tipo", p.getTipo());
-			crs.updateString("calidad", p.getCalidad());
-			crs.updateInt("duracion", p.getDuracion());
-			crs.updateString("periocidad", p.getPeriodicidad());
-			crs.updateString("formato_video", p.getFormatoVideo());
+			rs.updateString("titulo", p.getTitulo());
+			rs.updateInt("tipo", p.getTipo());
+			rs.updateString("calidad", p.getCalidad());
+			rs.updateInt("duracion", p.getDuracion());
+			rs.updateString("periocidad", p.getPeriodicidad());
+			rs.updateString("formato_video", p.getFormatoVideo());
 
 			// Verify the author is already in DB. If not, create one;
 			if (isAuthorinDB(p.getAutor().getIdAutor())) {
-				crs.updateInt("autor", p.getAutor().getIdAutor());
+				rs.updateInt("autor", p.getAutor().getIdAutor());
 			} else {
-				System.out.println("El autor no ha sido encontrado en la base de datos. Añade el autor.");
-				Autor aux = Usuario.askForAuthor();
+				view.showMessage("El autor no ha sido encontrado en la base de datos. Añade el autor."); // exception
+				Autor aux = view.askForAuthor();
 				aux.setIdAutor(1);
 
 				// Assign a new id for the new Author. id+1 : don´t
@@ -59,9 +69,9 @@ public class ModifyDB implements IPodcast {
 
 				addAuthorToDB(aux);
 				System.out.println("Autor agregado correctamente");
-				crs.updateInt("autor", aux.getIdAutor());
+				rs.updateInt("autor", aux.getIdAutor());
 			}
-			crs.insertRow();
+			rs.insertRow();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -69,6 +79,9 @@ public class ModifyDB implements IPodcast {
 		System.out.println("Podcast agregado correctamente");
 		return true;
 	}
+
+	
+	
 
 	/**
 	 * Need to add the author to the DB to avoid the FK restriction when adding a
@@ -80,8 +93,7 @@ public class ModifyDB implements IPodcast {
 
 	private void addAuthorToDB(Autor author) throws SQLException {
 
-		try (Connection conn = AccessToDB.getInstance();
-				Statement query = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		try (Statement query = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 				ResultSet crs = query.executeQuery("select idAutor, dni, nombre, apellidos from Autor")) {
 
 			crs.moveToInsertRow();
@@ -103,8 +115,7 @@ public class ModifyDB implements IPodcast {
 	 */
 	private boolean isAuthorinDB(int authorID) throws SQLException {
 
-		try (Connection conn = AccessToDB.getInstance();
-				CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet()) {
+		try (CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet()) {
 
 			crs.setCommand("select idAutor from Autor");
 			crs.execute(conn);
@@ -127,8 +138,7 @@ public class ModifyDB implements IPodcast {
 	 */
 	private boolean isIDPodcastUnique(int idPodcast) throws SQLException {
 
-		try (Connection conn = AccessToDB.getInstance();
-				CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet()) {
+		try (CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet()) {
 
 			crs.setCommand("select idPodcast from Podcast");
 			crs.execute(conn);
@@ -146,8 +156,7 @@ public class ModifyDB implements IPodcast {
 	@Override
 	public boolean newGenPodcast(Genero g) {
 
-		try (Connection conn = AccessToDB.getInstance();
-				Statement query = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		try (Statement query = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 				ResultSet crs = query.executeQuery("select idGeneros, nombre from Generos");) {
 
 			crs.moveToInsertRow();
@@ -176,15 +185,15 @@ public class ModifyDB implements IPodcast {
 	}
 
 	/**
+	 * Verify if the genderID is already repeated in DB
 	 * 
 	 * @param idGender
-	 * @return
+	 * @return boolean
 	 * @throws SQLException
 	 */
 	private boolean isGenderIDUnique(int idGender) throws SQLException {
 
-		try (Connection conn = AccessToDB.getInstance();
-				CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet()) {
+		try (CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet()) {
 
 			crs.setCommand("select idGeneros from Generos");
 			crs.execute(conn);
@@ -196,27 +205,24 @@ public class ModifyDB implements IPodcast {
 			}
 			return true;
 		}
-
 	}
 
 	@Override
 	public boolean updatePodcast(Podcast p) {
-
 		return false;
 	}
 
 	@Override
-	public boolean deletePodcast(Podcast p) { 
+	public boolean deletePodcast(Podcast p) {
 
-		try (Connection conn = AccessToDB.getInstance();
-				Statement query = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		try (Statement query = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 				ResultSet crs = query.executeQuery("select idPodcast from Podcast");) {
 
 			boolean eliminado = false;
 
 			while (crs.next()) {
 				if (p.getIdPodcast() == crs.getInt("idPodcast")) {
-					crs.deleteRow(); 
+					crs.deleteRow();
 					System.out.println("Podcast " + p.getTitulo() + " eliminado correctamente");
 					eliminado = true;
 				}
@@ -232,17 +238,14 @@ public class ModifyDB implements IPodcast {
 		return true;
 	}
 
-
-
 	@Override // verificar autor
-	public List<Podcast> viewAllPodcast() {
+	public List<Podcast> getDBPodcast() {
 
 		String query = "select idPodcast, titulo, tipo, calidad, duracion,"
 				+ " periocidad, formato_video, autor from Podcast";
 		List<Podcast> podcastList = new ArrayList<>();
 
-		try (Connection conn = AccessToDB.getInstance();
-				CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet()) {
+		try (CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet()) {
 
 			crs.setCommand(query);
 			crs.execute(conn);
@@ -270,6 +273,41 @@ public class ModifyDB implements IPodcast {
 		return podcastList;
 	}
 
+	public List<Autor> getDBAuthors() {
+		try (Statement query = ModifyDB.getConn().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+				ResultSet.CONCUR_UPDATABLE); ResultSet rs = query.executeQuery("select * from autor");) {
+
+			while (rs.next()) {
+				Autor autor = new Autor();
+				autor.setIdAutor(rs.getInt(1));
+				autor.setDni(rs.getString(2));
+				autor.setApellidos(rs.getString(3));
+				autor.setNombre(rs.getString(4));
+				view.showMessage(autor.toString());
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public List<Genero> getDBGenders() {
+		try (CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet()) {
+
+			crs.setCommand("select * from Generos");
+			crs.execute(ModifyDB.getConn());
+
+			while (crs.next()) {
+				// REHACER
+				view.sho(new Genero(crs.getInt(1), crs.getString(2)));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * 
 	 * @param idAuthor
@@ -278,8 +316,7 @@ public class ModifyDB implements IPodcast {
 	 */
 	private Autor findAuthorByID(int idAuthor) throws SQLException {
 
-		try (Connection conn = AccessToDB.getInstance();
-				CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet()) {
+		try (CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet()) {
 
 			crs.setCommand("select idAutor, dni, apellidos, nombre from Autor");
 			crs.execute(conn);
@@ -299,8 +336,7 @@ public class ModifyDB implements IPodcast {
 
 		String query = "select * from Podcast where idPodcast = ?";
 		Podcast aux = new Podcast();
-		try (Connection conn = AccessToDB.getInstance();
-				CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet()) {
+		try (CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet()) {
 
 			crs.setCommand(query);
 			crs.setInt(1, id);
@@ -324,50 +360,22 @@ public class ModifyDB implements IPodcast {
 		return aux;
 	}
 
-//VISUALIZAR SIGUIENTE Y ANTERIOR
-
-	public void showDBGenders() {
-		try (Connection conn = AccessToDB.getInstance();
-				CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet()) {
-
-			crs.setCommand("select * from Generos");
-			crs.execute(conn);
-
-			while (crs.next()) {
-				System.out.println(new Genero(crs.getInt(1), crs.getString(2)));
-
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void showAuthors() {
-		try(Connection conn = AccessToDB.getInstance();
-				Statement query = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-				ResultSet rs = query.executeQuery("select * from autor");){
-			
-			while(rs.next()) {
-				Autor autor = new Autor();
-				autor.setIdAutor(rs.getInt(1));
-				autor.setDni(rs.getString(2));
-				autor.setApellidos(rs.getString(3));
-				autor.setNombre(rs.getString(4));
-				System.out.println(autor);
-			}
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public void imprimirPodcast(List<Podcast> list) {
-		for (Podcast p : list) {
-			System.out.println(p);
-		}
-		
+	/* Getters and Setters */
+	public static Connection getConn() {
+		return conn;
 	}
 
+	public static void setConn(Connection conn) {
+		ModifyDB.conn = conn;
+	}
+
+	/*
+	 * ESTE METODO NO SE USA, SE USA EN LA CLASE VIEW PARA REUTILIZAR CODIGO CON
+	 * GENERICOS
+	 */
+	@Override
+	public List<Podcast> viewAllPodcast() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
