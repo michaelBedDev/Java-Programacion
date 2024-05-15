@@ -37,21 +37,20 @@ public class Menu {
 		case 2:
 			task.newGenPodcast(user.askForGen());
 			break;
-//			case 3:
-//				task.updatePodcast(null);
-//				break;
+		case 3:
+			task.updatePodcast(null);
+			break;
 		case 4:
-			task.deletePodcast(task.findByIdPodcast
-					(user.pedirNumero("Introduce el ID del podcast a eliminar:")));
+			task.deletePodcast(task.findByIdPodcast(user.pedirNumero("Introduce el ID del podcast a eliminar:")));
 			break;
 		case 5:
 			task.imprimirPodcast(task.viewAllPodcast());
 			break;
 		case 6:
-			task.findByIdPodcast(seleccion); //AÑADIR COSAS
+			task.findByIdPodcast(seleccion);
 			break;
 		case 7:
-			//FALTA
+			task.showAuthors();
 			break;
 		case 8:
 			task.showDBGenders();

@@ -107,6 +107,7 @@ public class DB { /* With instance */
 
 		String createDatabaseScript = "CREATE DATABASE IF NOT EXISTS `carreras`;";
 		String dropTableScript = "DROP TABLE IF EXISTS `resumen`;";
+		String useDB = "USE `carreras`;";
 		String createTableScript = "CREATE TABLE `resumen`(\n" +
 				"    `identificador` varchar(10) NOT NULL,\n" +
 				"    `nombre_carrera` varchar(50) NOT NULL,\n" +
@@ -119,6 +120,7 @@ public class DB { /* With instance */
 		try (Statement query = connection.createStatement()) {
 		    
 		    query.execute(createDatabaseScript);
+		    query.execute(useDB);
 		    query.execute(dropTableScript);
 		    query.execute(createTableScript);
 		} catch (Exception e) {

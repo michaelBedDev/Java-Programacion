@@ -15,6 +15,7 @@ import userAndMenu.Usuario;
 
 public class ModifyDB implements IPodcast {
 
+	/*Insert podcast in DB*/
 	@Override
 	public boolean insertPodcast(Podcast p) {
 		try (Connection conn = AccessToDB.getInstance();
@@ -141,6 +142,7 @@ public class ModifyDB implements IPodcast {
 		return true;
 	}
 
+	/* ADD new gen to DB */
 	@Override
 	public boolean newGenPodcast(Genero g) {
 
@@ -169,7 +171,7 @@ public class ModifyDB implements IPodcast {
 			e.printStackTrace();
 			return false;
 		}
-		System.out.println("Género " + g.getNombre() + "agregado correctamente");
+		System.out.println("Género " + g.getNombre() + " agregado correctamente");
 		return true;
 	}
 
@@ -204,7 +206,7 @@ public class ModifyDB implements IPodcast {
 	}
 
 	@Override
-	public boolean deletePodcast(Podcast p) { // ARREGLAR
+	public boolean deletePodcast(Podcast p) { 
 
 		try (Connection conn = AccessToDB.getInstance();
 				Statement query = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -214,7 +216,7 @@ public class ModifyDB implements IPodcast {
 
 			while (crs.next()) {
 				if (p.getIdPodcast() == crs.getInt("idPodcast")) {
-					crs.deleteRow(); // NO FUNCIONA
+					crs.deleteRow(); 
 					System.out.println("Podcast " + p.getTitulo() + " eliminado correctamente");
 					eliminado = true;
 				}
@@ -336,6 +338,27 @@ public class ModifyDB implements IPodcast {
 
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void showAuthors() {
+		try(Connection conn = AccessToDB.getInstance();
+				Statement query = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+				ResultSet rs = query.executeQuery("select * from autor");){
+			
+			while(rs.next()) {
+				Autor autor = new Autor();
+				autor.setIdAutor(rs.getInt(1));
+				autor.setDni(rs.getString(2));
+				autor.setApellidos(rs.getString(3));
+				autor.setNombre(rs.getString(4));
+				System.out.println(autor);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
