@@ -20,7 +20,7 @@ public class Podcast {
 
 	/* Constructor para la clase ModifyDB */
 	public Podcast(int idPodcast, String titulo, byte tipo, String calidad, int duracion, String periodicidad,
-			String formato_video, Autor autor) {
+			String formato_video) { /* El autor se asigna en un método externo */
 		super();
 		this.idPodcast = idPodcast;
 		this.titulo = titulo;
@@ -29,7 +29,6 @@ public class Podcast {
 		this.duracion = duracion;
 		this.periodicidad = periodicidad;
 		this.formatoVideo = formato_video;
-		this.autor = autor;
 		this.generos = new HashSet<Genero>();
 	}
 

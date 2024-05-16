@@ -70,8 +70,8 @@ public class View {
 		int duracion = askForInt("Introduce la duración del podcast (numero)");
 		String periodicidad = askForString("Introduce la perodicidad del podcast");
 
-		return new Podcast(1, titulo, tipo, calidad, duracion, periodicidad, formatoVideo,
-				new Autor(askForInt("Introduce aquí el ID del autor del podcast"), "", "", ""));
+		
+		return new Podcast(1, titulo, tipo, calidad, duracion, periodicidad, formatoVideo);
 	}
 
 	/* Ask for Audio or Video */

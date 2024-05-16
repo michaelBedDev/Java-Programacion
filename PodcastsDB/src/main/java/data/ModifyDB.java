@@ -31,12 +31,6 @@ public class ModifyDB implements IPodcast {
 
 			rs.moveToInsertRow();
 
-			// Verify if the idPodcast is unique or set a new one
-			//rs = validateID(rs, p);
-			
-			//ARREGLAR A PARTIR DE AQUI
-			
-
 			if (isIDPodcastUnique(p.getIdPodcast())) {
 				rs.updateInt("idPodcast", p.getIdPodcast());
 			} else {
@@ -52,9 +46,13 @@ public class ModifyDB implements IPodcast {
 			rs.updateInt("duracion", p.getDuracion());
 			rs.updateString("periocidad", p.getPeriodicidad());
 			rs.updateString("formato_video", p.getFormatoVideo());
-
+			
+			view.showCollection(getDBAuthors()); /* Enseñar autores */
+			
+			/* Get author si el autor con id seleccionado ya está en DB */
+			int idAutor = view.askForInt("Introduce el id del autor del podcast, o uno distinto para añadir uno nuevo");
 			// Verify the author is already in DB. If not, create one;
-			if (isAuthorinDB(p.getAutor().getIdAutor())) {
+			if (isAuthorinDB(idAutor)) {
 				rs.updateInt("autor", p.getAutor().getIdAutor());
 			} else {
 				view.showMessage("El autor no ha sido encontrado en la base de datos. Añade el autor."); // exception
@@ -79,9 +77,6 @@ public class ModifyDB implements IPodcast {
 		System.out.println("Podcast agregado correctamente");
 		return true;
 	}
-
-	
-	
 
 	/**
 	 * Need to add the author to the DB to avoid the FK restriction when adding a
@@ -115,18 +110,7 @@ public class ModifyDB implements IPodcast {
 	 */
 	private boolean isAuthorinDB(int authorID) throws SQLException {
 
-		try (CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet()) {
-
-			crs.setCommand("select idAutor from Autor");
-			crs.execute(conn);
-			while (crs.next()) {
-
-				if (crs.getInt("idAutor") == authorID) {
-					return true;
-				}
-			}
-		}
-		return false;
+		return getDBAuthors().stream().anyMatch(author -> author.getIdAutor() == authorID);
 	}
 
 	/**
@@ -134,22 +118,10 @@ public class ModifyDB implements IPodcast {
 	 * 
 	 * @param idPodcast
 	 * @return boolean
-	 * @throws SQLException
 	 */
 	private boolean isIDPodcastUnique(int idPodcast) throws SQLException {
 
-		try (CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet()) {
-
-			crs.setCommand("select idPodcast from Podcast");
-			crs.execute(conn);
-			while (crs.next()) {
-
-				if (crs.getInt("idPodcast") == idPodcast) {
-					return false;
-				}
-			}
-		}
-		return true;
+		return !getDBPodcast().stream().anyMatch(podcast -> podcast.getIdPodcast() == idPodcast);
 	}
 
 	/* ADD new gen to DB */
@@ -165,7 +137,7 @@ public class ModifyDB implements IPodcast {
 				crs.updateInt("idGeneros", g.getIdGenero());
 			} else {
 
-				do {
+				do { //hacer metodo de esto
 					g.setIdGenero(g.getIdGenero() + 1);
 				} while (!isGenderIDUnique(g.getIdGenero()));
 
@@ -191,20 +163,9 @@ public class ModifyDB implements IPodcast {
 	 * @return boolean
 	 * @throws SQLException
 	 */
-	private boolean isGenderIDUnique(int idGender) throws SQLException {
+	private boolean isGenderIDUnique(int idGender) {
 
-		try (CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet()) {
-
-			crs.setCommand("select idGeneros from Generos");
-			crs.execute(conn);
-
-			while (crs.next()) {
-				if (crs.getInt("idGeneros") == idGender) {
-					return false;
-				}
-			}
-			return true;
-		}
+		return !getDBGenders().stream().anyMatch(gender -> gender.getIdGenero() == idGender);
 	}
 
 	@Override
@@ -238,7 +199,6 @@ public class ModifyDB implements IPodcast {
 		return true;
 	}
 
-	@Override // verificar autor
 	public List<Podcast> getDBPodcast() {
 
 		String query = "select idPodcast, titulo, tipo, calidad, duracion,"
@@ -260,7 +220,6 @@ public class ModifyDB implements IPodcast {
 				aux.setDuracion(crs.getInt("duracion"));
 				aux.setPeriodicidad(crs.getString("periocidad"));
 				aux.setFormatoVideo(crs.getString("formato_video"));
-
 				aux.setAutor(findAuthorByID(crs.getInt("autor")));
 
 				podcastList.add(aux);
@@ -273,39 +232,39 @@ public class ModifyDB implements IPodcast {
 		return podcastList;
 	}
 
+	/* Get autors from DB */
 	public List<Autor> getDBAuthors() {
+
+		List<Autor> autorsList = new ArrayList<Autor>();
 		try (Statement query = ModifyDB.getConn().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
 				ResultSet.CONCUR_UPDATABLE); ResultSet rs = query.executeQuery("select * from autor");) {
 
 			while (rs.next()) {
-				Autor autor = new Autor();
-				autor.setIdAutor(rs.getInt(1));
-				autor.setDni(rs.getString(2));
-				autor.setApellidos(rs.getString(3));
-				autor.setNombre(rs.getString(4));
-				view.showMessage(autor.toString());
+				autorsList.add(new Autor(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4)));
 			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return autorsList;
 	}
 
 	public List<Genero> getDBGenders() {
+
+		List<Genero> gendersList = new ArrayList<>();
 		try (CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet()) {
 
 			crs.setCommand("select * from Generos");
 			crs.execute(ModifyDB.getConn());
 
 			while (crs.next()) {
-				// REHACER
-				view.sho(new Genero(crs.getInt(1), crs.getString(2)));
-
+				gendersList.add(new Genero(crs.getInt(1), crs.getString(2)));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return gendersList;
 	}
 
 	/**
@@ -314,7 +273,7 @@ public class ModifyDB implements IPodcast {
 	 * @return
 	 * @throws SQLException
 	 */
-	private Autor findAuthorByID(int idAuthor) throws SQLException {
+	private Autor findAuthorByID(int idAuthor) throws SQLException { //rehacer pero no tan basto
 
 		try (CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet()) {
 

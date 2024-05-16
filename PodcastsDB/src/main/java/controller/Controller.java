@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.List;
 
 import data.ModifyDB;
 import view.View;
@@ -30,8 +29,11 @@ public class Controller {
 		case 1 -> task.insertPodcast(view.askForPodcast());
 		case 2 -> task.newGenPodcast(view.askForGen());
 		case 3 -> task.updatePodcast(null);
-		case 4 -> task.deletePodcast(task.findByIdPodcast(view.askForInt("Introduce el ID del podcast a eliminar:")));
-		case 5 -> view.showCollection(task.viewAllPodcast());
+		case 4 -> {
+			view.showCollection(task.getDBPodcast());
+			task.deletePodcast(task.findByIdPodcast(view.askForInt("Introduce el ID del podcast a eliminar:")));
+		}
+		case 5 -> view.showCollection(task.getDBPodcast());
 		case 6 -> task.findByIdPodcast(input);
 		case 7 -> view.showCollection(task.getDBAuthors());
 		case 8 -> view.showCollection(task.getDBGenders());
