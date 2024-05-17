@@ -197,7 +197,7 @@ public class ModifyDB implements IPodcast {
 				System.out.println("Género agregado correctamente");
 
 				crs.moveToInsertRow();
-				crs.updateInt("idPodcast", p.getIdPodcast());
+				crs.updateInt("idpodcat", p.getIdPodcast());
 				crs.updateInt("idGeneros", aux.getIdGenero());
 				crs.insertRow();
 			}
