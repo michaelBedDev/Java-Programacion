@@ -1,6 +1,5 @@
 package controller;
 
-
 import data.ModifyDB;
 import view.View;
 
@@ -28,13 +27,25 @@ public class Controller {
 		switch (input) {
 		case 1 -> task.insertPodcast(view.askForPodcast());
 		case 2 -> task.newGenPodcast(view.askForGen());
-		case 3 -> task.updatePodcast(null);
+		case 3 -> {
+			try {
+				task.updatePodcast(task.selectPodcast());
+			} catch (Exception e) {
+				view.showMessage(e.getMessage());
+			}
+		}
 		case 4 -> {
-			view.showCollection(task.getDBPodcast());
-			task.deletePodcast(task.findByIdPodcast(view.askForInt("Introduce el ID del podcast a eliminar:")));
+			try {
+				task.deletePodcast(task.selectPodcast());
+			} catch (Exception e) {
+				view.showMessage(e.getMessage());
+			}
 		}
 		case 5 -> view.showCollection(task.getDBPodcast());
-		case 6 -> task.findByIdPodcast(input);
+		case 6 -> {
+			view.showCollection(task.getDBPodcast());
+			task.findByIdPodcast(view.askForInt("Introduce el ID del podcast a buscar: "));
+		}
 		case 7 -> view.showCollection(task.getDBAuthors());
 		case 8 -> view.showCollection(task.getDBGenders());
 		case 99 -> {

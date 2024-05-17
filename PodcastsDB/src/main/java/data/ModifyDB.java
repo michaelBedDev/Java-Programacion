@@ -1,12 +1,12 @@
 package data;
 
 import java.sql.Connection;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.sql.rowset.CachedRowSet;
 import javax.sql.rowset.RowSetProvider;
@@ -46,14 +46,14 @@ public class ModifyDB implements IPodcast {
 			rs.updateInt("duracion", p.getDuracion());
 			rs.updateString("periocidad", p.getPeriodicidad());
 			rs.updateString("formato_video", p.getFormatoVideo());
-			
+
 			view.showCollection(getDBAuthors()); /* Enseñar autores */
-			
+
 			/* Get author si el autor con id seleccionado ya está en DB */
 			int idAutor = view.askForInt("Introduce el id del autor del podcast, o uno distinto para añadir uno nuevo");
 			// Verify the author is already in DB. If not, create one;
 			if (isAuthorinDB(idAutor)) {
-				rs.updateInt("autor", p.getAutor().getIdAutor());
+				rs.updateInt("autor", idAutor);
 			} else {
 				view.showMessage("El autor no ha sido encontrado en la base de datos. Añade el autor."); // exception
 				Autor aux = view.askForAuthor();
@@ -137,7 +137,7 @@ public class ModifyDB implements IPodcast {
 				crs.updateInt("idGeneros", g.getIdGenero());
 			} else {
 
-				do { //hacer metodo de esto
+				do { // hacer metodo de esto
 					g.setIdGenero(g.getIdGenero() + 1);
 				} while (!isGenderIDUnique(g.getIdGenero()));
 
@@ -170,7 +170,57 @@ public class ModifyDB implements IPodcast {
 
 	@Override
 	public boolean updatePodcast(Podcast p) {
+		/* Update Podcast Genders */
+		try (Statement query = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+				ResultSet crs = query.executeQuery("select * from gen_pod");) {
+
+			view.showCollection(getDBGenders());
+			int idGender = view.askForInt(
+					"Introduce el id del género que quieres añadir," + " o uno distinto para añadir uno nuevo");
+
+			if (isGenderinDB(idGender)) {
+				crs.moveToInsertRow();
+				crs.updateInt("idpodcat", p.getIdPodcast());
+				crs.updateInt("idgenero", idGender);
+				crs.insertRow();
+				view.showMessage("Género añadido correctamente al podcast.");
+				return true;
+			} else {
+				view.showMessage("El género no ha sido encontrado en la base de datos. Añade el género.");
+				Genero aux = view.askForGen();
+				aux.setIdGenero(1);
+
+				while (isGenderinDB(aux.getIdGenero())) {
+					aux.setIdGenero(aux.getIdGenero() + 1);
+				}
+				newGenPodcast(aux);
+				System.out.println("Género agregado correctamente");
+
+				crs.moveToInsertRow();
+				crs.updateInt("idPodcast", p.getIdPodcast());
+				crs.updateInt("idGeneros", aux.getIdGenero());
+				crs.insertRow();
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return false;
+	}
+
+	private boolean isGenderinDB(int idGender) {
+		return getDBGenders().stream().anyMatch(id -> id.getIdGenero() == idGender);
+	}
+
+	public Podcast selectPodcast() throws Exception {
+		view.showCollection(getDBPodcast());
+		int idPodcastToModify = view.askForInt("Introduce el ID del podcast a modificar: ");
+
+		Optional<Podcast> podcast = getDBPodcast().stream().filter(p -> p.getIdPodcast() == idPodcastToModify)
+				.findFirst();
+
+		return podcast.orElseThrow(() -> new Exception("Podcast no encontrado con ese id"));
 	}
 
 	@Override
@@ -179,24 +229,34 @@ public class ModifyDB implements IPodcast {
 		try (Statement query = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 				ResultSet crs = query.executeQuery("select idPodcast from Podcast");) {
 
-			boolean eliminado = false;
-
 			while (crs.next()) {
 				if (p.getIdPodcast() == crs.getInt("idPodcast")) {
+					deleteGen_pod(p.getIdPodcast()); /* Delete first the relationships in gen_pod */
 					crs.deleteRow();
-					System.out.println("Podcast " + p.getTitulo() + " eliminado correctamente");
-					eliminado = true;
+					view.showMessage("Podcast " + p.getTitulo() + " eliminado correctamente");
+					return true;
 				}
 			}
 
-			if (!eliminado) {
-				System.out.println("No se ha podido eliminar el podcast. No ha sido encontrado");
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
 		return true;
+	}
+
+	private void deleteGen_pod(int idPodcast) {
+		try (Statement query = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+				ResultSet crs = query.executeQuery("select * from gen_pod");) {
+
+			while (crs.next()) {
+				if (crs.getInt("idpodcat") == idPodcast) {
+					crs.deleteRow();
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public List<Podcast> getDBPodcast() {
@@ -273,7 +333,7 @@ public class ModifyDB implements IPodcast {
 	 * @return
 	 * @throws SQLException
 	 */
-	private Autor findAuthorByID(int idAuthor) throws SQLException { //rehacer pero no tan basto
+	private Autor findAuthorByID(int idAuthor) throws SQLException { // rehacer pero no tan basto
 
 		try (CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet()) {
 
@@ -290,8 +350,7 @@ public class ModifyDB implements IPodcast {
 		return null; // ??
 	}
 
-	@Override
-	public Podcast findByIdPodcast(int id) {
+	public Podcast getPodcastFromDB(int id) {
 
 		String query = "select * from Podcast where idPodcast = ?";
 		Podcast aux = new Podcast();
@@ -337,4 +396,69 @@ public class ModifyDB implements IPodcast {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Podcast findByIdPodcast(int id) {
+		Podcast aux = new Podcast();
+		int input = -1;
+		
+		if (!getDBPodcast().stream().anyMatch(podcast -> podcast.getIdPodcast() == id)) {
+			view.showMessage("Podcast no encontrado");
+			return null;
+		}
+
+		try (Statement query = ModifyDB.getConn().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+				ResultSet.CONCUR_UPDATABLE); ResultSet crs = query.executeQuery("select * from podcast");){
+			
+			crs.beforeFirst();
+			
+			crs.absolute(id);
+			aux.setIdPodcast(crs.getInt("idPodcast"));
+            aux.setTitulo(crs.getString("titulo"));
+            aux.setTipo(crs.getByte("tipo"));
+            aux.setCalidad(crs.getString("calidad"));
+            aux.setDuracion(crs.getInt("duracion"));
+            aux.setPeriodicidad(crs.getString("periocidad"));
+            aux.setFormatoVideo(crs.getString("formato_video"));
+            aux.setAutor(findAuthorByID(crs.getInt("autor")));
+            view.showPodcast(aux);
+			
+			do {
+				input = view.askForInt("Deseas ver el podcast anterior o siguiente? (1: Anterior, 2: Siguiente, 3: Salir");
+				
+				if (input == 1) {
+                    crs.previous();
+                    aux.setIdPodcast(crs.getInt("idPodcast"));
+                    aux.setTitulo(crs.getString("titulo"));
+                    aux.setTipo(crs.getByte("tipo"));
+                    aux.setCalidad(crs.getString("calidad"));
+                    aux.setDuracion(crs.getInt("duracion"));
+                    aux.setPeriodicidad(crs.getString("periocidad"));
+                    aux.setFormatoVideo(crs.getString("formato_video"));
+                    aux.setAutor(findAuthorByID(crs.getInt("autor")));
+                    view.showPodcast(aux);
+                    
+                    
+                } else if (input == 2) {
+                    crs.next();
+                    aux.setIdPodcast(crs.getInt("idPodcast"));
+                    aux.setTitulo(crs.getString("titulo"));
+                    aux.setTipo(crs.getByte("tipo"));
+                    aux.setCalidad(crs.getString("calidad"));
+                    aux.setDuracion(crs.getInt("duracion"));
+                    aux.setPeriodicidad(crs.getString("periocidad"));
+                    aux.setFormatoVideo(crs.getString("formato_video"));
+                    aux.setAutor(findAuthorByID(crs.getInt("autor")));
+                    view.showPodcast(aux);
+                }
+		} while (input != 3);
+			
+			} catch (SQLException e) {
+			view.showMessage("No hay podcast anterior o siguiente");
+		}
+		return aux;
+	}
+
+	 
+		
 }

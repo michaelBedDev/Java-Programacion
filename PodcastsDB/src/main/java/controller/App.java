@@ -1,9 +1,10 @@
-package data;
+package controller;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import controller.Controller;
+import data.AccessToDB;
+import data.ModifyDB;
 import view.View;
 
 public class App {

@@ -22,6 +22,10 @@ public class View {
 	public void showMessage(String message) {
 		System.out.println(message);
 	}
+	
+	public void showPodcast(Podcast podcast) {
+		System.out.println(podcast);
+	}
 
 	public String askForString(String message) {
 		String output;
