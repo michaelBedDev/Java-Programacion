@@ -11,12 +11,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-
-
-import comparations.CompararContactosEdad;
-import comparations.CompararContactosTelefono;
 
 import exceptions.ObjectNotFoundException;
 import view.View;
@@ -71,7 +68,7 @@ public class ModifyDB {
 				Contacto contacto = new Contacto();
 				contacto.setId(rs.getString(1));
 				contacto.setNombre(rs.getString(2));
-				contacto.setTelefono(rs.getDouble(3));
+				contacto.setTelefono(rs.getInt(3));
 				contacto.setEmail(rs.getString(4));
 				contacto.setFechaNacimiento(rs.getDate(5));
 
@@ -86,11 +83,11 @@ public class ModifyDB {
 
 	public void crearGrupo(char c) {
 
-		String cString = String.valueOf(c);
+		String cString = String.valueOf(c).toUpperCase();
 
 		Grupo grupo = new Grupo();
 		List<Contacto> listafiltered = getContactos().stream()
-				.filter(contacto -> contacto.getNombre().startsWith(cString.toUpperCase())).toList();
+				.filter(contacto -> contacto.getNombre().startsWith(cString)).toList();
 
 		for (Contacto c1 : listafiltered) {
 			grupo.getContactos().add(c1);
@@ -146,15 +143,9 @@ public class ModifyDB {
 	}
 
 	public void mostrarContactosOrdenadosTlf() {
-//		ArrayList<Contacto> lista = db.getContactos();
-//		Collections.sort(lista, new CompararContactos());
-//		
-//		for(Contacto c : lista) {
-//			view.showContacto(c);
-//		}
-
 		List<Contacto> lista = getContactos();
-		lista.stream().sorted(new CompararContactosTelefono()).forEach(view::showContacto);
+		lista.stream().sorted(Comparator.comparing(Contacto::getTelefono)).forEach(view::showContacto);
+		
 	}
 
 	public void navegarContactos() {
@@ -166,7 +157,7 @@ public class ModifyDB {
 			Contacto contacto = new Contacto();
 			contacto.setId(rs.getString(1));
 			contacto.setNombre(rs.getString(2));
-			contacto.setTelefono(rs.getDouble(3));
+			contacto.setTelefono(rs.getInt(3));
 			contacto.setEmail(rs.getString(4));
 			contacto.setFechaNacimiento(rs.getDate(5));
 			view.showContacto(contacto);
@@ -178,7 +169,7 @@ public class ModifyDB {
 					rs.previous();
 					contacto.setId(rs.getString(1));
 					contacto.setNombre(rs.getString(2));
-					contacto.setTelefono(rs.getDouble(3));
+					contacto.setTelefono(rs.getInt(3));
 					contacto.setEmail(rs.getString(4));
 					contacto.setFechaNacimiento(rs.getDate(5));
 					view.showContacto(contacto);
@@ -187,7 +178,7 @@ public class ModifyDB {
 					rs.next();
 					contacto.setId(rs.getString(1));
 					contacto.setNombre(rs.getString(2));
-					contacto.setTelefono(rs.getDouble(3));
+					contacto.setTelefono(rs.getInt(3));
 					contacto.setEmail(rs.getString(4));
 					contacto.setFechaNacimiento(rs.getDate(5));
 					view.showContacto(contacto);
@@ -222,11 +213,13 @@ public class ModifyDB {
 //	}
 	
 	public void usuarioMasJoven(Grupo g) {
-		Optional<Contacto> contactoMasJoven = g.getContactos().stream().min(new CompararContactosEdad());
-	    
+		Optional<Contacto> contactoMasJoven = g.getContactos().stream().
+				filter(contacto -> contacto.getFechaNacimiento() != null)
+				.min(Comparator.comparing(Contacto::getFechaNacimiento));
+
 	    contactoMasJoven.ifPresent(contacto -> {
 	        
-	        System.out.println("El usuario más joven es: " + contacto.getNombre());
+	        view.showMessage("El usuario más joven es: " + contacto);
 	    });
 	}
 	

@@ -84,7 +84,7 @@ public class Controller {
 			option = view.askForInt("Introduce una opción");
 			switch (option) {
 			case 1:
-				db.navegarContactos();
+				db.navegarContactos(); //añadir actualizar nombre si se desea
 				break;
 			case 2:
 				db.contarContactosGrupo();

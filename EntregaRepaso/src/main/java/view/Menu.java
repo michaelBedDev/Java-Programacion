@@ -22,6 +22,7 @@ public class Menu {
 		System.out.println("[4] Mostrar usuario más joven");
 		System.out.println("[5] Modificar telefono de contacto");
 		System.out.println("[6] Copia de seguridad");
+		System.out.println("[7] Salir");
 	}
 	
 	

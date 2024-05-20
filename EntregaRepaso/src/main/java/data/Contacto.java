@@ -1,5 +1,6 @@
 package data;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
@@ -7,10 +8,10 @@ public class Contacto {
 
 	private String id;
 	private String nombre;
-	private double telefono;
+	private int telefono;
 	private Date fechaNacimiento;
 	private String email;
-	private Direccion direccion;
+	private ArrayList<Direccion> direccion;
 	
 	
 	
@@ -24,10 +25,10 @@ public class Contacto {
 	
 	public Contacto() {
 		super();
-		// TODO Auto-generated constructor stub
+		direccion = new ArrayList<>();
 	}
 	
-	public Contacto(String nombre, double telefono, Date fechaNacimiento, String email, Direccion direccion) {
+	public Contacto(String nombre, int telefono, Date fechaNacimiento, String email, ArrayList<Direccion> direccion) {
 		super();
 		this.nombre = nombre;
 		this.telefono = telefono;
@@ -46,7 +47,7 @@ public class Contacto {
 	public double getTelefono() {
 		return telefono;
 	}
-	public void setTelefono(double telefono) {
+	public void setTelefono(int telefono) {
 		this.telefono = telefono;
 	}
 	public Date getFechaNacimiento() {
@@ -61,10 +62,10 @@ public class Contacto {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Direccion getDireccion() {
+	public ArrayList<Direccion> getDireccion() {
 		return direccion;
 	}
-	public void setDireccion(Direccion direccion) {
+	public void setDireccion(ArrayList<Direccion> direccion) {
 		this.direccion = direccion;
 	}
 	public String getId() {
@@ -73,6 +74,16 @@ public class Contacto {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public void addDireccionToContacto(Direccion d) {
+		this.direccion.add(d);
+	}
+	
+	public void addDireccionesToContacto(ArrayList<Direccion> listaDirecciones) {
+		for(Direccion d : listaDirecciones) {
+			addDireccionToContacto(d);
+		}
 	}
 	
 	
