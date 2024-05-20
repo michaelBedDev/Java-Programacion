@@ -39,4 +39,15 @@ public class View {
 
 		return output;
 	}
+	
+	public char askForChar(String message) {
+		String output;
+		
+		do {
+			showMessage(message);
+			output = sc.nextLine();
+		} while (output.isBlank() || output.isEmpty() || output.length() > 2);
+		
+		return output.charAt(0);
+	}
 }

@@ -1,59 +1,115 @@
 package controller;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
-import view.Menu;
+import data.Contacto;
+import data.Direccion;
+import data.Grupo;
+import data.ModifyDB;
+import exceptions.ObjectNotFoundException;
 import view.View;
 
 public class Controller {
 
-	private final Connection connection;
+	private ModifyDB db;
 	private View view;
-	private Menu menu;
 
 	public Controller() throws SQLException {
-		connection = DB.getInstance();
+		db = new ModifyDB();
 		view = new View();
-		menu = new Menu();
 	}
 
 	public void start() {
 		int option = 0;
 		do {
-			menu.showMenu();
+			view.getMenu().showMenu();
 			option = view.askForInt("Introduce una opción");
 			switch (option) {
 			case 1:
-//				altaEquipo();
+				showAllData();
 				break;
 			case 2:
-//				altaParticipante();
+				db.crearGrupo(view.askForChar("Introduce la letra para filtrar el nombre de los contactos"));
 				break;
 			case 3:
-//				deleteEquipofromRace();
+				db.contactosToFichero();
 				break;
 			case 4:
-//				darPremio();
+				db.ficheroToContactos();
 				break;
 			case 5:
-//				mostrarEquipoFormat();
+				try {
+					view.showMessage(db.compararContacto(
+							db.getContacto(view.askForString("Introduce el ID del primer contacto a comparar")),
+							db.getContacto(view.askForString("Introduce el ID del segundo contacto a comparar"))));
+				} catch (ObjectNotFoundException e) {
+					e.getMessage();
+				}
 				break;
 			case 6:
-//				unirEquipos();
+				db.mostrarContactosOrdenadosTlf();
 				break;
 			case 7:
-//				participanteMasJoven();
+				menuExtra();
 				break;
 			case 8:
-//				infoToBBDD();
-				break;
-			case 9:
 				view.showMessage("Hasta luego");
 				break;
+			default:
+				view.showMessage("Introduce alguna de las opciones");
+				break;
 			}
-		} while (option != 9);
+		} while (option != 8);
 	}
 
+	private void showAllData() {
+		for (Contacto c : db.getContactos()) {
+			view.showContacto(c);
+		}
+		for (Direccion d : db.getdirecciones()) {
+			view.showDireccion(d);
+		}
+	}
 	
+	private void showGrupos() {
+		for (Grupo g : db.getListaGrupos()) {
+			view.showGrupo(g);
+		}
+	}
+
+	private void menuExtra() {
+		int option = 0;
+		do {
+			view.getMenu().showMenuExtra();
+			option = view.askForInt("Introduce una opción");
+			switch (option) {
+			case 1:
+				db.navegarContactos();
+				break;
+			case 2:
+				db.contarContactosGrupo();
+				break;
+			case 3:
+//				direccionesFromContactoToFichero();
+				break;
+			case 4:
+				showGrupos();
+				try {
+					db.usuarioMasJoven(db.getGrupo(view.askForString("Introduce el ID del Grupo a buscar")));
+				} catch (ObjectNotFoundException e) {
+					e.getMessage();
+				}
+				break;
+			case 5:
+			//	modificarTelefonoContacto();
+				break;
+			case 6:
+			//	hacerCopiaSeguridad(); 
+				break;
+			default:
+				view.showMessage("Introduce alguna de las opciones");
+				break;
+			}
+		} while(option != 7);
+	}
 }
