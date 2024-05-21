@@ -27,7 +27,7 @@ public class ModifyDB {
 	public ModifyDB() throws SQLException {
 		super();
 		this.connection = DB.getInstance();
-		this.listaGrupos = new ArrayList<Grupo>();
+		this.listaGrupos = new ArrayList<>();
 		this.view = new View();
 		crearGrupoPorDefecto();
 	}
@@ -36,8 +36,8 @@ public class ModifyDB {
 		crearGrupo('J');
 	}
 
-	public ArrayList<Direccion> getdirecciones() {
-		ArrayList<Direccion> listaDirecciones = new ArrayList<Direccion>();
+	public List<Direccion> getdirecciones() {
+		ArrayList<Direccion> listaDirecciones = new ArrayList<>();
 
 		try (Statement stmt = DB.getInstance().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
 				ResultSet.CONCUR_UPDATABLE); ResultSet rs = stmt.executeQuery("select * from direcciones");) {
@@ -58,8 +58,8 @@ public class ModifyDB {
 		return listaDirecciones;
 	}
 
-	public ArrayList<Contacto> getContactos() {
-		ArrayList<Contacto> listaContactos = new ArrayList<Contacto>();
+	public List<Contacto> getContactos() {
+		ArrayList<Contacto> listaContactos = new ArrayList<>();
 
 		try (Statement stmt = DB.getInstance().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
 				ResultSet.CONCUR_UPDATABLE); ResultSet rs = stmt.executeQuery("select * from contactos");) {
@@ -110,7 +110,6 @@ public class ModifyDB {
 				Files.write(fichero, contactotxt, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
 				view.showMessage("Contactos escritos correctamente");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -126,7 +125,6 @@ public class ModifyDB {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -145,7 +143,7 @@ public class ModifyDB {
 	public void mostrarContactosOrdenadosTlf() {
 		List<Contacto> lista = getContactos();
 		lista.stream().sorted(Comparator.comparing(Contacto::getTelefono)).forEach(view::showContacto);
-		
+
 	}
 
 	public void navegarContactos() {
@@ -202,40 +200,30 @@ public class ModifyDB {
 		opGrupo.ifPresentOrElse(grupo -> {
 			long sum = grupo.getContactos().stream().count();
 
-			System.out.println("Número de contactos del grupo: " + sum);
+			view.showMessage("Número de contactos del grupo: " + sum);
 		}, () -> view.showMessage("No se han encontrado grupos con ese ID"));
 
 	}
 
-	
-//	public void direccionesFromContactoToFichero(String id) throws ContactNotFoundException {
-//		getContacto(id).getDireccion();
-//	}
-	
 	public void usuarioMasJoven(Grupo g) {
-		Optional<Contacto> contactoMasJoven = g.getContactos().stream().
-				filter(contacto -> contacto.getFechaNacimiento() != null)
+		Optional<Contacto> contactoMasJoven = g.getContactos().stream()
+				.filter(contacto -> contacto.getFechaNacimiento() != null)
 				.min(Comparator.comparing(Contacto::getFechaNacimiento));
 
-	    contactoMasJoven.ifPresent(contacto -> {
-	        
-	        view.showMessage("El usuario más joven es: " + contacto);
-	    });
+		contactoMasJoven.ifPresent(contacto ->
+
+		view.showMessage("El usuario más joven es: " + contacto));
 	}
-	
-	
-	
+
 	public Grupo getGrupo(String input) throws ObjectNotFoundException {
 
 		Optional<Grupo> opGrupo = listaGrupos.stream().filter(grupo -> input.equalsIgnoreCase(grupo.getId()))
 				.findFirst();
-		
+
 		return opGrupo.orElseThrow(() -> new ObjectNotFoundException("No han sido encontrado grupos con ese ID"));
 	}
-	
-	
-	
-	public ArrayList<Grupo> getListaGrupos() {
+
+	public List<Grupo> getListaGrupos() {
 		return listaGrupos;
 	}
 

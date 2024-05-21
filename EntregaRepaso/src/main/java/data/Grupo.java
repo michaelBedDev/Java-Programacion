@@ -9,11 +9,11 @@ public class Grupo {
 
 	public Grupo() {
 		super();
-		this.contactos = new ArrayList<Contacto>();
+		this.contactos = new ArrayList<>();
 		generateID();
 	}
 
-	public Grupo(ArrayList<Contacto> contactos, String identificador) {
+	public Grupo(ArrayList<Contacto> contactos) {
 		super();
 		this.contactos = contactos;
 		generateID();

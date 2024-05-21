@@ -70,7 +70,7 @@ public class Controller {
 			view.showDireccion(d);
 		}
 	}
-	
+
 	private void showGrupos() {
 		for (Grupo g : db.getListaGrupos()) {
 			view.showGrupo(g);
@@ -84,7 +84,7 @@ public class Controller {
 			option = view.askForInt("Introduce una opción");
 			switch (option) {
 			case 1:
-				db.navegarContactos(); //añadir actualizar nombre si se desea
+				db.navegarContactos(); // añadir actualizar nombre si se desea
 				break;
 			case 2:
 				db.contarContactosGrupo();
@@ -101,15 +101,15 @@ public class Controller {
 				}
 				break;
 			case 5:
-			//	modificarTelefonoContacto();
+				// modificarTelefonoContacto();
 				break;
 			case 6:
-			//	hacerCopiaSeguridad(); 
+				// hacerCopiaSeguridad();
 				break;
 			default:
 				view.showMessage("Introduce alguna de las opciones");
 				break;
 			}
-		} while(option != 7);
+		} while (option != 7);
 	}
 }

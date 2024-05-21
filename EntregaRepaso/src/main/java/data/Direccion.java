@@ -19,7 +19,6 @@ public class Direccion {
 	}
 	public Direccion() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	

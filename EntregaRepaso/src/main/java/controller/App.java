@@ -8,7 +8,7 @@ public class App {
 		try {
 			Controller controller = new Controller();
 			controller.start();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
